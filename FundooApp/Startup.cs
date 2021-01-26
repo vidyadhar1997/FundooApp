@@ -1,6 +1,12 @@
+using FundooManager.Interface;
+using FundooManager.Manager;
+using FundooRepository.Context;
+using FundooRepository.Interfaces;
+using FundooRepository.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +29,11 @@ namespace FundooApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddMvc();
+            services.AddDbContextPool<UserContext>
+                (item => item.UseMySql(Configuration.GetConnectionString("myconn")));
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserManager, UserManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
