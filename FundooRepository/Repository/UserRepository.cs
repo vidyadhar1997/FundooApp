@@ -9,6 +9,7 @@ namespace FundooRepository.Repository
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using FundooModel.Models;
     using FundooRepository.Context;
@@ -44,6 +45,28 @@ namespace FundooRepository.Repository
             this.userContext.RegisterModels.Add(model);
             this.userContext.SaveChanges();
             return "SUCCESS";
+        }
+
+        /// <summary>
+        /// Logins the specified email.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>LOGIN SUCCESS message</returns>
+        public string Login(string email, string password)
+        {
+            string message;
+            var login = this.userContext.RegisterModels.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
+            if (login != null)
+            {
+                message = "LOGIN SUCCESS";
+            }
+            else
+            {
+                message = "LOGIN UNSUCCESSFUL";
+            }
+
+            return message;
         }
     }
 }

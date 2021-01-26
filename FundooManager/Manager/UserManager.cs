@@ -46,5 +46,17 @@ namespace FundooManager.Manager
             string result = this.repository.Register(model);
             return result;
         }
+
+        /// <summary>
+        /// Logins the specified email.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>LOGIN SUCCESS message</returns>
+        public string Login(string email, string password)
+        {
+            string result = this.repository.Login(email, password);
+            return result;
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace FundooApp.Controllers
         }
         
         /// <summary>
-        /// Registrations the specified model.
+        /// Registrations for registration the specified user.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns> ok result if condition getting matched</returns>
@@ -46,6 +46,27 @@ namespace FundooApp.Controllers
         {
             string result = this.user.Register(model);
             if (result == "SUCCESS")
+            {
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// LoginEmployee for the existing user
+        /// </summary>
+        /// <param name="model">model as parameter</param>
+        /// <returns>login success message</returns>
+        [HttpPost]
+        [Route("api/fundooLogin")]
+        public ActionResult LoginEmployee([FromBody] LoginModel model)
+        {
+            string message = "LOGIN SUCCESS";
+            var result = this.user.Login(model.Email, model.Password);
+            if (result.Equals(message))
             {
                 return this.Ok(result);
             }

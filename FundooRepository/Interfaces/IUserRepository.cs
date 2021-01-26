@@ -23,5 +23,13 @@ namespace FundooRepository.Interfaces
         /// <param name="model">The model.</param>
         /// <returns>SUCCESS message</returns>
         public string Register(RegisterModel model);
+
+        /// <summary>
+        /// Logins the specified email.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>message is LOGIN SUCCESS</returns>
+        public string Login(string email, string password);
     }
 }
