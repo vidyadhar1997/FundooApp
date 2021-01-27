@@ -13,6 +13,7 @@ namespace FundooRepository.Repository
     using System.Net;
     using System.Net.Mail;
     using System.Text;
+    using Experimental.System.Messaging;
     using FundooModel.Models;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
@@ -71,14 +72,43 @@ namespace FundooRepository.Repository
             return message;
         }
 
+        /// <summary>
+        /// SendEmail Methode for the sending email
+        /// </summary>
+        /// <param name="emailAddress"></param>
+        /// <returns>success message</returns>
         public string SendEmail(string emailAddress)
         {
+            var url = "https://www.codeproject.com/Articles/165576/Use-of-MSMQ-for-Sending-Bulk-Mails";
+            MessageQueue msmqQueue = new MessageQueue();
+            if (MessageQueue.Exists(@".\Private$\MyQueue"))
+            {
+                msmqQueue = new MessageQueue(@".\Private$\MyQueue");
+            }
+            else
+            {
+                msmqQueue = MessageQueue.Create(@".\Private$\MyQueue");
+
+            }
+
+            Message message = new Message();
+            message.Formatter = new BinaryMessageFormatter();
+            message.Body = url;
+            msmqQueue.Label = "url link";
+            msmqQueue.Send(message);
+
+            //reading message from msmq
+            var reciever = new MessageQueue(@".\Private$\MyQueue");
+            var recieving = reciever.Receive();
+            recieving.Formatter = new BinaryMessageFormatter();
+            string linkToBeSend = recieving.Body.ToString();
+
             string body;
             string subject = "FundooApp Credential";
             var entry = this.userContext.RegisterModels.FirstOrDefault(x => x.Email == emailAddress);
             if (entry != null)
             {
-                body = entry.Password;
+                body = linkToBeSend;
             }
             else
             {

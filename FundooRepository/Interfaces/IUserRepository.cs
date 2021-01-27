@@ -32,6 +32,11 @@ namespace FundooRepository.Interfaces
         /// <returns>message is LOGIN SUCCESS</returns>
         public string Login(string email, string password);
 
+        /// <summary>
+        /// Sends the email.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <returns></returns>
         public string SendEmail(string emailAddress);
     }
 }

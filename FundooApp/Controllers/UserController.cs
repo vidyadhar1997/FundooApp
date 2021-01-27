@@ -123,7 +123,7 @@ namespace FundooApp.Controllers
             var result = this.user.SendEmail(emailAddress);
             if (result.Equals("SUCCESS"))
             {
-                return this.Ok((new { success = true, Message = "Password Sent Successfully", Data = result }));
+                return this.Ok((new { success = true, Message = "Password Reset link Sent Successfully", Data = result }));
             }
             else
             {
