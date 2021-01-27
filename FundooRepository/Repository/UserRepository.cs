@@ -17,6 +17,7 @@ namespace FundooRepository.Repository
     using FundooModel.Models;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     /// User Repository
@@ -73,9 +74,9 @@ namespace FundooRepository.Repository
         }
 
         /// <summary>
-        /// SendEmail Methode for the sending email
+        /// SendEmail Method for the sending email
         /// </summary>
-        /// <param name="emailAddress"></param>
+        /// <param name="emailAddress">email Address</param>
         /// <returns>success message</returns>
         public string SendEmail(string emailAddress)
         {
@@ -88,7 +89,6 @@ namespace FundooRepository.Repository
             else
             {
                 msmqQueue = MessageQueue.Create(@".\Private$\MyQueue");
-
             }
 
             Message message = new Message();
@@ -114,6 +114,7 @@ namespace FundooRepository.Repository
             {
                 return "Not Found";
             }
+
             using (MailMessage mailMessage = new MailMessage("vidyadharhudge1997@gmail.com", emailAddress))
             {
                 mailMessage.Subject = subject;
@@ -128,6 +129,34 @@ namespace FundooRepository.Repository
                 smtp.Port = 587;
                 smtp.Send(mailMessage);
                 return "SUCCESS";
+            }
+        }
+
+        /// <summary>
+        /// ResetPassword method
+        /// </summary>
+        /// <param name="resetPassword">reset Password</param>
+        /// <returns>success message</returns>
+        public string ResetPassword(ResetPassword resetPassword)
+        {
+            var Entries = this.userContext.RegisterModels.FirstOrDefault(x => x.Email == resetPassword.Email);
+            if (Entries != null)
+            {
+                if (resetPassword.Password == resetPassword.ConfirmPassword)
+                {
+                    Entries.Password = resetPassword.Password;
+                    this.userContext.Entry(Entries).State = EntityState.Modified;
+                    this.userContext.SaveChanges();
+                    return "SUCCESS";
+                }
+                else
+                {
+                    return "Password And Confirm Password Not Matched";
+                }
+            }
+            else
+            {
+                return "NOT FOUND";
             }
         }
     }

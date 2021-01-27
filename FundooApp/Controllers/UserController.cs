@@ -93,6 +93,46 @@ namespace FundooApp.Controllers
         }
 
         /// <summary>
+        /// Forgot the password.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <returns>success message</returns>
+        [HttpPost]
+        [Route("api/forgetPassword")]
+        public IActionResult ForgotPassword(string emailAddress)
+        {
+            var result = this.user.SendEmail(emailAddress);
+            if (result.Equals("SUCCESS"))
+            {
+                return this.Ok(new { success = true, Message = "Password Reset link Sent Successfully", Data = result });
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Resets the password employee.
+        /// </summary>
+        /// <param name="resetPassword">The reset password.</param>
+        /// <returns>success message</returns>
+        [HttpPut]
+        [Route("api/ResetPassword")]
+        public IActionResult ResetPasswordEmployee([FromBody] ResetPassword resetPassword)
+        {
+            var result = this.user.ResetPassword(resetPassword);
+            if (result.Equals("SUCCESS"))
+            {
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+        /// <summary>
         /// Generates the token.
         /// </summary>
         /// <param name="userEmail">The user email.</param>
@@ -109,26 +149,6 @@ namespace FundooApp.Controllers
             signingCredentials: new SigningCredentials(SIGNINGKEY, SecurityAlgorithms.HmacSha256));
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        /// <summary>
-        /// Forgots the password.
-        /// </summary>
-        /// <param name="emailAddress">The email address.</param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("api/sendEmail")]
-        public IActionResult ForgotPassword(string emailAddress)
-        {
-            var result = this.user.SendEmail(emailAddress);
-            if (result.Equals("SUCCESS"))
-            {
-                return this.Ok((new { success = true, Message = "Password Reset link Sent Successfully", Data = result }));
-            }
-            else
-            {
-                return this.BadRequest();
-            }
         }
     }
 }

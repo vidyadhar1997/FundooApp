@@ -31,6 +31,19 @@ namespace FundooManager.Interface
         /// <param name="password">The password.</param>
         /// <returns>LOGIN SUCCESS message</returns>
         public string Login(string email, string password);
+
+        /// <summary>
+        /// Sends the email.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <returns>string message</returns>
         public string SendEmail(string emailAddress);
+
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="resetPassword">The reset password.</param>
+        /// <returns>string message</returns>
+        public string ResetPassword(ResetPassword resetPassword);
     }
 }

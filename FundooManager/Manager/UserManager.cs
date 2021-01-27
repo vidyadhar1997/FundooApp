@@ -59,9 +59,25 @@ namespace FundooManager.Manager
             return result;
         }
 
+        /// <summary>
+        /// Sends the email.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <returns>string result</returns>
         public string SendEmail(string emailAddress)
         {
-            string result=this.repository.SendEmail(emailAddress);
+            string result = this.repository.SendEmail(emailAddress);
+            return result;
+        }
+
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="resetPassword">The reset password.</param>
+        /// <returns>string result</returns>
+        public string ResetPassword(ResetPassword resetPassword)
+        {
+            string result = this.repository.ResetPassword(resetPassword);
             return result;
         }
     }

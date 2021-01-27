@@ -36,7 +36,14 @@ namespace FundooRepository.Interfaces
         /// Sends the email.
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         public string SendEmail(string emailAddress);
+
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="resetPassword">The reset password.</param>
+        /// <returns>string message</returns>
+        public string ResetPassword(ResetPassword resetPassword);
     }
 }
