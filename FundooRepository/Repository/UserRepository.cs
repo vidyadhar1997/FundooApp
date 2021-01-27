@@ -10,6 +10,8 @@ namespace FundooRepository.Repository
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
     using System.Text;
     using FundooModel.Models;
     using FundooRepository.Context;
@@ -67,6 +69,36 @@ namespace FundooRepository.Repository
             }
 
             return message;
+        }
+
+        public string SendEmail(string emailAddress)
+        {
+            string body;
+            string subject = "FundooApp Credential";
+            var entry = this.userContext.RegisterModels.FirstOrDefault(x => x.Email == emailAddress);
+            if (entry != null)
+            {
+                body = entry.Password;
+            }
+            else
+            {
+                return "Not Found";
+            }
+            using (MailMessage mailMessage = new MailMessage("vidyadharhudge1997@gmail.com", emailAddress))
+            {
+                mailMessage.Subject = subject;
+                mailMessage.Body = body;
+                mailMessage.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential("vidyadharhudge1997@gmail.com", "Dhiraj@123#");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mailMessage);
+                return "SUCCESS";
+            }
         }
     }
 }

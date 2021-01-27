@@ -58,5 +58,11 @@ namespace FundooManager.Manager
             string result = this.repository.Login(email, password);
             return result;
         }
+
+        public string SendEmail(string emailAddress)
+        {
+            string result=this.repository.SendEmail(emailAddress);
+            return result;
+        }
     }
 }

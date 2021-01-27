@@ -27,11 +27,19 @@ namespace FundooApp.Controllers
     public class UserController : ControllerBase
     {
         /// <summary>
+        /// The signing key/
+        /// </summary>
+        public static readonly SymmetricSecurityKey SIGNINGKEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserController.SECRETKEY));
+
+        /// <summary>
+        /// The secret key
+        /// </summary>
+        private const string SECRETKEY = "this is my custom Secret key for authnetication";
+
+        /// <summary>
         /// The user
         /// </summary>
         private readonly IUserManager user;
-        private const string SECRET_KEY = "this is my custom Secret key for authnetication";
-        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserController.SECRET_KEY));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
@@ -75,8 +83,8 @@ namespace FundooApp.Controllers
             var result = this.user.Login(model.Email, model.Password);
             if (result.Equals(message))
             {
-                string token=GenerateToken(model.Email);
-                return this.Ok(new { sucess=true,message="Login sucessfully",data=result,token});
+                string token = this.GenerateToken(model.Email);
+                return this.Ok(new { sucess = true, message = "Login sucessfully", data = result, token });
             }
             else
             {
@@ -84,6 +92,11 @@ namespace FundooApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Generates the token.
+        /// </summary>
+        /// <param name="userEmail">The user email.</param>
+        /// <returns>token as string</returns>
         private string GenerateToken(string userEmail)
         {
             var token = new JwtSecurityToken(
@@ -93,9 +106,29 @@ namespace FundooApp.Controllers
             },
             notBefore: new DateTimeOffset(DateTime.Now).DateTime,
             expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
-            signingCredentials: new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256)
-            );
+            signingCredentials: new SigningCredentials(SIGNINGKEY, SecurityAlgorithms.HmacSha256));
+
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        /// <summary>
+        /// Forgots the password.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("api/sendEmail")]
+        public IActionResult ForgotPassword(string emailAddress)
+        {
+            var result = this.user.SendEmail(emailAddress);
+            if (result.Equals("SUCCESS"))
+            {
+                return this.Ok((new { success = true, Message = "Password Sent Successfully", Data = result }));
+            }
+            else
+            {
+                return this.BadRequest();
+            }
         }
     }
 }
