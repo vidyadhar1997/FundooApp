@@ -9,11 +9,16 @@ namespace FundooApp.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
+    using System.Security.Claims;
+    using System.Text;
     using System.Threading.Tasks;
     using FundooManager.Interface;
     using FundooModel.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
     /// UserController class 
@@ -25,6 +30,8 @@ namespace FundooApp.Controllers
         /// The user
         /// </summary>
         private readonly IUserManager user;
+        private const string SECRET_KEY = "this is my custom Secret key for authnetication";
+        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserController.SECRET_KEY));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
@@ -68,12 +75,27 @@ namespace FundooApp.Controllers
             var result = this.user.Login(model.Email, model.Password);
             if (result.Equals(message))
             {
-                return this.Ok(result);
+                string token=GenerateToken(model.Email);
+                return this.Ok(new { sucess=true,message="Login sucessfully",data=result,token});
             }
             else
             {
                 return this.BadRequest();
             }
+        }
+
+        private string GenerateToken(string userEmail)
+        {
+            var token = new JwtSecurityToken(
+            claims: new Claim[]
+            {
+                new Claim(ClaimTypes.Name, userEmail)
+            },
+            notBefore: new DateTimeOffset(DateTime.Now).DateTime,
+            expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
+            signingCredentials: new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256)
+            );
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
