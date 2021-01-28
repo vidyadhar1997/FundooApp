@@ -60,9 +60,34 @@ namespace FundooRepository.Repository
         /// <returns>success message</returns>
         public string Register(RegisterModel model)
         {
-            this.userContext.RegisterModels.Add(model);
+            RegisterModel model1 = new RegisterModel();
+            model1.FirstName = model.FirstName;
+            model1.LastName = model.LastName;
+            model1.Email = model.Email;
+            model1.Password = EncryptPassword(model.Password);
+            this.userContext.RegisterModels.Add(model1);
             this.userContext.SaveChanges();
             return "REGISTERATION SUCCESSFULL";
+        }
+
+        /// <summary>
+        /// EncryptPassword methode to encrypt password
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns>encoded data</returns>
+        public static string EncryptPassword(string password)
+        {
+            try
+            {
+                byte[] encryptData = new byte[password.Length];
+                encryptData = System.Text.Encoding.UTF8.GetBytes(password);
+                string encodedData = Convert.ToBase64String(encryptData);
+                return encodedData;
+            } 
+            catch (Exception e)
+            {
+                throw new Exception("Error in base64Encode" + e.Message);
+            }
         }
 
         /// <summary>
@@ -80,8 +105,8 @@ namespace FundooRepository.Repository
                 message = "LOGIN SUCCESS";
                 ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
                 IDatabase database = connectionMultiplexer.GetDatabase();
-                database.StringSet(key: "Email",email);
-                var redisValue=database.StringGet("Email");
+                database.StringSet(key: "Email", email);
+                var redisValue = database.StringGet("Email");
             }
             else
             {
@@ -162,7 +187,8 @@ namespace FundooRepository.Repository
             {
                 if (resetPassword.Password == resetPassword.ConfirmPassword)
                 {
-                    Entries.Password = resetPassword.Password;
+                    Entries.Password = EncryptPassword(resetPassword.Password);
+                   /* Entries.Password = resetPassword.Password;*/
                     this.userContext.Entry(Entries).State = EntityState.Modified;
                     this.userContext.SaveChanges();
                     return "RESET PASSWORD SUCCESSFULL";

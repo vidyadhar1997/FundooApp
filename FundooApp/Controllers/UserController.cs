@@ -55,7 +55,7 @@ namespace FundooApp.Controllers
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, Message = "Failed to Add New User Data to Database" });
             }
         }
 
@@ -77,7 +77,7 @@ namespace FundooApp.Controllers
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, Message = "Failed to login email or password mismatched" });
             }
         }
 
@@ -98,7 +98,7 @@ namespace FundooApp.Controllers
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, Message = "Unable to send the link to email : Email is not prsent in data base" });
             }
         }
 
@@ -119,7 +119,7 @@ namespace FundooApp.Controllers
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, Message = "Failed to Reset Password : Email id not prsent or password mismatched" });
             }
         }
     }
