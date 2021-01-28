@@ -61,7 +61,7 @@ namespace FundooRepository.Repository
         {
             this.userContext.RegisterModels.Add(model);
             this.userContext.SaveChanges();
-            return "SUCCESS";
+            return "REGISTERATION SUCCESSFULL";
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace FundooRepository.Repository
                     Entries.Password = resetPassword.Password;
                     this.userContext.Entry(Entries).State = EntityState.Modified;
                     this.userContext.SaveChanges();
-                    return "SUCCESS";
+                    return "RESET PASSWORD SUCCESSFULL";
                 }
                 else
                 {

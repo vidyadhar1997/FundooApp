@@ -47,10 +47,11 @@ namespace FundooApp.Controllers
         [Route("api/fundooRegistration")]
         public ActionResult Registration([FromBody]RegisterModel model)
         {
+            string message = "REGISTERATION SUCCESSFULL";
             string result = this.user.Register(model);
-            if (result == "SUCCESS")
+            if (result.Equals(message))
             {
-                return this.Ok(result);
+                return this.Ok(new { success = true, message = "Registration Successfull", Data = result });
             }
             else
             {
@@ -72,7 +73,7 @@ namespace FundooApp.Controllers
             if (result.Equals(message))
             {
                 string token = this.user.GenerateToken(model.Email);
-                return this.Ok(new { sucess = true, message = "Login sucessfully", data = result, token });
+                return this.Ok(new { sucess = true, message = "Login sucessfully", data = result });
             }
             else
             {
@@ -89,10 +90,11 @@ namespace FundooApp.Controllers
         [Route("api/forgetPassword")]
         public IActionResult ForgotPassword(string emailAddress)
         {
+            string message = "SUCCESS";
             var result = this.user.SendEmail(emailAddress);
-            if (result.Equals("SUCCESS"))
+            if (result.Equals(message))
             {
-                return this.Ok(new { success = true, Message = "Password Reset link Sent Successfully", Data = result });
+                return this.Ok(new { success = true, message = "Password Reset link Sent Successfully", Data = result });
             }
             else
             {
@@ -109,10 +111,11 @@ namespace FundooApp.Controllers
         [Route("api/ResetPassword")]
         public IActionResult ResetPasswordEmployee([FromBody] ResetPassword resetPassword)
         {
+            string message = "RESET PASSWORD SUCCESSFULL";
             var result = this.user.ResetPassword(resetPassword);
-            if (result.Equals("SUCCESS"))
+            if (result.Equals(message))
             {
-                return this.Ok(result);
+                return this.Ok(new { success = true, message = "Password Reset Successfully", Data = result });
             }
             else
             {
