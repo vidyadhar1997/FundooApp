@@ -21,6 +21,7 @@ namespace FundooRepository.Repository
     using FundooRepository.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.IdentityModel.Tokens;
+    using MSMQ;
     using StackExchange.Redis;
 
     /// <summary>
@@ -60,12 +61,12 @@ namespace FundooRepository.Repository
         /// <returns>success message</returns>
         public string Register(RegisterModel model)
         {
-            RegisterModel model1 = new RegisterModel();
+           /* RegisterModel model1 = new RegisterModel();
             model1.FirstName = model.FirstName;
             model1.LastName = model.LastName;
-            model1.Email = model.Email;
-            model1.Password = EncryptPassword(model.Password);
-            this.userContext.RegisterModels.Add(model1);
+            model1.Email = model.Email;*/
+            model.Password = EncryptPassword(model.Password);
+            this.userContext.RegisterModels.Add(model);
             this.userContext.SaveChanges();
             return "REGISTERATION SUCCESSFULL";
         }
@@ -99,6 +100,7 @@ namespace FundooRepository.Repository
         public string Login(string email, string password)
         {
             string message;
+            password = EncryptPassword(password);
             var login = this.userContext.RegisterModels.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
             if (login != null)
             {
@@ -123,35 +125,16 @@ namespace FundooRepository.Repository
         /// <returns>success message</returns>
         public string SendEmail(string emailAddress)
         {
-            var url = "https://www.codeproject.com/Articles/165576/Use-of-MSMQ-for-Sending-Bulk-Mails";
-            MessageQueue msmqQueue = new MessageQueue();
-            if (MessageQueue.Exists(@".\Private$\MyQueue"))
-            {
-                msmqQueue = new MessageQueue(@".\Private$\MyQueue");
-            }
-            else
-            {
-                msmqQueue = MessageQueue.Create(@".\Private$\MyQueue");
-            }
-
-            Message message = new Message();
-            message.Formatter = new BinaryMessageFormatter();
-            message.Body = url;
-            msmqQueue.Label = "url link";
-            msmqQueue.Send(message);
-
-            //reading message from msmq
-            var reciever = new MessageQueue(@".\Private$\MyQueue");
-            var recieving = reciever.Receive();
-            recieving.Formatter = new BinaryMessageFormatter();
-            string linkToBeSend = recieving.Body.ToString();
-
             string body;
             string subject = "FundooApp Credential";
             var entry = this.userContext.RegisterModels.FirstOrDefault(x => x.Email == emailAddress);
             if (entry != null)
             {
-                body = linkToBeSend;
+                Sender sender = new Sender();
+                sender.Send();
+                Reciver reciver = new Reciver();
+                var message=reciver.Recive();
+                body = message;
             }
             else
             {
@@ -188,7 +171,6 @@ namespace FundooRepository.Repository
                 if (resetPassword.Password == resetPassword.ConfirmPassword)
                 {
                     Entries.Password = EncryptPassword(resetPassword.Password);
-                   /* Entries.Password = resetPassword.Password;*/
                     this.userContext.Entry(Entries).State = EntityState.Modified;
                     this.userContext.SaveChanges();
                     return "RESET PASSWORD SUCCESSFULL";

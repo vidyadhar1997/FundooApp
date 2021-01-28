@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FundooModel\FundooModel.csproj" />
+    <ProjectReference Include="..\MSMQ\MSMQ.csproj" />
   </ItemGroup>
 
 </Project>
