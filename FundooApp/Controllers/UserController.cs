@@ -9,7 +9,6 @@ namespace FundooApp.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
@@ -18,7 +17,6 @@ namespace FundooApp.Controllers
     using FundooModel.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
     /// UserController class 
@@ -26,16 +24,6 @@ namespace FundooApp.Controllers
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     public class UserController : ControllerBase
     {
-        /// <summary>
-        /// The signing key/
-        /// </summary>
-        public static readonly SymmetricSecurityKey SIGNINGKEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserController.SECRETKEY));
-
-        /// <summary>
-        /// The secret key
-        /// </summary>
-        private const string SECRETKEY = "this is my custom Secret key for authnetication";
-
         /// <summary>
         /// The user
         /// </summary>
@@ -83,7 +71,7 @@ namespace FundooApp.Controllers
             var result = this.user.Login(model.Email, model.Password);
             if (result.Equals(message))
             {
-                string token = this.GenerateToken(model.Email);
+                string token = this.user.GenerateToken(model.Email);
                 return this.Ok(new { sucess = true, message = "Login sucessfully", data = result, token });
             }
             else
@@ -130,25 +118,6 @@ namespace FundooApp.Controllers
             {
                 return this.BadRequest();
             }
-        }
-
-        /// <summary>
-        /// Generates the token.
-        /// </summary>
-        /// <param name="userEmail">The user email.</param>
-        /// <returns>token as string</returns>
-        private string GenerateToken(string userEmail)
-        {
-            var token = new JwtSecurityToken(
-            claims: new Claim[]
-            {
-                new Claim(ClaimTypes.Name, userEmail)
-            },
-            notBefore: new DateTimeOffset(DateTime.Now).DateTime,
-            expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
-            signingCredentials: new SigningCredentials(SIGNINGKEY, SecurityAlgorithms.HmacSha256));
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

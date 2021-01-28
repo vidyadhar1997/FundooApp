@@ -71,7 +71,7 @@ namespace FundooApp
             {
                 jwtOptions.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    IssuerSigningKey = UserController.SIGNINGKEY,
+                    IssuerSigningKey = UserRepository.SIGNINGKEY,
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,

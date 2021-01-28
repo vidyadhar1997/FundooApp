@@ -33,6 +33,13 @@ namespace FundooManager.Interface
         public string Login(string email, string password);
 
         /// <summary>
+        /// Generates the token.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns>get token</returns>
+        public string GenerateToken(string Email);
+
+        /// <summary>
         /// Sends the email.
         /// </summary>
         /// <param name="emailAddress">The email address.</param>

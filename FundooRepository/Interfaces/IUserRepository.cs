@@ -45,5 +45,12 @@ namespace FundooRepository.Interfaces
         /// <param name="resetPassword">The reset password.</param>
         /// <returns>string message</returns>
         public string ResetPassword(ResetPassword resetPassword);
+
+        /// <summary>
+        /// Generates the token.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns>string as token</returns>
+        public string GenerateToken(string email);
     }
 }

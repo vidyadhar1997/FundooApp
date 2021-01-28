@@ -9,15 +9,18 @@ namespace FundooRepository.Repository
 {
     using System;
     using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
+    using System.Security.Claims;
     using System.Text;
     using Experimental.System.Messaging;
     using FundooModel.Models;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
     /// User Repository
@@ -25,6 +28,16 @@ namespace FundooRepository.Repository
     /// <seealso cref="FundooRepository.Interfaces.IUserRepository" />
     public class UserRepository : IUserRepository
     {
+        /// <summary>
+        /// The signing key/
+        /// </summary>
+        public static readonly SymmetricSecurityKey SIGNINGKEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserRepository.SECRETKEY));
+
+        /// <summary>
+        /// The secret key
+        /// </summary>
+        private const string SECRETKEY = "this is my custom Secret key for authnetication";
+
         /// <summary>
         /// The user context
         /// </summary>
@@ -158,6 +171,25 @@ namespace FundooRepository.Repository
             {
                 return "NOT FOUND";
             }
+        }
+
+        /// <summary>
+        /// GenerateToken method
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns>token for specific email</returns>
+        public string GenerateToken(string userEmail)
+        {
+            var token = new JwtSecurityToken(
+            claims: new Claim[]
+            {
+                new Claim(ClaimTypes.Name, userEmail)
+            },
+            notBefore: new DateTimeOffset(DateTime.Now).DateTime,
+            expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
+            signingCredentials: new SigningCredentials(SIGNINGKEY, SecurityAlgorithms.HmacSha256));
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

@@ -80,5 +80,16 @@ namespace FundooManager.Manager
             string result = this.repository.ResetPassword(resetPassword);
             return result;
         }
+
+        /// <summary>
+        /// Generates the token.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns>get token</returns>
+        public string GenerateToken(string email)
+        {
+            string getToken = this.repository.GenerateToken(email);
+            return getToken;
+        }
     }
 }
