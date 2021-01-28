@@ -61,6 +61,8 @@ namespace FundooApp
             services.AddDbContextPool<UserContext>(item => item.UseMySql(this.Configuration.GetConnectionString("myconn")));
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserManager, UserManager>();
+            services.AddTransient<INotesRepository, NotesRepository>();
+            services.AddTransient<INotesManager, NotesManager>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "JwtBearer";

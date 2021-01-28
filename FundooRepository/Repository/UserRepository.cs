@@ -61,10 +61,6 @@ namespace FundooRepository.Repository
         /// <returns>success message</returns>
         public string Register(RegisterModel model)
         {
-           /* RegisterModel model1 = new RegisterModel();
-            model1.FirstName = model.FirstName;
-            model1.LastName = model.LastName;
-            model1.Email = model.Email;*/
             model.Password = EncryptPassword(model.Password);
             this.userContext.RegisterModels.Add(model);
             this.userContext.SaveChanges();

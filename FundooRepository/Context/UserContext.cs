@@ -33,7 +33,15 @@ namespace FundooRepository.Context
         /// The register models.
         /// </value>
         public DbSet<RegisterModel> RegisterModels { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the notes models.
+        /// </summary>
+        /// <value>
+        /// The notes models.
+        /// </value>
+        public DbSet<NotesModel> NoteModel { get; set; }
+
         /// <summary>
         /// Called when [model creating].
         /// </summary>
