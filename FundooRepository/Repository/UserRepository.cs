@@ -21,6 +21,7 @@ namespace FundooRepository.Repository
     using FundooRepository.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.IdentityModel.Tokens;
+    using StackExchange.Redis;
 
     /// <summary>
     /// User Repository
@@ -77,6 +78,10 @@ namespace FundooRepository.Repository
             if (login != null)
             {
                 message = "LOGIN SUCCESS";
+                ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                IDatabase database = connectionMultiplexer.GetDatabase();
+                database.StringSet(key: "Email",email);
+                var redisValue=database.StringGet("Email");
             }
             else
             {

@@ -10,6 +10,7 @@ namespace FundooModel.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Text;
 
     /// <summary>
@@ -17,6 +18,16 @@ namespace FundooModel.Models
     /// </summary>
     public class RegisterModel
     {
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int UserId { get; set; }
+
         /// <summary>
         /// Gets or sets the first name.
         /// </summary>
@@ -41,7 +52,7 @@ namespace FundooModel.Models
         /// <value>
         /// The email.
         /// </value>
-        [Key]
+        [Required]
         public string Email { get; set; }
         
         /// <summary>

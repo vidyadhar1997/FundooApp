@@ -51,7 +51,7 @@ namespace FundooApp.Controllers
             string result = this.user.Register(model);
             if (result.Equals(message))
             {
-                return this.Ok(new { success = true, message = "Registration Successfull", Data = result });
+                return this.Ok(new { success = true, message = "Registration Successfull" });
             }
             else
             {
@@ -73,7 +73,7 @@ namespace FundooApp.Controllers
             if (result.Equals(message))
             {
                 string token = this.user.GenerateToken(model.Email);
-                return this.Ok(new { sucess = true, message = "Login sucessfully", data = result });
+                return this.Ok(new { sucess = true, message = "Login sucessfully", data = token });
             }
             else
             {
@@ -94,7 +94,7 @@ namespace FundooApp.Controllers
             var result = this.user.SendEmail(emailAddress);
             if (result.Equals(message))
             {
-                return this.Ok(new { success = true, message = "Password Reset link Sent Successfully", Data = result });
+                return this.Ok(new { success = true, message = "Password Reset link Sent Successfully To Mail" });
             }
             else
             {
@@ -115,7 +115,7 @@ namespace FundooApp.Controllers
             var result = this.user.ResetPassword(resetPassword);
             if (result.Equals(message))
             {
-                return this.Ok(new { success = true, message = "Password Reset Successfully", Data = result });
+                return this.Ok(new { success = true, message = "Password Reset Successfully" });
             }
             else
             {
