@@ -1,13 +1,24 @@
-﻿using FundooModel.Models;
-using FundooRepository.Context;
-using FundooRepository.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NotesRepository.cs" company="Bridgelabz">
+//   Copyright © 2020 Company="BridgeLabz"
+// </copyright>
+// <creator name="Vidyadhar Suresh Hudge"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace FundooRepository.Repository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using FundooModel.Models;
+    using FundooRepository.Context;
+    using FundooRepository.Interfaces;
+    using Microsoft.EntityFrameworkCore;
+
+    /// <summary>
+    /// NotesRepository class
+    /// </summary>
+    /// <seealso cref="FundooRepository.Interfaces.INotesRepository" />
     public class NotesRepository : INotesRepository
     {
         /// <summary>
@@ -33,12 +44,17 @@ namespace FundooRepository.Repository
         {
             this.userContext.NoteModel.Add(model);
             this.userContext.SaveChanges();
-            return "INSERT DATA SUCCESSFULL";
+            return "ADD NOTES SUCCESSFULL";
         }
+
+        /// <summary>
+        /// Retrieves the notes.
+        /// </summary>
+        /// <returns>all notes</returns>
         public IEnumerable<NotesModel> RetrieveNotes()
         {
             IEnumerable<NotesModel> result;
-            IEnumerable< NotesModel> notes = this.userContext.NoteModel;
+            IEnumerable<NotesModel> notes = this.userContext.NoteModel;
             if (notes != null)
             {
                 result = notes;
@@ -47,8 +63,15 @@ namespace FundooRepository.Repository
             {
                 result = null;
             }
+
             return result;
         }
+
+        /// <summary>
+        /// Removes the note.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns>string message</returns>
         public string RemoveNote(int Id)
         {
             try
@@ -56,14 +79,19 @@ namespace FundooRepository.Repository
                 var notes = this.userContext.NoteModel.Find(Id);
                 this.userContext.NoteModel.Remove(notes);
                 this.userContext.SaveChangesAsync();
-                return "Notes deleted Successfully";
+                return "NOTES DELETED SUCCESSFULL";
             }
             catch (NullReferenceException e)
             {
                 throw e;
-
             }
         }
+
+        /// <summary>
+        /// Updates the notes.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>string message</returns>
         public string UpdateNotes(NotesModel model)
         {
             try
@@ -72,9 +100,9 @@ namespace FundooRepository.Repository
                 {
                     this.userContext.Entry(model).State = EntityState.Modified;
                 }
-                
+
                     this.userContext.SaveChanges();
-                    return "SUCCESS";
+                    return "UPDATE SUCCESSFULL";
             }
             catch (NullReferenceException e)
             {

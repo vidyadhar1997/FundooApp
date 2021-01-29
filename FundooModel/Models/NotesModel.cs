@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NotesModel.cs" company="Bridgelabz">
+//   Copyright © 2020 Company="BridgeLabz"
+// </copyright>
+// <creator name="Vidyadhar Suresh Hudge"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace FundooModel.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
+
+    /// <summary>
+    /// NotesModel class
+    /// </summary>
     public class NotesModel
     {
         /// <summary>

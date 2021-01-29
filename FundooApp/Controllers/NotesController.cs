@@ -1,13 +1,20 @@
-﻿using FundooManager.Interface;
-using FundooModel.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NotesController.cs" company="Bridgelabz">
+//   Copyright © 2020 Company="BridgeLabz"
+// </copyright>
+// <creator name="Vidyadhar Suresh Hudge"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace FundooApp.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using FundooManager.Interface;
+    using FundooModel.Models;
+    using Microsoft.AspNetCore.Mvc;
+
     /// <summary>
     /// NotesController class
     /// </summary>
@@ -32,23 +39,27 @@ namespace FundooApp.Controllers
         /// Adds the notes.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>success message</returns>
         [HttpPost]
         [Route("api/fundooAddNotes")]
         public ActionResult AddNotes([FromBody] NotesModel model)
         {
-            string message = "INSERT DATA SUCCESSFULL";
+            string message = "ADD NOTES SUCCESSFULL";
             string result = this.notesManager.AddNotes(model);
             if (result.Equals(message))
             {
-                return this.Ok(new { success = true, message = "INSERT DATA SUCCESSFULL" });
+                return this.Ok(new { success = true, message = "Add notes successfully" });
             }
             else
             {
-                return this.BadRequest(new { success = false, Message = "Failed to Insert Data to Database" });
+                return this.BadRequest(new { success = false, Message = "Failed to Add Notes" });
             }
         }
 
+        /// <summary>
+        /// RetrieveNotes to retrieve all the notes
+        /// </summary>
+        /// <returns>success message</returns>
         [HttpGet]
         [Route("api/retrieveNotes")]
         public IActionResult RetrieveNotes()
@@ -61,39 +72,48 @@ namespace FundooApp.Controllers
             catch (Exception e)
             {
                 return this.BadRequest(e.Message);
-
             }
         }
 
+        /// <summary>
+        /// DeleteNotes for delete specific notes
+        /// </summary>
+        /// <param name="id">notes id</param>
+        /// <returns>notes deleted message</returns>
         [HttpDelete]
         [Route("api/deletedNotes")]
-        public IActionResult DeleteEmployee(int id)
+        public IActionResult DeleteNotes(int id)
         {
-            string message = "Notes deleted Successfully";
+            string message = "NOTES DELETED SUCCESSFULL";
             var result = this.notesManager.RemoveNote(id);
             if (result.Equals(message))
             {
-                return this.Ok(new { success = true, Message = "Notes deleted successfully", Data = result });
+                return this.Ok(new { success = true, message = "Notes deleted successfully" });
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, message = "Notes Id is not prsent in database" });
             }
         }
 
+        /// <summary>
+        /// UpdateNotes for updating notes
+        /// </summary>
+        /// <param name="model">notes model</param>
+        /// <returns>success message</returns>
         [HttpPut]
         [Route("api/updateNotes")]
-        public IActionResult UpdateEmployee([FromBody] NotesModel model)
+        public IActionResult UpdateNotes([FromBody] NotesModel model)
         {
-            /* employee.EmployeeId = EmployeeId;*/
+            string message = "UPDATE SUCCESSFULL";
             var result = this.notesManager.UpdateNotes(model);
-            if (result.Equals("SUCCESS"))
+            if (result.Equals(message))
             {
-                return this.Ok(result);
+                return this.Ok(new { success = true, message = "Update notes successfully" });
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, message = "Notes Id is not prsent in database" });
             }
         }
     }
