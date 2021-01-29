@@ -54,9 +54,7 @@ namespace FundooRepository.Migrations
 
                     b.HasKey("NoteId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("NoteModel");
+                    b.ToTable("Note_Model");
                 });
 
             modelBuilder.Entity("FundooModel.Models.RegisterModel", b =>
@@ -83,16 +81,7 @@ namespace FundooRepository.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("RegisterModels");
-                });
-
-            modelBuilder.Entity("FundooModel.Models.NotesModel", b =>
-                {
-                    b.HasOne("FundooModel.Models.RegisterModel", "RegisterModel")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Register_Models");
                 });
 #pragma warning restore 612, 618
         }

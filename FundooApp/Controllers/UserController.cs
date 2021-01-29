@@ -22,6 +22,8 @@ namespace FundooApp.Controllers
     /// UserController class 
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         /// <summary>
@@ -44,7 +46,6 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns> ok result if condition getting matched</returns>
         [HttpPost]
-        [Route("api/fundooRegistration")]
         public ActionResult Registration([FromBody]RegisterModel model)
         {
             string message = "REGISTERATION SUCCESSFULL";
@@ -65,7 +66,7 @@ namespace FundooApp.Controllers
         /// <param name="model">model as parameter</param>
         /// <returns>login success message</returns>
         [HttpPost]
-        [Route("api/fundooLogin")]
+        [Route("loginEmployee")]
         public ActionResult LoginEmployee([FromBody] LoginModel model)
         {
             string message = "LOGIN SUCCESS";
@@ -87,7 +88,7 @@ namespace FundooApp.Controllers
         /// <param name="emailAddress">The email address.</param>
         /// <returns>success message</returns>
         [HttpPost]
-        [Route("api/forgetPassword")]
+        [Route("forgetPassword")]
         public IActionResult ForgotPassword(string emailAddress)
         {
             string message = "SUCCESS";
@@ -108,7 +109,6 @@ namespace FundooApp.Controllers
         /// <param name="resetPassword">The reset password.</param>
         /// <returns>success message</returns>
         [HttpPut]
-        [Route("api/ResetPassword")]
         public IActionResult ResetPasswordEmployee([FromBody] ResetPassword resetPassword)
         {
             string message = "RESET PASSWORD SUCCESSFULL";

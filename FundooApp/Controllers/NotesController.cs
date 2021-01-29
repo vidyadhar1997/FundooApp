@@ -19,6 +19,8 @@ namespace FundooApp.Controllers
     /// NotesController class
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
+    [ApiController]
+    [Route("api/[controller]")]
     public class NotesController : ControllerBase
     {
         /// <summary>
@@ -41,18 +43,22 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns>success message</returns>
         [HttpPost]
-        [Route("api/fundooAddNotes")]
         public ActionResult AddNotes([FromBody] NotesModel model)
         {
-            string message = "ADD NOTES SUCCESSFULL";
-            string result = this.notesManager.AddNotes(model);
-            if (result.Equals(message))
+            try
             {
-                return this.Ok(new { success = true, message = "Add notes successfully" });
-            }
-            else
-            {
+                string message = "ADD NOTES SUCCESSFULL";
+                string result = this.notesManager.AddNotes(model);
+                if (result.Equals(message))
+                {
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = result, Data = model });
+          
+                }
                 return this.BadRequest(new { success = false, Message = "Failed to Add Notes" });
+            }
+            catch(Exception ex)
+            {
+                return this.NotFound(new { success = false, Message =ex.Message });
             }
         }
 
@@ -61,7 +67,6 @@ namespace FundooApp.Controllers
         /// </summary>
         /// <returns>success message</returns>
         [HttpGet]
-        [Route("api/retrieveNotes")]
         public IActionResult RetrieveNotes()
         {
             try
@@ -81,7 +86,6 @@ namespace FundooApp.Controllers
         /// <param name="id">notes id</param>
         /// <returns>notes deleted message</returns>
         [HttpDelete]
-        [Route("api/deletedNotes")]
         public IActionResult DeleteNotes(int id)
         {
             string message = "NOTES DELETED SUCCESSFULL";
@@ -102,7 +106,6 @@ namespace FundooApp.Controllers
         /// <param name="model">notes model</param>
         /// <returns>success message</returns>
         [HttpPut]
-        [Route("api/updateNotes")]
         public IActionResult UpdateNotes([FromBody] NotesModel model)
         {
             string message = "UPDATE SUCCESSFULL";

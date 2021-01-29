@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundooRepository.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210128165019_kkk")]
-    partial class kkk
+    [Migration("20210129082256_fundooapp")]
+    partial class fundooapp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,9 +56,7 @@ namespace FundooRepository.Migrations
 
                     b.HasKey("NoteId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("NoteModel");
+                    b.ToTable("Note_Model");
                 });
 
             modelBuilder.Entity("FundooModel.Models.RegisterModel", b =>
@@ -85,16 +83,7 @@ namespace FundooRepository.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("RegisterModels");
-                });
-
-            modelBuilder.Entity("FundooModel.Models.NotesModel", b =>
-                {
-                    b.HasOne("FundooModel.Models.RegisterModel", "RegisterModel")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Register_Models");
                 });
 #pragma warning restore 612, 618
         }

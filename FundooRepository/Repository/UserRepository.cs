@@ -62,7 +62,7 @@ namespace FundooRepository.Repository
         public string Register(RegisterModel model)
         {
             model.Password = EncryptPassword(model.Password);
-            this.userContext.RegisterModels.Add(model);
+            this.userContext.Register_Models.Add(model);
             this.userContext.SaveChanges();
             return "REGISTERATION SUCCESSFULL";
         }
@@ -97,14 +97,14 @@ namespace FundooRepository.Repository
         {
             string message;
             password = EncryptPassword(password);
-            var login = this.userContext.RegisterModels.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
+            var login = this.userContext.Register_Models.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
             if (login != null)
             {
                 message = "LOGIN SUCCESS";
-                ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+              /*  ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
                 IDatabase database = connectionMultiplexer.GetDatabase();
                 database.StringSet(key: "Email", email);
-                var redisValue = database.StringGet("Email");
+                var redisValue = database.StringGet("Email");*/
             }
             else
             {
@@ -123,7 +123,7 @@ namespace FundooRepository.Repository
         {
             string body;
             string subject = "FundooApp Credential";
-            var entry = this.userContext.RegisterModels.FirstOrDefault(x => x.Email == emailAddress);
+            var entry = this.userContext.Register_Models.FirstOrDefault(x => x.Email == emailAddress);
             if (entry != null)
             {
                 Sender sender = new Sender();
@@ -161,7 +161,7 @@ namespace FundooRepository.Repository
         /// <returns>success message</returns>
         public string ResetPassword(ResetPassword resetPassword)
         {
-            var Entries = this.userContext.RegisterModels.FirstOrDefault(x => x.Email == resetPassword.Email);
+            var Entries = this.userContext.Register_Models.FirstOrDefault(x => x.Email == resetPassword.Email);
             if (Entries != null)
             {
                 if (resetPassword.Password == resetPassword.ConfirmPassword)

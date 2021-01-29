@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FundooRepository.Migrations
 {
-    public partial class kkk : Migration
+    public partial class fundooapp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "NoteModel",
+                name: "Note_Model",
                 columns: table => new
                 {
                     NoteId = table.Column<int>(nullable: false)
@@ -26,25 +26,33 @@ namespace FundooRepository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NoteModel", x => x.NoteId);
-                    table.ForeignKey(
-                        name: "FK_NoteModel_RegisterModels_UserId",
-                        column: x => x.UserId,
-                        principalTable: "RegisterModels",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Note_Model", x => x.NoteId);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_NoteModel_UserId",
-                table: "NoteModel",
-                column: "UserId");
+            migrationBuilder.CreateTable(
+                name: "Register_Models",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Register_Models", x => x.UserId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "NoteModel");
+                name: "Note_Model");
+
+            migrationBuilder.DropTable(
+                name: "Register_Models");
         }
     }
 }

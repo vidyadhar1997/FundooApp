@@ -38,14 +38,6 @@ namespace FundooModel.Models
         public int UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets the register model.
-        /// </summary>
-        /// <value>
-        /// The register model.
-        /// </value>
-        public RegisterModel RegisterModel { get; set; }
-
-        /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>

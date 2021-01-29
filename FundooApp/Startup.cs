@@ -83,7 +83,7 @@ namespace FundooApp
             });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "My Demo API", Version = "1.0" });
+                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "Fundoo Notes API", Version = "1.0" });
             });
         }
 

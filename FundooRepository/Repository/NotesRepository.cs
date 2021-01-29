@@ -42,7 +42,7 @@ namespace FundooRepository.Repository
         /// <returns>return message</returns>
         public string AddNotes(NotesModel model)
         {
-            this.userContext.NoteModel.Add(model);
+            this.userContext.Note_Model.Add(model);
             this.userContext.SaveChanges();
             return "ADD NOTES SUCCESSFULL";
         }
@@ -54,7 +54,7 @@ namespace FundooRepository.Repository
         public IEnumerable<NotesModel> RetrieveNotes()
         {
             IEnumerable<NotesModel> result;
-            IEnumerable<NotesModel> notes = this.userContext.NoteModel;
+            IEnumerable<NotesModel> notes = this.userContext.Note_Model;
             if (notes != null)
             {
                 result = notes;
@@ -76,8 +76,8 @@ namespace FundooRepository.Repository
         {
             try
             {
-                var notes = this.userContext.NoteModel.Find(Id);
-                this.userContext.NoteModel.Remove(notes);
+                var notes = this.userContext.Note_Model.Find(Id);
+                this.userContext.Note_Model.Remove(notes);
                 this.userContext.SaveChangesAsync();
                 return "NOTES DELETED SUCCESSFULL";
             }
