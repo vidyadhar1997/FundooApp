@@ -43,8 +43,16 @@ namespace FundooManager.Manager
         /// </returns>
         public string Register(RegisterModel model)
         {
-            string result = this.repository.Register(model);
-            return result;
+            try
+            {
+                string result = this.repository.Register(model);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+           
         }
 
         /// <summary>
@@ -55,8 +63,15 @@ namespace FundooManager.Manager
         /// <returns>LOGIN SUCCESS message</returns>
         public string Login(string email, string password)
         {
-            string result = this.repository.Login(email, password);
-            return result;
+            try
+            {
+                string result = this.repository.Login(email, password);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -66,8 +81,10 @@ namespace FundooManager.Manager
         /// <returns>string result</returns>
         public string SendEmail(string emailAddress)
         {
-            string result = this.repository.SendEmail(emailAddress);
-            return result;
+            try
+            {
+
+            }
         }
 
         /// <summary>

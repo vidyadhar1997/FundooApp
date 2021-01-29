@@ -42,9 +42,16 @@ namespace FundooRepository.Repository
         /// <returns>return message</returns>
         public string AddNotes(NotesModel model)
         {
-            this.userContext.Note_Model.Add(model);
-            this.userContext.SaveChanges();
-            return "ADD NOTES SUCCESSFULL";
+            try
+            {
+                this.userContext.Note_Model.Add(model);
+                this.userContext.SaveChanges();
+                return "ADD NOTES SUCCESSFULL";
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -53,18 +60,25 @@ namespace FundooRepository.Repository
         /// <returns>all notes</returns>
         public IEnumerable<NotesModel> RetrieveNotes()
         {
-            IEnumerable<NotesModel> result;
-            IEnumerable<NotesModel> notes = this.userContext.Note_Model;
-            if (notes != null)
+            try
             {
-                result = notes;
-            }
-            else
-            {
-                result = null;
-            }
+                IEnumerable<NotesModel> result;
+                IEnumerable<NotesModel> notes = this.userContext.Note_Model;
+                if (notes != null)
+                {
+                    result = notes;
+                }
+                else
+                {
+                    result = null;
+                }
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -76,14 +90,18 @@ namespace FundooRepository.Repository
         {
             try
             {
-                var notes = this.userContext.Note_Model.Find(Id);
-                this.userContext.Note_Model.Remove(notes);
-                this.userContext.SaveChangesAsync();
-                return "NOTES DELETED SUCCESSFULL";
+                if (Id > 0)
+                {
+                    var notes = this.userContext.Note_Model.Find(Id);
+                    this.userContext.Note_Model.Remove(notes);
+                    this.userContext.SaveChangesAsync();
+                    return "NOTES DELETED SUCCESSFULL";
+                }
+                return "Unable to delete notes:id is not correct";
             }
-            catch (NullReferenceException e)
+            catch (Exception ex)
             {
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -99,14 +117,14 @@ namespace FundooRepository.Repository
                 if (model.NoteId != 0)
                 {
                     this.userContext.Entry(model).State = EntityState.Modified;
-                }
-
                     this.userContext.SaveChanges();
                     return "UPDATE SUCCESSFULL";
+                }
+                return "Updation Failed";
             }
-            catch (NullReferenceException e)
+            catch (Exception ex)
             {
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
     }

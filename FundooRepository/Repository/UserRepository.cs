@@ -61,10 +61,17 @@ namespace FundooRepository.Repository
         /// <returns>success message</returns>
         public string Register(RegisterModel model)
         {
-            model.Password = EncryptPassword(model.Password);
-            this.userContext.Register_Models.Add(model);
-            this.userContext.SaveChanges();
-            return "REGISTERATION SUCCESSFULL";
+            try
+            {
+                model.Password = EncryptPassword(model.Password);
+                this.userContext.Register_Models.Add(model);
+                this.userContext.SaveChanges();
+                return "REGISTERATION SUCCESSFULL";
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -81,9 +88,9 @@ namespace FundooRepository.Repository
                 string encodedData = Convert.ToBase64String(encryptData);
                 return encodedData;
             } 
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception("Error in base64Encode" + e.Message);
+                throw new Exception("Error in base64Encode" + ex.Message);
             }
         }
 
@@ -95,23 +102,30 @@ namespace FundooRepository.Repository
         /// <returns>LOGIN SUCCESS message</returns>
         public string Login(string email, string password)
         {
-            string message;
-            password = EncryptPassword(password);
-            var login = this.userContext.Register_Models.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
-            if (login != null)
+            try
             {
-                message = "LOGIN SUCCESS";
-              /*  ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
-                IDatabase database = connectionMultiplexer.GetDatabase();
-                database.StringSet(key: "Email", email);
-                var redisValue = database.StringGet("Email");*/
+                string message;
+                password = EncryptPassword(password);
+                var login = this.userContext.Register_Models.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
+                if (login != null)
+                {
+                    message = "LOGIN SUCCESS";
+                    //Redis cache implemetation
+                    ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                    IDatabase database = connectionMultiplexer.GetDatabase();
+                    database.StringSet(key: "Email", email);
+                    var redisValue = database.StringGet("Email");
+                }
+                else
+                {
+                    message = "LOGIN UNSUCCESSFUL";
+                }
+                return message;
             }
-            else
+            catch(Exception ex)
             {
-                message = "LOGIN UNSUCCESSFUL";
+                throw new Exception(ex.Message);
             }
-
-            return message;
         }
 
         /// <summary>
@@ -121,36 +135,43 @@ namespace FundooRepository.Repository
         /// <returns>success message</returns>
         public string SendEmail(string emailAddress)
         {
-            string body;
-            string subject = "FundooApp Credential";
-            var entry = this.userContext.Register_Models.FirstOrDefault(x => x.Email == emailAddress);
-            if (entry != null)
+            try
             {
-                Sender sender = new Sender();
-                sender.Send();
-                Reciver reciver = new Reciver();
-                var message=reciver.Recive();
-                body = message;
-            }
-            else
-            {
-                return "Not Found";
-            }
+                string body;
+                string subject = "Link To Reset Your FundooApp Credential";
+                var entry = this.userContext.Register_Models.FirstOrDefault(x => x.Email == emailAddress);
+                if (entry != null)
+                {
+                    Sender sender = new Sender();
+                    sender.Send();
+                    Reciver reciver = new Reciver();
+                    var message = reciver.Recive();
+                    body = message;
+                    using (MailMessage mailMessage = new MailMessage("vidyadharhudge1997@gmail.com", emailAddress))
+                    {
+                        mailMessage.Subject = subject;
+                        mailMessage.Body = body;
+                        mailMessage.IsBodyHtml = true;
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.EnableSsl = true;
+                        NetworkCredential NetworkCred = new NetworkCredential("vidyadharhudge1997@gmail.com", "Dhiraj@123#");
+                        smtp.UseDefaultCredentials = true;
+                        smtp.Credentials = NetworkCred;
+                        smtp.Port = 587;
+                        smtp.Send(mailMessage);
+                    }
 
-            using (MailMessage mailMessage = new MailMessage("vidyadharhudge1997@gmail.com", emailAddress))
+                    return "MAIL SENT SUCCESSFULLY";
+                }
+                else
+                {
+                    return "Error while sending mail ";
+                }
+            }
+            catch (Exception ex)
             {
-                mailMessage.Subject = subject;
-                mailMessage.Body = body;
-                mailMessage.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("vidyadharhudge1997@gmail.com", "Dhiraj@123#");
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = NetworkCred;
-                smtp.Port = 587;
-                smtp.Send(mailMessage);
-                return "SUCCESS";
+                throw new Exception("Error in base64Encode" + ex.Message);
             }
         }
 
@@ -161,24 +182,31 @@ namespace FundooRepository.Repository
         /// <returns>success message</returns>
         public string ResetPassword(ResetPassword resetPassword)
         {
-            var Entries = this.userContext.Register_Models.FirstOrDefault(x => x.Email == resetPassword.Email);
-            if (Entries != null)
+            try
             {
-                if (resetPassword.Password == resetPassword.ConfirmPassword)
+                var Entries = this.userContext.Register_Models.FirstOrDefault(x => x.Email == resetPassword.Email);
+                if (Entries != null)
                 {
-                    Entries.Password = EncryptPassword(resetPassword.Password);
-                    this.userContext.Entry(Entries).State = EntityState.Modified;
-                    this.userContext.SaveChanges();
-                    return "RESET PASSWORD SUCCESSFULL";
+                    if (resetPassword.Password == resetPassword.ConfirmPassword)
+                    {
+                        Entries.Password = EncryptPassword(resetPassword.Password);
+                        this.userContext.Entry(Entries).State = EntityState.Modified;
+                        this.userContext.SaveChanges();
+                        return "RESET PASSWORD SUCCESSFULL";
+                    }
+                    else
+                    {
+                        return "Password And Confirm Password Not Matched";
+                    }
                 }
                 else
                 {
-                    return "Password And Confirm Password Not Matched";
+                    return "NOT FOUND";
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return "NOT FOUND";
+                throw new Exception(ex.Message);
             }
         }
 
@@ -189,16 +217,23 @@ namespace FundooRepository.Repository
         /// <returns>token for specific email</returns>
         public string GenerateToken(string userEmail)
         {
-            var token = new JwtSecurityToken(
-            claims: new Claim[]
+            try
             {
-                new Claim(ClaimTypes.Name, userEmail)
-            },
-            notBefore: new DateTimeOffset(DateTime.Now).DateTime,
-            expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
-            signingCredentials: new SigningCredentials(SIGNINGKEY, SecurityAlgorithms.HmacSha256));
+                var token = new JwtSecurityToken(
+                claims: new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, userEmail)
+                },
+                notBefore: new DateTimeOffset(DateTime.Now).DateTime,
+                expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
+                signingCredentials: new SigningCredentials(SIGNINGKEY, SecurityAlgorithms.HmacSha256));
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                return new JwtSecurityTokenHandler().WriteToken(token);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

@@ -47,18 +47,17 @@ namespace FundooApp.Controllers
         {
             try
             {
-                string message = "ADD NOTES SUCCESSFULL";
                 string result = this.notesManager.AddNotes(model);
-                if (result.Equals(message))
+                if (result.Equals("ADD NOTES SUCCESSFULL"))
                 {
                     return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = result, Data = model });
           
                 }
-                return this.BadRequest(new { success = false, Message = "Failed to Add Notes" });
+                return this.BadRequest(new { Status = false, Message = "Failed to Add Notes" });
             }
             catch(Exception ex)
             {
-                return this.NotFound(new { success = false, Message =ex.Message });
+                return this.NotFound(new { Status = false, Message =ex.Message });
             }
         }
 
@@ -72,11 +71,15 @@ namespace FundooApp.Controllers
             try
             {
                 IEnumerable<NotesModel> result = this.notesManager.RetrieveNotes();
-                return this.Ok(result);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve Notes Successfully", Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return this.BadRequest(e.Message);
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
 
@@ -88,15 +91,18 @@ namespace FundooApp.Controllers
         [HttpDelete]
         public IActionResult DeleteNotes(int id)
         {
-            string message = "NOTES DELETED SUCCESSFULL";
-            var result = this.notesManager.RemoveNote(id);
-            if (result.Equals(message))
+            try
             {
-                return this.Ok(new { success = true, message = "Notes deleted successfully" });
+                var result = this.notesManager.RemoveNote(id);
+                if (result.Equals("NOTES DELETED SUCCESSFULL"))
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                }
+                return this.BadRequest(new { Status = false, Message = "Unable to delete note : Enter valid Id" });
             }
-            else
+            catch(Exception ex)
             {
-                return this.BadRequest(new { success = false, message = "Notes Id is not prsent in database" });
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
 
@@ -108,15 +114,18 @@ namespace FundooApp.Controllers
         [HttpPut]
         public IActionResult UpdateNotes([FromBody] NotesModel model)
         {
-            string message = "UPDATE SUCCESSFULL";
-            var result = this.notesManager.UpdateNotes(model);
-            if (result.Equals(message))
+            try
             {
-                return this.Ok(new { success = true, message = "Update notes successfully" });
+                var result = this.notesManager.UpdateNotes(model);
+                if (result.Equals("UPDATE SUCCESSFULL"))
+                {
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = result, Data = model });
+                }
+                return this.BadRequest(new { Status = false, Message = "Error while updating notes" });
             }
-            else
+            catch(Exception ex)
             {
-                return this.BadRequest(new { success = false, message = "Notes Id is not prsent in database" });
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
     }

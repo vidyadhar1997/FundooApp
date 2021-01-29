@@ -48,16 +48,21 @@ namespace FundooApp.Controllers
         [HttpPost]
         public ActionResult Registration([FromBody]RegisterModel model)
         {
-            string message = "REGISTERATION SUCCESSFULL";
-            string result = this.user.Register(model);
-            if (result.Equals(message))
+            try
             {
-                return this.Ok(new { success = true, message = "Registration Successfull" });
+                string result = this.user.Register(model);
+                if (result.Equals("REGISTERATION SUCCESSFULL"))
+                {
+                    return this.Ok(new ResponseModel<RegisterModel>() { Status = true, Message = result, Data = model });
+                }
+
+                return this.BadRequest(new { Status = false, Message = "Failed to add new user data" });
             }
-            else
+            catch (Exception ex)
             {
-                return this.BadRequest(new { success = false, Message = "Failed to Add New User Data to Database" });
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
+
         }
 
         /// <summary>
@@ -69,19 +74,22 @@ namespace FundooApp.Controllers
         [Route("loginEmployee")]
         public ActionResult LoginEmployee([FromBody] LoginModel model)
         {
-            string message = "LOGIN SUCCESS";
-            var result = this.user.Login(model.Email, model.Password);
-            if (result.Equals(message))
+            try
             {
-                string token = this.user.GenerateToken(model.Email);
-                return this.Ok(new { sucess = true, message = "Login sucessfully", data = token });
+                var result = this.user.Login(model.Email, model.Password);
+                if (result.Equals("LOGIN SUCCESS"))
+                {
+                    string token = this.user.GenerateToken(model.Email);
+                    return this.Ok(new ResponseModel<LoginModel>() { Status = true, Message = result, Data = model });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to login the user :Email or Password mismatched" });
             }
-            else
+            catch (Exception ex)
             {
-                return this.BadRequest(new { success = false, Message = "Failed to login email or password mismatched" });
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
-
+        
         /// <summary>
         /// Forgot the password.
         /// </summary>
@@ -91,15 +99,18 @@ namespace FundooApp.Controllers
         [Route("forgetPassword")]
         public IActionResult ForgotPassword(string emailAddress)
         {
-            string message = "SUCCESS";
-            var result = this.user.SendEmail(emailAddress);
-            if (result.Equals(message))
+            try
             {
-                return this.Ok(new { success = true, message = "Password Reset link Sent Successfully To Mail" });
+                var result = this.user.SendEmail(emailAddress);
+                if (result.Equals("MAIL SENT SUCCESSFULLY"))
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = emailAddress });
+                }
+                return this.BadRequest(new { Status = false, Message = "Email is not correct:Please enter valid email" });
             }
-            else
+            catch (Exception ex)
             {
-                return this.BadRequest(new { success = false, Message = "Unable to send the link to email : Email is not prsent in data base" });
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
 
@@ -111,16 +122,20 @@ namespace FundooApp.Controllers
         [HttpPut]
         public IActionResult ResetPasswordEmployee([FromBody] ResetPassword resetPassword)
         {
-            string message = "RESET PASSWORD SUCCESSFULL";
-            var result = this.user.ResetPassword(resetPassword);
-            if (result.Equals(message))
+            try
             {
-                return this.Ok(new { success = true, message = "Password Reset Successfully" });
+                var result = this.user.ResetPassword(resetPassword);
+                if (result.Equals("RESET PASSWORD SUCCESSFULL"))
+                {
+                    return this.Ok(new ResponseModel<ResetPassword>() { Status = true, Message = result, Data = resetPassword });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to reset password:Email not exist in database or password is not matched" });
             }
-            else
+            catch (Exception ex)
             {
-                return this.BadRequest(new { success = false, Message = "Failed to Reset Password : Email id not prsent or password mismatched" });
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
+
         }
     }
 }
