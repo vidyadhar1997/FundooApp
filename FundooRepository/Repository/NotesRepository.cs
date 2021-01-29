@@ -81,6 +81,19 @@ namespace FundooRepository.Repository
             }
         }
 
+        public NotesModel RetrieveNotesById(int id)
+        {
+            try
+            {
+                NotesModel notes = this.userContext.Note_Model.Find(id);
+                return notes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Removes the note.
         /// </summary>

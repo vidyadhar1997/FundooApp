@@ -43,5 +43,7 @@ namespace FundooRepository.Interfaces
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
         public string UpdateNotes(NotesModel model);
+
+        public NotesModel RetrieveNotesById(int id);
     }
 }

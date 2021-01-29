@@ -83,6 +83,25 @@ namespace FundooApp.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("retrieveNotesById")]
+        public IActionResult RetrieveNotesById(int id)
+        {
+            try
+            {
+                NotesModel result = this.notesManager.RetrieveNotesById(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = "Retrieve Notes By Id Successfully", Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes By id" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
         /// <summary>
         /// DeleteNotes for delete specific notes
         /// </summary>
