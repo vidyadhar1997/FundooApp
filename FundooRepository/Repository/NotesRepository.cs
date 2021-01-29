@@ -48,5 +48,20 @@ namespace FundooRepository.Repository
             }
             return result;
         }
+        public string RemoveNote(int Id)
+        {
+            try
+            {
+                var notes = this.userContext.NoteModel.Find(Id);
+                this.userContext.NoteModel.Remove(notes);
+                this.userContext.SaveChangesAsync();
+                return "Notes deleted Successfully";
+            }
+            catch (NullReferenceException e)
+            {
+                throw e;
+
+            }
+        }
     }
 }

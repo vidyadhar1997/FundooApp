@@ -64,5 +64,21 @@ namespace FundooApp.Controllers
 
             }
         }
+
+        [HttpDelete]
+        [Route("api/deletedNotes")]
+        public IActionResult DeleteEmployee(int id)
+        {
+            string message = "Notes deleted Successfully";
+            var result = this.notesManager.RemoveNote(id);
+            if (result.Equals(message))
+            {
+                return this.Ok(new { success = true, Message = "Notes deleted successfully", Data = result });
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
     }
 }

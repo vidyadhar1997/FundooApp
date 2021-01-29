@@ -17,5 +17,6 @@ namespace FundooRepository.Interfaces
         /// <returns></returns>
         public string AddNotes(NotesModel model);
         public IEnumerable<NotesModel> RetrieveNotes();
+        public string RemoveNote(int Id);
     }
 }
