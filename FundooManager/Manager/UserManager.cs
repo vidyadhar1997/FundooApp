@@ -83,7 +83,12 @@ namespace FundooManager.Manager
         {
             try
             {
-
+                string result = this.repository.SendEmail(emailAddress);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -94,8 +99,15 @@ namespace FundooManager.Manager
         /// <returns>string result</returns>
         public string ResetPassword(ResetPassword resetPassword)
         {
-            string result = this.repository.ResetPassword(resetPassword);
-            return result;
+            try
+            {
+                string result = this.repository.ResetPassword(resetPassword);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -105,8 +117,15 @@ namespace FundooManager.Manager
         /// <returns>get token</returns>
         public string GenerateToken(string email)
         {
-            string getToken = this.repository.GenerateToken(email);
-            return getToken;
+            try
+            {
+                string getToken = this.repository.GenerateToken(email);
+                return getToken;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

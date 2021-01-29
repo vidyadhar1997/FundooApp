@@ -41,8 +41,15 @@ namespace FundooManager.Manager
         /// <returns>string message</returns>
         public string AddNotes(NotesModel model)
         {
-            string result = this.repository.AddNotes(model);
-            return result;
+            try
+            {
+                string result = this.repository.AddNotes(model);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -51,8 +58,15 @@ namespace FundooManager.Manager
         /// <returns>all notes</returns>
         public IEnumerable<NotesModel> RetrieveNotes()
         {
-            IEnumerable<NotesModel> notes = this.repository.RetrieveNotes();
-            return notes;
+            try
+            {
+                IEnumerable<NotesModel> notes = this.repository.RetrieveNotes();
+                return notes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -62,8 +76,15 @@ namespace FundooManager.Manager
         /// <returns>string message</returns>
         public string RemoveNote(int Id)
         {
-            string result = this.repository.RemoveNote(Id);
-            return result;
+            try
+            {
+                string result = this.repository.RemoveNote(Id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -73,8 +94,15 @@ namespace FundooManager.Manager
         /// <returns>string message</returns>
         public string UpdateNotes(NotesModel model)
         {
-            string result = this.repository.UpdateNotes(model);
-            return result;
+            try
+            {
+                string result = this.repository.UpdateNotes(model);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ namespace FundooApp.Controllers
                 if (result.Equals("LOGIN SUCCESS"))
                 {
                     string token = this.user.GenerateToken(model.Email);
-                    return this.Ok(new ResponseModel<LoginModel>() { Status = true, Message = result, Data = model });
+                    return this.Ok(new { Status = true, Message = result, Data = model, token });
                 }
                 return this.BadRequest(new { Status = false, Message = "Failed to login the user :Email or Password mismatched" });
             }

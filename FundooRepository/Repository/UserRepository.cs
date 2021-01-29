@@ -111,10 +111,10 @@ namespace FundooRepository.Repository
                 {
                     message = "LOGIN SUCCESS";
                     //Redis cache implemetation
-                    ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                   /* ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
                     IDatabase database = connectionMultiplexer.GetDatabase();
                     database.StringSet(key: "Email", email);
-                    var redisValue = database.StringGet("Email");
+                    var redisValue = database.StringGet("Email");*/
                 }
                 else
                 {
