@@ -43,5 +43,10 @@ namespace FundooManager.Manager
             string result=this.repository.RemoveNote(Id);
             return result;
         }
+        public string UpdateNotes(NotesModel model)
+        {
+            string result=this.repository.UpdateNotes(model);
+            return result;
+        }
     }
 }

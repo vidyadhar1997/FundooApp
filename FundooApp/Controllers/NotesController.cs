@@ -80,5 +80,21 @@ namespace FundooApp.Controllers
                 return this.BadRequest();
             }
         }
+
+        [HttpPut]
+        [Route("api/updateNotes")]
+        public IActionResult UpdateEmployee([FromBody] NotesModel model)
+        {
+            /* employee.EmployeeId = EmployeeId;*/
+            var result = this.notesManager.UpdateNotes(model);
+            if (result.Equals("SUCCESS"))
+            {
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
     }
 }

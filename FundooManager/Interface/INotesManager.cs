@@ -18,5 +18,6 @@ namespace FundooManager.Interface
         public string AddNotes(NotesModel model);
         public IEnumerable<NotesModel> RetrieveNotes();
         public string RemoveNote(int Id);
+        public string UpdateNotes(NotesModel model);
     }
 }
