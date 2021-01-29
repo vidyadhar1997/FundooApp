@@ -16,5 +16,6 @@ namespace FundooManager.Interface
         /// <param name="model">The model.</param>
         /// <returns></returns>
         public string AddNotes(NotesModel model);
+        public IEnumerable<NotesModel> RetrieveNotes();
     }
 }

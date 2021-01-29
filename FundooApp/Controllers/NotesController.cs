@@ -48,5 +48,21 @@ namespace FundooApp.Controllers
                 return this.BadRequest(new { success = false, Message = "Failed to Insert Data to Database" });
             }
         }
+
+        [HttpGet]
+        [Route("api/retrieveNotes")]
+        public IActionResult RetrieveNotes()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notesManager.RetrieveNotes();
+                return this.Ok(result);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+
+            }
+        }
     }
 }

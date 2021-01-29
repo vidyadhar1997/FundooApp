@@ -33,5 +33,10 @@ namespace FundooManager.Manager
             string result = this.repository.AddNotes(model);
             return result;
         }
+        public IEnumerable<NotesModel> RetrieveNotes()
+        {
+            IEnumerable<NotesModel> notes = this.repository.RetrieveNotes();
+            return notes;
+        }
     }
 }

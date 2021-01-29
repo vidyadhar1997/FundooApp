@@ -34,5 +34,19 @@ namespace FundooRepository.Repository
             this.userContext.SaveChanges();
             return "INSERT DATA SUCCESSFULL";
         }
+        public IEnumerable<NotesModel> RetrieveNotes()
+        {
+            IEnumerable<NotesModel> result;
+            IEnumerable< NotesModel> notes = this.userContext.NoteModel;
+            if (notes != null)
+            {
+                result = notes;
+            }
+            else
+            {
+                result = null;
+            }
+            return result;
+        }
     }
 }
