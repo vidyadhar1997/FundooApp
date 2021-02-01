@@ -1,13 +1,20 @@
-﻿using FundooManager.Interface;
-using FundooModel.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LableController.cs" company="Bridgelabz">
+//   Copyright © 2020 Company="BridgeLabz"
+// </copyright>
+// <creator name="Vidyadhar Suresh Hudge"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace FundooApp.Controllers
 {
+    using FundooManager.Interface;
+    using FundooModel.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// LableController class
     /// </summary>
@@ -82,10 +89,10 @@ namespace FundooApp.Controllers
         {
             try
             {
-                IEnumerable<LableModel> result = this.lableManager.RetrieveLableById(id);
+                LableModel result = this.lableManager.RetrieveLableById(id);
                 if (result != null)
                 {
-                    return this.Ok(new ResponseModel<IEnumerable<LableModel>>() { Status = true, Message = "Retrieve Lable By Id Successfully", Data = result });
+                    return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = "Retrieve Lable By Id Successfully", Data = result });
                 }
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Lable By id" });
             }
