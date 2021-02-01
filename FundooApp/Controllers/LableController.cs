@@ -53,5 +53,27 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Retrieves all lables.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult RetrieveAllLables()
+        {
+            try
+            {
+                IEnumerable<LableModel> result = this.lableManager.RetrieveLables();
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<LableModel>>() { Status = true, Message = "Retrieve Lables Successfully", Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
