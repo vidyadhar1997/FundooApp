@@ -68,7 +68,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<IEnumerable<LableModel>>() { Status = true, Message = "Retrieve Lables Successfully", Data = result });
                 }
-                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Lables" });
             }
             catch (Exception ex)
             {
@@ -98,5 +98,29 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Updates the lables.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        [HttpPut]
+        public IActionResult UpdateLables([FromBody] LableModel model)
+        {
+            try
+            {
+                var result = this.lableManager.UpdateLables(model);
+                if (result.Equals("UPDATE LABLE SUCCESSFULL"))
+                {
+                    return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = result, Data = model });
+                }
+                return this.BadRequest(new { Status = false, Message = "Error while updating lables" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
     }
 }
