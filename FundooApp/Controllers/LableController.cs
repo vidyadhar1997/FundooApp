@@ -75,5 +75,28 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Deletes the lable.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public IActionResult DeleteLable(int id)
+        {
+            try
+            {
+                var result = this.lableManager.RemoveLable(id);
+                if (result.Equals("LABLE DELETED SUCCESSFULL"))
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                }
+                return this.BadRequest(new { Status = false, Message = "Unable to delete lable : Enter valid Id" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
