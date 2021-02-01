@@ -9,6 +9,7 @@ namespace FundooApp
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using FundooApp.Controllers;
@@ -24,8 +25,10 @@ namespace FundooApp
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using NLog;
 
     /// <summary>
     /// Startup class
@@ -38,6 +41,7 @@ namespace FundooApp
         /// <param name="configuration">The configuration.</param>
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(System.String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             this.Configuration = configuration;
         }
 
@@ -63,6 +67,7 @@ namespace FundooApp
             services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<INotesRepository, NotesRepository>();
             services.AddTransient<INotesManager, NotesManager>();
+            services.AddSingleton<ILog, LogNLog>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "JwtBearer";
@@ -109,10 +114,11 @@ namespace FundooApp
             }
 
             app.UseHttpsRedirection();
+           /* app.UseMvc();*/
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "My Demo API (V 1.0)");
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Fundoo Notes API (V 1.0)");
             });
             app.UseStaticFiles();
 

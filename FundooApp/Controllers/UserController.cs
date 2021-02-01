@@ -17,6 +17,7 @@ namespace FundooApp.Controllers
     using FundooModel.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// UserController class 
@@ -26,6 +27,7 @@ namespace FundooApp.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
+        private ILog logger;
         /// <summary>
         /// The user
         /// </summary>
@@ -35,9 +37,10 @@ namespace FundooApp.Controllers
         /// Initializes a new instance of the <see cref="UserController"/> class.
         /// </summary>
         /// <param name="userManager">The user manager.</param>
-        public UserController(IUserManager userManager)
+        public UserController(IUserManager userManager, ILog logger )
         {
             this.user = userManager;
+            this.logger = logger; 
         }
         
         /// <summary>
@@ -76,6 +79,10 @@ namespace FundooApp.Controllers
         {
             try
             {
+                logger.Information("Information is logged");
+                logger.Warning("Warnning is logged");
+                logger.Debug("Debgue is logged");
+                logger.Error("Error is logged");
                 var result = this.user.Login(model.Email, model.Password);
                 if (result.Equals("LOGIN SUCCESS"))
                 {
@@ -135,7 +142,6 @@ namespace FundooApp.Controllers
             {
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
-
         }
     }
 }

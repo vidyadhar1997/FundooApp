@@ -82,7 +82,11 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
-
+        /// <summary>
+        /// RetrieveNotesById to retrieve particular notes
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>sucesses message</returns>
         [HttpGet]
         [Route("retrieveNotesById")]
         public IActionResult RetrieveNotesById(int id)
