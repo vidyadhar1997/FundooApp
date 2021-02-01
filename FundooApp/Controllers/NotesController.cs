@@ -166,7 +166,7 @@ namespace FundooApp.Controllers
                 var result = this.notesManager.PinOrUnpin(id);
                 if (result != null)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
                 }
                 return this.BadRequest(new { Status = false, Message = result });
             }
@@ -190,7 +190,7 @@ namespace FundooApp.Controllers
                 var result = this.notesManager.ArchiveOrUnArchive(id);
                 if (result != null)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
                 }
                 return this.BadRequest(new { Status = false, Message = result });
             }
