@@ -51,13 +51,13 @@ namespace FundooApp.Controllers
                 if (result.Equals("ADD NOTES SUCCESSFULL"))
                 {
                     return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = result, Data = model });
-          
+
                 }
                 return this.BadRequest(new { Status = false, Message = "Failed to Add Notes" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return this.NotFound(new { Status = false, Message =ex.Message });
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
 
@@ -123,7 +123,7 @@ namespace FundooApp.Controllers
                 }
                 return this.BadRequest(new { Status = false, Message = "Unable to delete note : Enter valid Id" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
@@ -146,7 +146,31 @@ namespace FundooApp.Controllers
                 }
                 return this.BadRequest(new { Status = false, Message = "Error while updating notes" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the notes by pin.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>string message</returns>
+        [HttpPut]
+        [Route("pinOrUnpin")]
+        public IActionResult RetrieveNotesByPin(int id)
+        {
+            try
+            {
+                var result = this.notesManager.PinOrUnpin(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                }
+                return this.BadRequest(new { Status = false, Message = result });
+            }
+            catch (Exception ex)
             {
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
