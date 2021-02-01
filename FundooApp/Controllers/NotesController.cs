@@ -159,11 +159,35 @@ namespace FundooApp.Controllers
         /// <returns>string message</returns>
         [HttpPut]
         [Route("pinOrUnpin")]
-        public IActionResult RetrieveNotesByPin(int id)
+        public IActionResult PinOrUnpinNote(int id)
         {
             try
             {
                 var result = this.notesManager.PinOrUnpin(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                }
+                return this.BadRequest(new { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Archives the or unarchive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>string message</returns>
+        [HttpPut]
+        [Route("archiveOrUnarchive")]
+        public IActionResult ArchiveOrUnarchive(int id)
+        {
+            try
+            {
+                var result = this.notesManager.ArchiveOrUnArchive(id);
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
