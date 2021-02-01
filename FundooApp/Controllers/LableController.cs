@@ -36,7 +36,7 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult AddNotes([FromBody] LableModel model)
+        public ActionResult AddLables([FromBody] LableModel model)
         {
             try
             {
@@ -76,6 +76,24 @@ namespace FundooApp.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("retrieveLablesById")]
+        public IActionResult RetrieveLablesById(int id)
+        {
+            try
+            {
+                IEnumerable<LableModel> result = this.lableManager.RetrieveLableById(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<LableModel>>() { Status = true, Message = "Retrieve Lable By Id Successfully", Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Lable By id" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
         /// <summary>
         /// Deletes the lable.
         /// </summary>
