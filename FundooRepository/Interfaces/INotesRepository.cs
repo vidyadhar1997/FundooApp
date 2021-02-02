@@ -64,5 +64,12 @@ namespace FundooRepository.Interfaces
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         public string ArchiveOrUnarchive(int id);
+
+        /// <summary>
+        /// Determines whether the specified identifier is trash.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public string IsTrash(int id);
     }
 }

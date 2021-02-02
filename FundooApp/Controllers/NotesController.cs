@@ -199,5 +199,29 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Trashes the or untrash.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("trashOrUntrash")]
+        public IActionResult TrashOrUntrash(int id)
+        {
+            try
+            {
+                var result = this.notesManager.isTrash(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

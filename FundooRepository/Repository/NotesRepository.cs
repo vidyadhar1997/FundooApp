@@ -216,5 +216,40 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// IsTrash 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>string message</returns>
+        public string IsTrash(int id)
+        {
+            try
+            {
+                var notes = this.userContext.Note_model.Where(x => x.NoteId == id).SingleOrDefault();
+                if (notes.isTrash == false)
+                {
+                    notes.isTrash = true;
+                    userContext.Entry(notes).State=EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Notes Is Trashed";
+                    return message;
+                }
+                if (notes.isTrash == true)
+                {
+                    notes.isTrash = false;
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Note UnTrashed";
+                    return message;
+                }
+
+                return "Unable to Trash or UnTrashed notes";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -83,6 +83,11 @@ namespace FundooApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves the lables by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("retrieveLablesById")]
         public IActionResult RetrieveLablesById(int id)

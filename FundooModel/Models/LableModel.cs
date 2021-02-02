@@ -51,6 +51,5 @@ namespace FundooModel.Models
         /// The lable.
         /// </value>
         public string Lable { get; set; }
-
     }
 }
