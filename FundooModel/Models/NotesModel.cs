@@ -110,5 +110,14 @@ namespace FundooModel.Models
         /// The label.
         /// </value>
         public string Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is trash.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is trash; otherwise, <c>false</c>.
+        /// </value>
+        [DefaultValue(false)]
+        public bool isTrash { get; set; }
     }
 }

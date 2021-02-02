@@ -25,6 +25,12 @@ namespace FundooRepository.Migrations
                     b.Property<string>("Lable")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("LableId");
 
                     b.ToTable("Lable_Models");
@@ -66,9 +72,12 @@ namespace FundooRepository.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isTrash")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("NoteId");
 
-                    b.ToTable("Note_Model");
+                    b.ToTable("Note_model");
                 });
 
             modelBuilder.Entity("FundooModel.Models.RegisterModel", b =>

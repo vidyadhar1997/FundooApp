@@ -57,6 +57,12 @@ namespace FundooManager.Interface
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         public string PinOrUnpin(int id);
+
+        /// <summary>
+        /// Archives the or un archive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         public string ArchiveOrUnArchive(int id);
     }
 }

@@ -93,7 +93,7 @@ namespace FundooRepository.Repository
         {
             try
             {
-                LableModel notes = this.userContext.Lable_Models.Find(id);
+                LableModel notes = this.userContext.Lable_Models.Where(x => x.LableId == id).SingleOrDefault();
                 return notes;
             }
             catch (Exception ex)

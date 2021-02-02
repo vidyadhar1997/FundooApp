@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundooRepository.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210201120050_fundoolabel")]
-    partial class fundoolabel
+    [Migration("20210202075556_fundoo")]
+    partial class fundoo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,12 @@ namespace FundooRepository.Migrations
 
                     b.Property<string>("Lable")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LableId");
 
@@ -68,9 +74,12 @@ namespace FundooRepository.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isTrash")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("NoteId");
 
-                    b.ToTable("Note_Model");
+                    b.ToTable("Note_model");
                 });
 
             modelBuilder.Entity("FundooModel.Models.RegisterModel", b =>
