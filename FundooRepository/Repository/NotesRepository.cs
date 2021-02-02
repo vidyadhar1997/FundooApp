@@ -113,11 +113,17 @@ namespace FundooRepository.Repository
                 if (Id > 0)
                 {
                     var notes = this.userContext.Note_model.Find(Id);
-                    this.userContext.Note_model.Remove(notes);
-                    this.userContext.SaveChangesAsync();
-                    return "NOTES DELETED SUCCESSFULL";
+                    if (notes != null)
+                    {
+                        if (notes.isTrash == true)
+                        {
+                            this.userContext.Note_model.Remove(notes);
+                            this.userContext.SaveChangesAsync();
+                            return "NOTES DELETED SUCCESSFULL";
+                        }
+                    }
                 }
-                return "Unable to delete notes:id is not correct";
+                return "First trash note then delete it";
             }
             catch (Exception ex)
             {
