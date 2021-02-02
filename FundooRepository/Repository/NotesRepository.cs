@@ -149,11 +149,10 @@ namespace FundooRepository.Repository
         }
 
         /// <summary>
-        /// Pins the or unpin.
+        /// PinOrUnpin the notes
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <param name="id"></param>
+        /// <returns>string message</returns>
         public string  PinOrUnpin(int id)
         {
             try
@@ -193,27 +192,23 @@ namespace FundooRepository.Repository
         {
             try
             {
-                string message;
-                var notes = this.userContext.Note_model.FirstOrDefault(x => x.NoteId == id).Archive;
-                if (notes == false)
+                var notes = this.userContext.Note_model.Where(x => x.NoteId == id).SingleOrDefault();
+                if (notes.Archive == false)
                 {
-                    var archiveNote = this.userContext.Note_model.FirstOrDefault(x => x.NoteId == id).Archive == false;
-                    var archiveNotes = userContext.Note_model.FirstOrDefault(y => y.NoteId == id);
-                    archiveNotes.Archive = archiveNote;
-                    this.userContext.SaveChanges();
-                    message = "Note is Archive";
+                    notes.Archive = true;
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Note is Archive";
                     return message;
                 }
-                if (notes == true)
+                if (notes.Archive == true)
                 {
-                    var unArchiveNote = this.userContext.Note_model.FirstOrDefault(x => x.NoteId == id).Archive == false;
-                    var unArchiveNotes = userContext.Note_model.FirstOrDefault(y => y.NoteId == id);
-                    unArchiveNotes.Archive = unArchiveNote;
-                    this.userContext.SaveChanges();
-                    message = "Note UnArchive";
+                    notes.Archive = false;
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Note UnArchive";
                     return message;
                 }
-
                 return "Unable to Archive or UnArchive notes";
             }
             catch (Exception ex)
