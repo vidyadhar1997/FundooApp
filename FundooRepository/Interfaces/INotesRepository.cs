@@ -31,6 +31,13 @@ namespace FundooRepository.Interfaces
         public IEnumerable<NotesModel> RetrieveNotes();
 
         /// <summary>
+        /// Retrieves the notes by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public NotesModel RetrieveNotesById(int id);
+
+        /// <summary>
         /// Removes the note.
         /// </summary>
         /// <param name="Id">The identifier.</param>
@@ -44,6 +51,18 @@ namespace FundooRepository.Interfaces
         /// <returns>string message</returns>
         public string UpdateNotes(NotesModel model);
 
-        public NotesModel RetrieveNotesById(int id);
+        /// <summary>
+        /// Pins the or unpin.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public string PinOrUnpin(int id);
+
+        /// <summary>
+        /// Archives the or unarchive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public string ArchiveOrUnarchive(int id);
     }
 }

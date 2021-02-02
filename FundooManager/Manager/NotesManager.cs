@@ -69,6 +69,12 @@ namespace FundooManager.Manager
             }
         }
 
+        /// <summary>
+        /// Retrieves the notes by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public NotesModel RetrieveNotesById(int id)
         {
             try
@@ -81,6 +87,7 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
         /// <summary>
         /// Removes the note.
         /// </summary>
@@ -112,6 +119,44 @@ namespace FundooManager.Manager
                 return result;
             }
             catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Pins the or unpin.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string PinOrUnpin(int id)
+        {
+            try
+            {
+                string result = this.repository.PinOrUnpin(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Archives the or un archive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string ArchiveOrUnArchive(int id)
+        {
+            try
+            {
+                string result = this.repository.ArchiveOrUnarchive(id);
+                return result;
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

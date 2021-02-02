@@ -9,6 +9,7 @@ namespace FundooRepository.Repository
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using FundooModel.Models;
     using FundooRepository.Context;
@@ -44,7 +45,7 @@ namespace FundooRepository.Repository
         {
             try
             {
-                this.userContext.Note_Model.Add(model);
+                this.userContext.Note_model.Add(model);
                 this.userContext.SaveChanges();
                 return "ADD NOTES SUCCESSFULL";
             }
@@ -63,7 +64,7 @@ namespace FundooRepository.Repository
             try
             {
                 IEnumerable<NotesModel> result;
-                IEnumerable<NotesModel> notes = this.userContext.Note_Model;
+                IEnumerable<NotesModel> notes = this.userContext.Note_model;
                 if (notes != null)
                 {
                     result = notes;
@@ -81,11 +82,17 @@ namespace FundooRepository.Repository
             }
         }
 
+        /// <summary>
+        /// Retrieves the notes by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public NotesModel RetrieveNotesById(int id)
         {
             try
             {
-                NotesModel notes = this.userContext.Note_Model.Find(id);
+                NotesModel notes = this.userContext.Note_model.Find(id);
                 return notes;
             }
             catch (Exception ex)
@@ -105,8 +112,8 @@ namespace FundooRepository.Repository
             {
                 if (Id > 0)
                 {
-                    var notes = this.userContext.Note_Model.Find(Id);
-                    this.userContext.Note_Model.Remove(notes);
+                    var notes = this.userContext.Note_model.Find(Id);
+                    this.userContext.Note_model.Remove(notes);
                     this.userContext.SaveChangesAsync();
                     return "NOTES DELETED SUCCESSFULL";
                 }
@@ -134,6 +141,80 @@ namespace FundooRepository.Repository
                     return "UPDATE SUCCESSFULL";
                 }
                 return "Updation Failed";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Pins the or unpin.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string  PinOrUnpin(int id)
+        {
+            try
+            {
+                var notes=this.userContext.Note_model.Where(x => x.NoteId == id).SingleOrDefault();
+                if (notes.Pin == false)
+                {
+                    notes.Pin = true;
+                    userContext.Entry(notes).State=EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Note is getting pin";
+                    return message;
+                }
+                if (notes.Pin == true)
+                {
+                    notes.Pin = false;
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Note Unpinned";
+                    return message;
+                }
+                return "Unable to Pin or Unpin notes";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Archives the or unarchive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string ArchiveOrUnarchive(int id)
+        {
+            try
+            {
+                string message;
+                var notes = this.userContext.Note_model.FirstOrDefault(x => x.NoteId == id).Archive;
+                if (notes == false)
+                {
+                    var archiveNote = this.userContext.Note_model.FirstOrDefault(x => x.NoteId == id).Archive == false;
+                    var archiveNotes = userContext.Note_model.FirstOrDefault(y => y.NoteId == id);
+                    archiveNotes.Archive = archiveNote;
+                    this.userContext.SaveChanges();
+                    message = "Note is Archive";
+                    return message;
+                }
+                if (notes == true)
+                {
+                    var unArchiveNote = this.userContext.Note_model.FirstOrDefault(x => x.NoteId == id).Archive == false;
+                    var unArchiveNotes = userContext.Note_model.FirstOrDefault(y => y.NoteId == id);
+                    unArchiveNotes.Archive = unArchiveNote;
+                    this.userContext.SaveChanges();
+                    message = "Note UnArchive";
+                    return message;
+                }
+
+                return "Unable to Archive or UnArchive notes";
             }
             catch (Exception ex)
             {

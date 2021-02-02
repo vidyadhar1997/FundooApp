@@ -40,7 +40,16 @@ namespace FundooRepository.Context
         /// <value>
         /// The notes models.
         /// </value>
-        public DbSet<NotesModel> Note_Model { get; set; }
+        public DbSet<NotesModel> Note_model { get; set; }
+
+        /// <summary>
+        /// Gets or sets the lable models.
+        /// </summary>
+        /// <value>
+        /// The lable models.
+        /// </value>
+        public DbSet<LableModel> Lable_Models { get; set; }
+
 
         /// <summary>
         /// Called when [model creating].
