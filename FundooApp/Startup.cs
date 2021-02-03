@@ -69,6 +69,8 @@ namespace FundooApp
             services.AddTransient<INotesManager, NotesManager>();
             services.AddTransient<ILableRepository, LableRepository>();
             services.AddTransient<ILableManager, LableManager>();
+            services.AddTransient<ICollaboratorRepository, CollaboratorRepository>();
+            services.AddTransient<ICollaboratorManager, CollaboratorManager>();
             services.AddSingleton<ILog, LogNLog>();
             services.AddAuthentication(options =>
             {

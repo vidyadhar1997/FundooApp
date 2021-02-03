@@ -1,10 +1,45 @@
-﻿using System;
+﻿using FundooManager.Interface;
+using FundooModel.Models;
+using FundooRepository.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace FundooManager.Manager
 {
-    class CollaboratorManager
+    public class CollaboratorManager : ICollaboratorManager
     {
+        /// <summary>
+        /// The repository
+        /// </summary>
+        private readonly ICollaboratorRepository repository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollaboratorManager"/> class.
+        /// </summary>
+        /// <param name="userRepository">The user repository.</param>
+        public CollaboratorManager(ICollaboratorRepository userRepository)
+        {
+            this.repository = userRepository;
+        }
+
+        /// <summary>
+        /// Adds the collaborator.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string AddCollaborator(CollaboratorModel model)
+        {
+            try
+            {
+                string result = this.repository.AddCollaborator(model);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
