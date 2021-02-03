@@ -42,5 +42,30 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Deletes the collaborator.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string DeleteCollaborator(int id)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    var collaborator = this.userContext.Collaborator.Find(id);
+                    this.userContext.Collaborator.Remove(collaborator);
+                    this.userContext.SaveChangesAsync();
+                    return "COLLABORATOR DELETED SUCCESSFULL";
+                }
+                return "Unable to delete collaborator:id is not correct";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

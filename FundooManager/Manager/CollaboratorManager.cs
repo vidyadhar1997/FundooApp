@@ -41,5 +41,24 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Deletes the collaborator.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string DeleteCollaborator(int id)
+        {
+            try
+            {
+                string result = this.repository.DeleteCollaborator(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

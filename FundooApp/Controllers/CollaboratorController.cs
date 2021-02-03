@@ -46,7 +46,30 @@ namespace FundooApp.Controllers
                     return this.Ok(new ResponseModel<CollaboratorModel>() { Status = true, Message = result, Data = model });
 
                 }
-                return this.BadRequest(new { Status = false, Message = "Failed to Add Lable" });
+                return this.BadRequest(new { Status = false, Message = "Failed to Add Collaborator" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Deletes the collaborator.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public IActionResult DeleteCollaborator(int id)
+        {
+            try
+            {
+                var result = this.collaboratorManager.DeleteCollaborator(id);
+                if (result.Equals("COLLABORATOR DELETED SUCCESSFULL"))
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                }
+                return this.BadRequest(new { Status = false, Message = "Unable to delete collaborator : Enter valid Id" });
             }
             catch (Exception ex)
             {
