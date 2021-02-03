@@ -76,5 +76,27 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Retrieves all collaborator.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult RetrieveAllCollaborator()
+        {
+            try
+            {
+                IEnumerable<CollaboratorModel> result = this.collaboratorManager.GetCollaborator();
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<CollaboratorModel>>() { Status = true, Message = "Retrieve Collaborator Successfully", Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Collaborator" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

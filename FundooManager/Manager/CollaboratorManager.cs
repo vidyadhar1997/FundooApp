@@ -60,5 +60,23 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Gets the collaborator.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public IEnumerable<CollaboratorModel> GetCollaborator()
+        {
+            try
+            {
+                IEnumerable<CollaboratorModel> lables = this.repository.GetCollaborator();
+                return lables;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

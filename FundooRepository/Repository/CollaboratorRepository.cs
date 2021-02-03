@@ -67,5 +67,32 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Gets the collaborator.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public IEnumerable<CollaboratorModel> GetCollaborator()
+        {
+            try
+            {
+                IEnumerable<CollaboratorModel> result;
+                IEnumerable<CollaboratorModel> notes = this.userContext.Collaborator;
+                if (notes != null)
+                {
+                    result = notes;
+                }
+                else
+                {
+                    result = null;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -20,5 +20,11 @@ namespace FundooManager.Interface
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         public string DeleteCollaborator(int id);
+
+        /// <summary>
+        /// Gets the collaborator.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CollaboratorModel> GetCollaborator();
     }
 }
