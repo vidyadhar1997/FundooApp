@@ -180,5 +180,25 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Adds the reminder.
+        /// </summary>
+        /// <param name="id">note id.</param>
+        /// <param name="reminder">The reminder.</param>
+        /// <returns>string message</returns>
+        /// <exception cref="Exception"></exception>
+        public string AddReminder(int id, string reminder)
+        {
+            try
+            {
+                string result= this.repository.AddReminder(id,reminder);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

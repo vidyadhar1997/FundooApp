@@ -71,5 +71,13 @@ namespace FundooManager.Interface
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         public string isTrash(int id);
+
+        /// <summary>
+        /// Adds the reminder.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="reminder">The reminder.</param>
+        /// <returns>string message</returns>
+        public string AddReminder(int id, string reminder);
     }
 }

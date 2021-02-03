@@ -257,5 +257,33 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Adds the reminder.
+        /// </summary>
+        /// <param name="id">Note Id</param>
+        /// <param name="reminder">The reminder.</param>
+        /// <returns>string message</returns>
+        /// <exception cref="Exception"></exception>
+        public string AddReminder(int id,string reminder)
+        {
+            try
+            {
+               var notes= this.userContext.Note_model.Find(id);
+                if (notes != null)
+                {
+                    notes.Reminder = reminder;
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Reminder Is Set For This Note Successfully";
+                    return message;
+                }
+                return "Error While Setting The Reminder";
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
