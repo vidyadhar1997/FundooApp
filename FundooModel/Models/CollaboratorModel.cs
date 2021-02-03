@@ -6,17 +6,16 @@ using System.Text;
 
 namespace FundooModel.Models
 {
-    public class Collaborator
+    public class CollaboratorModel
     {
         [Key]
-        public int CollaboratorId { set; get; }
+        public int CollaboratorId { get; set; }
 
+        [ForeignKey("NotesModel")]
         public int NoteId { get; set; }
 
-        [ForeignKey("LoginModel")]
-        public string Email { get; set; }
+        public string SenderEmail { get; set; }
 
-        public string RecieverEmail { get; set; }
-
+        public string ReceiverEmail { get; set; }
     }
 }

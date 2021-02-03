@@ -50,6 +50,8 @@ namespace FundooRepository.Context
         /// </value>
         public DbSet<LableModel> Lable_Models { get; set; }
 
+        public DbSet<CollaboratorModel> Collaborator { get; set; }
+
 
         /// <summary>
         /// Called when [model creating].
