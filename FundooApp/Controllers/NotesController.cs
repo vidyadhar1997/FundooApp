@@ -248,5 +248,28 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Gets all notes whose reminder is set.
+        /// </summary>
+        /// <returns>Response data</returns>
+        [HttpGet]
+        [Route("getAllNotesWhoseReminderIsSet")]
+        public IActionResult GetAllNotesWhoseReminderIsSet()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notesManager.GetAllNotesWhoesReminderIsSet();
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve All Notes Whose Reminder Is Set", Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

@@ -285,5 +285,34 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Gets the reminder by identifier.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>notes</returns>
+        /// <exception cref="Exception"></exception>
+        public IEnumerable<NotesModel> GetAllNotesWhoesReminderIsSet()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result;
+                IEnumerable<NotesModel> notes = this.userContext.Note_model.Where(x=>x.Reminder.Length >0);
+                if (notes != null)
+                {
+                    result = notes;
+                }
+                else
+                {
+                    result = null;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

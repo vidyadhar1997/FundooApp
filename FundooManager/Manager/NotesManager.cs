@@ -200,5 +200,23 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Gets all notes whoes reminder is set.
+        /// </summary>
+        /// <returns>notes whose reminder is set</returns>
+        /// <exception cref="Exception"></exception>
+        public IEnumerable<NotesModel> GetAllNotesWhoesReminderIsSet()
+        {
+            try
+            {
+                IEnumerable<NotesModel> notes = this.repository.RetrieveNotes();
+                return notes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
