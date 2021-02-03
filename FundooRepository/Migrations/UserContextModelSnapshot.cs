@@ -33,6 +33,8 @@ namespace FundooRepository.Migrations
 
                     b.HasKey("CollaboratorId");
 
+                    b.HasIndex("NoteId");
+
                     b.ToTable("Collaborator");
                 });
 
@@ -52,6 +54,8 @@ namespace FundooRepository.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("LableId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Lable_Models");
                 });
@@ -97,6 +101,8 @@ namespace FundooRepository.Migrations
 
                     b.HasKey("NoteId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Note_model");
                 });
 
@@ -125,6 +131,33 @@ namespace FundooRepository.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Register_Models");
+                });
+
+            modelBuilder.Entity("FundooModel.Models.CollaboratorModel", b =>
+                {
+                    b.HasOne("FundooModel.Models.NotesModel", "NotesModel")
+                        .WithMany()
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FundooModel.Models.LableModel", b =>
+                {
+                    b.HasOne("FundooModel.Models.RegisterModel", "RegisterModel")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FundooModel.Models.NotesModel", b =>
+                {
+                    b.HasOne("FundooModel.Models.RegisterModel", "RegisterModel")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

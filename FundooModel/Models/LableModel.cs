@@ -35,6 +35,7 @@ namespace FundooModel.Models
         /// </value>
         [ForeignKey("RegisterModel")]
         public int UserId { get; set; }
+        public virtual RegisterModel RegisterModel { get; set; }
 
         /// <summary>
         /// Gets or sets the note identifier.

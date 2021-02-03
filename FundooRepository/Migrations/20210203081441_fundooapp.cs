@@ -3,10 +3,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FundooRepository.Migrations
 {
-    public partial class fundoo : Migration
+    public partial class fundooapp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Register_Models",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Register_Models", x => x.UserId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Lable_Models",
                 columns: table => new
@@ -20,6 +36,12 @@ namespace FundooRepository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lable_Models", x => x.LableId);
+                    table.ForeignKey(
+                        name: "FK_Lable_Models_Register_Models_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Register_Models",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,27 +65,56 @@ namespace FundooRepository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Note_model", x => x.NoteId);
+                    table.ForeignKey(
+                        name: "FK_Note_model_Register_Models_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Register_Models",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Register_Models",
+                name: "Collaborator",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false)
+                    CollaboratorId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false)
+                    NoteId = table.Column<int>(nullable: false),
+                    SenderEmail = table.Column<string>(nullable: true),
+                    ReceiverEmail = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Register_Models", x => x.UserId);
+                    table.PrimaryKey("PK_Collaborator", x => x.CollaboratorId);
+                    table.ForeignKey(
+                        name: "FK_Collaborator_Note_model_NoteId",
+                        column: x => x.NoteId,
+                        principalTable: "Note_model",
+                        principalColumn: "NoteId",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Collaborator_NoteId",
+                table: "Collaborator",
+                column: "NoteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lable_Models_UserId",
+                table: "Lable_Models",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Note_model_UserId",
+                table: "Note_model",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Collaborator");
+
             migrationBuilder.DropTable(
                 name: "Lable_Models");
 
