@@ -41,7 +41,7 @@ namespace FundooApp.Controllers
         /// Adds the notes.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>success message</returns>
+        /// <returns>response data</returns>
         [HttpPost]
         public ActionResult AddNotes([FromBody] NotesModel model)
         {
@@ -64,7 +64,7 @@ namespace FundooApp.Controllers
         /// <summary>
         /// RetrieveNotes to retrieve all the notes
         /// </summary>
-        /// <returns>success message</returns>
+        /// <returns>response data</returns>
         [HttpGet]
         public IActionResult RetrieveNotes()
         {
@@ -86,7 +86,7 @@ namespace FundooApp.Controllers
         /// RetrieveNotesById to retrieve particular notes
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>sucesses message</returns>
+        /// <returns>response data</returns>
         [HttpGet]
         [Route("retrieveNotesById")]
         public IActionResult RetrieveNotesById(int id)
@@ -110,7 +110,7 @@ namespace FundooApp.Controllers
         /// DeleteNotes for delete specific notes
         /// </summary>
         /// <param name="id">notes id</param>
-        /// <returns>notes deleted message</returns>
+        /// <returns>response data</returns>
         [HttpDelete]
         public IActionResult DeleteNotes(int id)
         {
@@ -133,7 +133,7 @@ namespace FundooApp.Controllers
         /// UpdateNotes for updating notes
         /// </summary>
         /// <param name="model">notes model</param>
-        /// <returns>success message</returns>
+        /// <returns>response data</returns>
         [HttpPut]
         public IActionResult UpdateNotes([FromBody] NotesModel model)
         {
@@ -156,7 +156,7 @@ namespace FundooApp.Controllers
         /// Retrieves the notes by pin.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>string message</returns>
+        /// <returns>response data</returns>
         [HttpPut]
         [Route("pinOrUnpin")]
         public IActionResult PinOrUnpinNote(int id)
@@ -180,7 +180,7 @@ namespace FundooApp.Controllers
         /// Archives the or unarchive.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>string message</returns>
+        /// <returns>response data</returns>
         [HttpPut]
         [Route("archiveOrUnarchive")]
         public IActionResult ArchiveOrUnarchive(int id)
@@ -204,7 +204,7 @@ namespace FundooApp.Controllers
         /// Trashes the or untrash.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>response data</returns>
         [HttpPut]
         [Route("trashOrUntrash")]
         public IActionResult TrashOrUntrash(int id)
@@ -229,7 +229,7 @@ namespace FundooApp.Controllers
         /// </summary>
         /// <param name="id">note id.</param>
         /// <param name="reminder">The reminder.</param>
-        /// <returns>string message</returns>
+        /// <returns>response data</returns>
         [HttpPut]
         [Route("setReminder")]
         public IActionResult SetReminder(int id,string reminder)
@@ -287,6 +287,31 @@ namespace FundooApp.Controllers
                 if (result.Equals("Reminder Is UnSet For This Note Successfully"))
                 {
                     return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                }
+                return this.BadRequest(new { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Adds the color.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="color">The color</param>
+        /// <returns>response data</returns>
+        [HttpPut]
+        [Route("addColor")]
+        public IActionResult AddColor(int id, string color)
+        {
+            try
+            {
+                var result = this.notesManager.AddColor(id, color);
+                if (result.Equals("Color Is Set For This Note Successfully"))
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = color });
                 }
                 return this.BadRequest(new { Status = false, Message = result });
             }

@@ -38,7 +38,7 @@ namespace FundooManager.Manager
         /// Adds the lable.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string AddLable(LableModel model)
         {
@@ -56,7 +56,7 @@ namespace FundooManager.Manager
         /// <summary>
         /// Retrieves the lables.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>all lables</returns>
         /// <exception cref="Exception"></exception>
         public IEnumerable<LableModel> RetrieveLables()
         {
@@ -70,6 +70,15 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Retrieves the lable by identifier.
+        /// </summary>
+        /// <param name="id">lable id</param>
+        /// <returns>
+        /// String message
+        /// </returns>
+        /// <exception cref="Exception"></exception>
         public LableModel RetrieveLableById(int id)
         {
             try
@@ -90,8 +99,8 @@ namespace FundooManager.Manager
         /// <summary>
         /// Removes the lable.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">lable id</param>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string RemoveLable(int id)
         {
@@ -110,7 +119,7 @@ namespace FundooManager.Manager
         /// Updates the lables.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string UpdateLables(LableModel model)
         {

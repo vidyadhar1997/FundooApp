@@ -40,7 +40,7 @@ namespace FundooRepository.Repository
         /// Adds the notes.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string AddLable(LableModel model)
         {
@@ -59,7 +59,7 @@ namespace FundooRepository.Repository
         /// <summary>
         /// Retrieves the notes.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>all lables</returns>
         /// <exception cref="Exception">ex.message</exception>
         public IEnumerable<LableModel> RetrieveLables()
         {
@@ -86,8 +86,8 @@ namespace FundooRepository.Repository
         /// <summary>
         /// Retrieves the lable by identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">lable id</param>
+        /// <returns>lable model</returns>
         /// <exception cref="Exception">ex.Message</exception>
         public LableModel RetrieveLableById(int id)
         {
@@ -105,8 +105,8 @@ namespace FundooRepository.Repository
         /// <summary>
         /// Removes the lable.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">lable id</param>
+        /// <returns>string message</returns>
         /// <exception cref="Exception">ex.message</exception>
         public string RemoveLable(int id)
         {

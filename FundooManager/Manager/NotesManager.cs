@@ -72,8 +72,8 @@ namespace FundooManager.Manager
         /// <summary>
         /// Retrieves the notes by identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public NotesModel RetrieveNotesById(int id)
         {
@@ -91,7 +91,7 @@ namespace FundooManager.Manager
         /// <summary>
         /// Removes the note.
         /// </summary>
-        /// <param name="Id">The identifier.</param>
+        /// <param name="Id">note id</param>
         /// <returns>string message</returns>
         public string RemoveNote(int Id)
         {
@@ -127,8 +127,8 @@ namespace FundooManager.Manager
         /// <summary>
         /// Pins the or unpin.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string PinOrUnpin(int id)
         {
@@ -146,7 +146,7 @@ namespace FundooManager.Manager
         /// <summary>
         /// Archives the or un archive.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="id">note id</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         public string ArchiveOrUnArchive(int id)
@@ -165,8 +165,8 @@ namespace FundooManager.Manager
         /// <summary>
         /// Determines whether the specified identifier is trash.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string isTrash(int id)
         {
@@ -230,6 +230,26 @@ namespace FundooManager.Manager
             try
             {
                 string result = this.repository.UnSetReminder(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adds the color.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="color">The color.</param>
+        /// <returns>string message</returns>
+        /// <exception cref="Exception"></exception>
+        public string AddColor(int id, string color)
+        {
+            try
+            {
+                string result = this.repository.AddColour(id, color);
                 return result;
             }
             catch (Exception ex)

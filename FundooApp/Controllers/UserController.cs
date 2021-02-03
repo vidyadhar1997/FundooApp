@@ -42,12 +42,12 @@ namespace FundooApp.Controllers
             this.user = userManager;
             this.logger = logger; 
         }
-        
+
         /// <summary>
         /// Registrations for registration the specified user.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns> ok result if condition getting matched</returns>
+        /// <returns>response data</returns>
         [HttpPost]
         public ActionResult Registration([FromBody]RegisterModel model)
         {
@@ -72,7 +72,7 @@ namespace FundooApp.Controllers
         /// LoginEmployee for the existing user
         /// </summary>
         /// <param name="model">model as parameter</param>
-        /// <returns>login success message</returns>
+        /// <returns>response data</returns>
         [HttpPost]
         [Route("loginEmployee")]
         public ActionResult LoginEmployee([FromBody] LoginModel model)
@@ -96,12 +96,12 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
-        
+
         /// <summary>
         /// Forgot the password.
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
-        /// <returns>success message</returns>
+        /// <returns>response data</returns>
         [HttpPost]
         [Route("forgetPassword")]
         public IActionResult ForgotPassword(string emailAddress)
@@ -125,7 +125,7 @@ namespace FundooApp.Controllers
         /// Resets the password employee.
         /// </summary>
         /// <param name="resetPassword">The reset password.</param>
-        /// <returns>success message</returns>
+        /// <returns>response data</returns>
         [HttpPut]
         public IActionResult ResetPasswordEmployee([FromBody] ResetPassword resetPassword)
         {

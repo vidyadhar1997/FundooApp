@@ -41,7 +41,7 @@ namespace FundooApp.Controllers
         /// Adds the notes.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>response data</returns>
         [HttpPost]
         public ActionResult AddLables([FromBody] LableModel model)
         {
@@ -64,7 +64,7 @@ namespace FundooApp.Controllers
         /// <summary>
         /// Retrieves all lables.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>response data</returns>
         [HttpGet]
         public IActionResult RetrieveAllLables()
         {
@@ -86,8 +86,8 @@ namespace FundooApp.Controllers
         /// <summary>
         /// Retrieves the lables by identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">lable id</param>
+        /// <returns>response data</returns>
         [HttpGet]
         [Route("retrieveLablesById")]
         public IActionResult RetrieveLablesById(int id)
@@ -109,8 +109,8 @@ namespace FundooApp.Controllers
         /// <summary>
         /// Deletes the lable.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">lable id</param>
+        /// <returns>response data</returns>
         [HttpDelete]
         public IActionResult DeleteLable(int id)
         {
@@ -133,7 +133,7 @@ namespace FundooApp.Controllers
         /// Updates the lables.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>response data</returns>
         [HttpPut]
         public IActionResult UpdateLables([FromBody] LableModel model)
         {

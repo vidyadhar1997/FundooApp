@@ -27,7 +27,7 @@ namespace FundooManager.Manager
         /// Adds the collaborator.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string AddCollaborator(CollaboratorModel model)
         {
@@ -45,8 +45,8 @@ namespace FundooManager.Manager
         /// <summary>
         /// Deletes the collaborator.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">Collaborator id</param>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string DeleteCollaborator(int id)
         {
@@ -64,7 +64,7 @@ namespace FundooManager.Manager
         /// <summary>
         /// Gets the collaborator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public IEnumerable<CollaboratorModel> GetCollaborator()
         {

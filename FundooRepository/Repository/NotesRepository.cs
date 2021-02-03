@@ -85,8 +85,8 @@ namespace FundooRepository.Repository
         /// <summary>
         /// Retrieves the notes by identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id.</param>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public NotesModel RetrieveNotesById(int id)
         {
@@ -104,7 +104,7 @@ namespace FundooRepository.Repository
         /// <summary>
         /// Removes the note.
         /// </summary>
-        /// <param name="Id">The identifier.</param>
+        /// <param name="Id">note id</param>
         /// <returns>string message</returns>
         public string RemoveNote(int Id)
         {
@@ -157,7 +157,7 @@ namespace FundooRepository.Repository
         /// <summary>
         /// PinOrUnpin the notes
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string  PinOrUnpin(int id)
         {
@@ -191,8 +191,8 @@ namespace FundooRepository.Repository
         /// <summary>
         /// Archives the or unarchive.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
         public string ArchiveOrUnarchive(int id)
         {
@@ -226,7 +226,7 @@ namespace FundooRepository.Repository
         /// <summary>
         /// IsTrash 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string IsTrash(int id)
         {
@@ -337,6 +337,34 @@ namespace FundooRepository.Repository
                 return "Error While UnSet The Reminder";
             }
             catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adds the colour.
+        /// </summary>
+        /// <param name="id">note id.</param>
+        /// <param name="color">The color.</param>
+        /// <returns>string message</returns>
+        /// <exception cref="Exception"></exception>
+        public string AddColour(int id, string color)
+        {
+            try
+            {
+                var notes = this.userContext.Note_model.Find(id);
+                if (notes != null)
+                {
+                    notes.Colour = color;
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Color Is Set For This Note Successfully";
+                    return message;
+                }
+                return "Error While Setting The Color";
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

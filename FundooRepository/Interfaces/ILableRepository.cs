@@ -33,7 +33,7 @@ namespace FundooRepository.Interfaces
         /// <summary>
         /// Removes the lable.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="id">lable id</param>
         /// <returns>string message</returns>
         public string RemoveLable(int id);
 
@@ -47,7 +47,7 @@ namespace FundooRepository.Interfaces
         /// <summary>
         /// Retrieves the lable by identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="id">lable id.</param>
         /// <returns>string message</returns>
         public LableModel RetrieveLableById(int id);
     }

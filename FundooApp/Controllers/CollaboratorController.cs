@@ -57,8 +57,8 @@ namespace FundooApp.Controllers
         /// <summary>
         /// Deletes the collaborator.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">collaborator id</param>
+        /// <returns>response data</returns>
         [HttpDelete]
         public IActionResult DeleteCollaborator(int id)
         {
@@ -80,7 +80,7 @@ namespace FundooApp.Controllers
         /// <summary>
         /// Retrieves all collaborator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>response data</returns>
         [HttpGet]
         public IActionResult RetrieveAllCollaborator()
         {

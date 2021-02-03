@@ -34,13 +34,13 @@ namespace FundooRepository.Interfaces
         /// Retrieves the notes by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>note model</returns>
         public NotesModel RetrieveNotesById(int id);
 
         /// <summary>
         /// Removes the note.
         /// </summary>
-        /// <param name="Id">The identifier.</param>
+        /// <param name="Id">note id</param>
         /// <returns>string message</returns>
         public string RemoveNote(int Id);
 
@@ -54,7 +54,7 @@ namespace FundooRepository.Interfaces
         /// <summary>
         /// Pins the or unpin.
         /// </summary>
-        /// <param name="id">The identifier.</param>
+        /// <param name="id">note id</param>
         /// <returns></returns>
         public string PinOrUnpin(int id);
 
@@ -62,14 +62,14 @@ namespace FundooRepository.Interfaces
         /// Archives the or unarchive.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         public string ArchiveOrUnarchive(int id);
 
         /// <summary>
         /// Determines whether the specified identifier is trash.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
         public string IsTrash(int id);
 
         /// <summary>
@@ -92,5 +92,13 @@ namespace FundooRepository.Interfaces
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string UnSetReminder(int id);
+
+        /// <summary>
+        /// Adds the colour.
+        /// </summary>
+        /// <param name="id">note id.</param>
+        /// <param name="color">The color.</param>
+        /// <returns>string message</returns>
+        public string AddColour(int id, string color);
     }
 }

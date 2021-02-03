@@ -33,8 +33,8 @@ namespace FundooManager.Interface
         /// <summary>
         /// Retrieves the notes by identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>String message</returns>
         public NotesModel RetrieveNotesById(int id);
 
         /// <summary>
@@ -54,22 +54,22 @@ namespace FundooManager.Interface
         /// <summary>
         /// Pins the or unpin.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>String message</returns>
         public string PinOrUnpin(int id);
 
         /// <summary>
         /// Archives the or un archive.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>String message</returns>
         public string ArchiveOrUnArchive(int id);
 
         /// <summary>
         /// Determines whether the specified identifier is trash.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>String message</returns>
         public string isTrash(int id);
 
         /// <summary>
@@ -92,5 +92,13 @@ namespace FundooManager.Interface
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string UnsetReminder(int id);
+
+        /// <summary>
+        /// Add the color.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="color">The color.</param>
+        /// <returns>string message</returns>
+        public string AddColor(int id, string color);
     }
 }

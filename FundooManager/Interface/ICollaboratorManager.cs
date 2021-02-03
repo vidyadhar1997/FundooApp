@@ -11,20 +11,20 @@ namespace FundooManager.Interface
         /// Adds the collaborator.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>Success message</returns>
         public string AddCollaborator(CollaboratorModel model);
-        
+
         /// <summary>
         /// Deletes the collaborator.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">collaborator id</param>
+        /// <returns>Success message</returns>
         public string DeleteCollaborator(int id);
 
         /// <summary>
         /// Gets the collaborator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Success message</returns>
         public IEnumerable<CollaboratorModel> GetCollaborator();
     }
 }

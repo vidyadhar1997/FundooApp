@@ -18,34 +18,34 @@ namespace FundooManager.Interface
         /// Adds the lable.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>String message</returns>
         public string AddLable(LableModel model);
 
         /// <summary>
         /// Retrieves the lables.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>String message</returns>
         public IEnumerable<LableModel> RetrieveLables();
 
         /// <summary>
         /// Removes the lable.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">lable id</param>
+        /// <returns>String message</returns>
         public string RemoveLable(int id);
 
         /// <summary>
         /// Updates the lables.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>String message</returns>
         public string UpdateLables(LableModel model);
 
         /// <summary>
         /// Retrieves the lable by identifier.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <param name="id">lable id</param>
+        /// <returns>String message</returns>
         public LableModel RetrieveLableById(int id);
     }
 }
