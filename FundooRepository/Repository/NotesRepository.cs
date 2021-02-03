@@ -381,6 +381,7 @@ namespace FundooRepository.Repository
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
+        [Obsolete]
         public string UploadImage(int id, IFormFile noteimage)
         {
             try
@@ -390,15 +391,15 @@ namespace FundooRepository.Repository
                 {
                     Account account = new Account("ddtfdhioq", "584249449888143", "dUjpgfFHSgcgrDwK4FOBUZzrnPk");
                     var path = noteimage.OpenReadStream();
-                    notes.Image = path.ToString();
-                    userContext.Entry(notes).State = EntityState.Modified;
-                    userContext.SaveChanges();
                     Cloudinary cloudinary = new Cloudinary(account);
                     ImageUploadParams uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(noteimage.FileName, path)
                     };
                     var uploadResult = cloudinary.Upload(uploadParams);
+                    notes.Image=uploadResult.Uri.AbsolutePath;
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
                     string message = "Image Inserted For This Note Successfully";
                     return message;
                 }
