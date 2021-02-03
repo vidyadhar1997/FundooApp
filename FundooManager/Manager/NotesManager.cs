@@ -210,8 +210,27 @@ namespace FundooManager.Manager
         {
             try
             {
-                IEnumerable<NotesModel> notes = this.repository.RetrieveNotes();
+                IEnumerable<NotesModel> notes = this.repository.GetAllNotesWhoesReminderIsSet();
                 return notes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Unsets the reminder.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        /// <exception cref="Exception"></exception>
+        public string UnsetReminder(int id)
+        {
+            try
+            {
+                string result = this.repository.UnSetReminder(id);
+                return result;
             }
             catch (Exception ex)
             {

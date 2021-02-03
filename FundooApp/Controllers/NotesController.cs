@@ -271,5 +271,29 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Uns the set reminder.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>response data</returns>
+        [HttpPut]
+        [Route("unSetReminder")]
+        public IActionResult UnSetReminder(int id)
+        {
+            try
+            {
+                var result = this.notesManager.UnsetReminder(id);
+                if (result.Equals("Reminder Is UnSet For This Note Successfully"))
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                }
+                return this.BadRequest(new { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

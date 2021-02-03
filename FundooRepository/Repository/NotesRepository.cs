@@ -297,7 +297,7 @@ namespace FundooRepository.Repository
             try
             {
                 IEnumerable<NotesModel> result;
-                IEnumerable<NotesModel> notes = this.userContext.Note_model.Where(x=>x.Reminder.Length >0);
+                IEnumerable<NotesModel> notes = this.userContext.Note_model.Where(x=>x.Reminder.Length>0);
                 if (notes != null)
                 {
                     result = notes;
@@ -310,6 +310,33 @@ namespace FundooRepository.Repository
                 return result;
             }
             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Uns the set reminder.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        /// <exception cref="Exception"></exception>
+        public string UnSetReminder(int id)
+        {
+            try
+            {
+                var notes=this.userContext.Note_model.Find(id);
+                if (notes != null)
+                {
+                    notes.Reminder = null;
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    string message = "Reminder Is UnSet For This Note Successfully";
+                    return message;
+                }
+                return "Error While UnSet The Reminder";
+            }
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }

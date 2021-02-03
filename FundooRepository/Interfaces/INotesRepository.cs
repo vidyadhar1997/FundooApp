@@ -85,5 +85,12 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <returns>all notes whos reminder is set</returns>
         public IEnumerable<NotesModel> GetAllNotesWhoesReminderIsSet();
+
+        /// <summary>
+        /// Unset the reminder.
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string UnSetReminder(int id);
     }
 }
