@@ -13,6 +13,7 @@ namespace FundooApp.Controllers
     using System.Threading.Tasks;
     using FundooManager.Interface;
     using FundooModel.Models;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -320,5 +321,25 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        [HttpPut]
+        [Route("insertImage")]
+        public IActionResult InsertImage(IFormFile image, int id)
+        {
+            try
+            { 
+                var result = this.notesManager.UploadImage(id, image);
+                if (result.Equals("Image Inserted For This Note Successfully"))
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                }
+                return this.BadRequest(new { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
+

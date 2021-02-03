@@ -13,6 +13,7 @@ namespace FundooManager.Manager
     using FundooManager.Interface;
     using FundooModel.Models;
     using FundooRepository.Interfaces;
+    using Microsoft.AspNetCore.Http;
 
     /// <summary>
     /// NotesManager class
@@ -250,6 +251,26 @@ namespace FundooManager.Manager
             try
             {
                 string result = this.repository.AddColour(id, color);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Uploads the image.
+        /// </summary>
+        /// <param name="Noteimage">The noteimage.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string UploadImage(int id, IFormFile noteimage)
+        {
+            try
+            {
+                string result = this.repository.UploadImage(id,noteimage);
                 return result;
             }
             catch (Exception ex)

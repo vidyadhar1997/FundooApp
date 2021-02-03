@@ -9,11 +9,15 @@ namespace FundooRepository.Repository
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using FundooModel.Models;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
@@ -363,6 +367,42 @@ namespace FundooRepository.Repository
                     return message;
                 }
                 return "Error While Setting The Color";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Uploads the image.
+        /// </summary>
+        /// <param name="Noteimage">The noteimage.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string UploadImage(int id, IFormFile noteimage)
+        {
+            try
+            {
+                var notes = this.userContext.Note_model.Find(id);
+                if (notes != null)
+                {
+                    Account account = new Account("ddtfdhioq", "584249449888143", "dUjpgfFHSgcgrDwK4FOBUZzrnPk");
+                    var path = noteimage.OpenReadStream();
+                    notes.Image = path.ToString();
+                    userContext.Entry(notes).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    Cloudinary cloudinary = new Cloudinary(account);
+                    ImageUploadParams uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(noteimage.FileName, path)
+                    };
+                    var uploadResult = cloudinary.Upload(uploadParams);
+                    string message = "Image Inserted For This Note Successfully";
+                    return message;
+                }
+                return "Error While Inserting The Image";
             }
             catch (Exception ex)
             {

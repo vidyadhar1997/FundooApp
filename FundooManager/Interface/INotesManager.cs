@@ -11,6 +11,7 @@ namespace FundooManager.Interface
     using System.Collections.Generic;
     using System.Text;
     using FundooModel.Models;
+    using Microsoft.AspNetCore.Http;
 
     /// <summary>
     /// INotesManager interface
@@ -100,5 +101,13 @@ namespace FundooManager.Interface
         /// <param name="color">The color.</param>
         /// <returns>string message</returns>
         public string AddColor(int id, string color);
+
+        /// <summary>
+        /// Uploads the image.
+        /// </summary>
+        /// <param name="noteimage">The noteimage.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public string UploadImage(int id, IFormFile noteimage);
     }
 }
