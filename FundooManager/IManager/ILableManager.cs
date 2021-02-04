@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ILog.cs" company="Bridgelabz">
+// <copyright file="ILableManager.cs" company="Bridgelabz">
 //   Copyright © 2020 Company="BridgeLabz"
 // </copyright>
 // <creator name="Vidyadhar Suresh Hudge"/>
@@ -12,6 +12,9 @@ namespace FundooManager.Interface
     using System.Collections.Generic;
     using System.Text;
 
+    /// <summary>
+    ///  ILableManager interface
+    /// </summary>
     public interface ILableManager
     {
         /// <summary>

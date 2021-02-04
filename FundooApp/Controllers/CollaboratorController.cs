@@ -1,13 +1,20 @@
-﻿using FundooManager.Interface;
-using FundooModel.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CollaboratorController.cs" company="Bridgelabz">
+//   Copyright © 2020 Company="BridgeLabz"
+// </copyright>
+// <creator name="Vidyadhar Suresh Hudge"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace FundooApp.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using FundooManager.Interface;
+    using FundooModel.Models;
+    using Microsoft.AspNetCore.Mvc;
+
     /// <summary>
     /// CollaboratorController class
     /// </summary>
@@ -22,9 +29,9 @@ namespace FundooApp.Controllers
         private readonly ICollaboratorManager collaboratorManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LableController"/> class.
+        /// collaborator constructor <see cref="LableController"/> class.
         /// </summary>
-        /// <param name="lableManager">The lable manager.</param>
+        /// <param name="collaboratorManager">collaborator Manager.</param>
         public CollaboratorController(ICollaboratorManager collaboratorManager)
         {
             this.collaboratorManager = collaboratorManager;
@@ -34,7 +41,7 @@ namespace FundooApp.Controllers
         /// Adds the collaborators.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>response body</returns>
         [HttpPost]
         public ActionResult AddCollaborators([FromBody] CollaboratorModel model)
         {
@@ -44,8 +51,8 @@ namespace FundooApp.Controllers
                 if (result.Equals("NEW COLLABORATOR ADDED SUCCESSFULL"))
                 {
                     return this.Ok(new ResponseModel<CollaboratorModel>() { Status = true, Message = result, Data = model });
-
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Add Collaborator" });
             }
             catch (Exception ex)
@@ -69,6 +76,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Unable to delete collaborator : Enter valid Id" });
             }
             catch (Exception ex)
@@ -91,6 +99,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<IEnumerable<CollaboratorModel>>() { Status = true, Message = "Retrieve Collaborator Successfully", Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Collaborator" });
             }
             catch (Exception ex)

@@ -27,17 +27,21 @@ namespace FundooApp.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private ILog logger;
         /// <summary>
         /// The user
         /// </summary>
         private readonly IUserManager user;
 
         /// <summary>
+        /// The logger
+        /// </summary>
+        private ILog logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
         /// </summary>
-        /// <param name="userManager">The user manager.</param>
-        public UserController(IUserManager userManager, ILog logger )
+        /// <param name="userManager">user manager.</param>
+        public UserController(IUserManager userManager, ILog logger)
         {
             this.user = userManager;
             this.logger = logger; 
@@ -89,6 +93,7 @@ namespace FundooApp.Controllers
                     string token = this.user.GenerateToken(model.Email);
                     return this.Ok(new { Status = true, Message = result, Data = model, token });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to login the user :Email or Password mismatched" });
             }
             catch (Exception ex)

@@ -1,10 +1,20 @@
-﻿using FundooModel.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ILableRepository.cs" company="Bridgelabz">
+//   Copyright © 2020 Company="BridgeLabz"
+// </copyright>
+// <creator name="Vidyadhar Suresh Hudge"/>
+// ---------------------------------------------------------------------------------------------------------
 
 namespace FundooRepository.Interfaces
 {
+    using FundooModel.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    /// <summary>
+    ///  ICollaboratorRepository interface
+    /// </summary>
     public interface ICollaboratorRepository
     {
         /// <summary>

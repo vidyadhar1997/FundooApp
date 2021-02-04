@@ -38,7 +38,7 @@ namespace FundooRepository.Repository
         /// <summary>
         /// The secret key
         /// </summary>
-        private const string SECRETKEY = "this is my custom Secret key for authnetication";
+        private const string SECRETKEY = "SuperSecretKey@345fghhhhhhhhhhhhhhhhhhhhhhhhhhhhhfggggggg";
 
         /// <summary>
         /// The user context

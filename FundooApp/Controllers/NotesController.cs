@@ -13,6 +13,7 @@ namespace FundooApp.Controllers
     using System.Threading.Tasks;
     using FundooManager.Interface;
     using FundooModel.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,7 @@ namespace FundooApp.Controllers
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class NotesController : ControllerBase
     {
         /// <summary>
@@ -49,11 +51,12 @@ namespace FundooApp.Controllers
             try
             {
                 string result = this.notesManager.AddNotes(model);
+
                 if (result.Equals("ADD NOTES SUCCESSFULL"))
                 {
                     return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = result, Data = model });
-
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Add Notes" });
             }
             catch (Exception ex)
@@ -76,6 +79,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve Notes Successfully", Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
             }
             catch (Exception ex)
@@ -83,22 +87,24 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
         /// <summary>
         /// RetrieveNotesById to retrieve particular notes
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">note id</param>
         /// <returns>response data</returns>
         [HttpGet]
-        [Route("retrieveNotesById")]
-        public IActionResult RetrieveNotesById(int id)
+        [Route("{noteId}")]
+        public IActionResult RetrieveNotesById(int noteId)
         {
             try
             {
-                NotesModel result = this.notesManager.RetrieveNotesById(id);
+                NotesModel result = this.notesManager.RetrieveNotesById(noteId);
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = "Retrieve Notes By Id Successfully", Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes By id" });
             }
             catch (Exception ex)
@@ -113,15 +119,17 @@ namespace FundooApp.Controllers
         /// <param name="id">notes id</param>
         /// <returns>response data</returns>
         [HttpDelete]
-        public IActionResult DeleteNotes(int id)
+        [Route("{noteId}")]
+        public IActionResult DeleteNotes(int noteId)
         {
             try
             {
-                var result = this.notesManager.RemoveNote(id);
+                var result = this.notesManager.RemoveNote(noteId);
                 if (result.Equals("NOTES DELETED SUCCESSFULL"))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = noteId });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Unable to delete note : Enter valid Id" });
             }
             catch (Exception ex)
@@ -145,6 +153,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = result, Data = model });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Error while updating notes" });
             }
             catch (Exception ex)
@@ -160,15 +169,16 @@ namespace FundooApp.Controllers
         /// <returns>response data</returns>
         [HttpPut]
         [Route("pinOrUnpin")]
-        public IActionResult PinOrUnpinNote(int id)
+        public IActionResult PinOrUnpinNote(int noteId)
         {
             try
             {
-                var result = this.notesManager.PinOrUnpin(id);
+                var result = this.notesManager.PinOrUnpin(noteId);
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = result });
             }
             catch (Exception ex)
@@ -183,16 +193,17 @@ namespace FundooApp.Controllers
         /// <param name="id">The identifier.</param>
         /// <returns>response data</returns>
         [HttpPut]
-        [Route("archiveOrUnarchive")]
-        public IActionResult ArchiveOrUnarchive(int id)
+        [Route("archieveOrUnarchieve")]
+        public IActionResult ArchieveOrUnarchieve(int noteId)
         {
             try
             {
-                var result = this.notesManager.ArchiveOrUnArchive(id);
+                var result = this.notesManager.ArchiveOrUnArchive(noteId);
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = result });
             }
             catch (Exception ex)
@@ -202,12 +213,12 @@ namespace FundooApp.Controllers
         }
 
         /// <summary>
-        /// RetrieveAllArchiveNotes
+        /// Retrieve All Archive Notes 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>response body</returns>
         [HttpGet]
-        [Route("retrieveAllArchiveNotes")]
-        public IActionResult RetrieveAllArchiveNotes()
+        [Route("retrieveAllArchieveNotes")]
+        public IActionResult RetrieveAllArchieveNotes()
         {
             try
             {
@@ -216,6 +227,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve Notes Successfully", Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
             }
             catch (Exception ex)
@@ -231,15 +243,16 @@ namespace FundooApp.Controllers
         /// <returns>response data</returns>
         [HttpPut]
         [Route("trashOrUntrash")]
-        public IActionResult TrashOrUntrash(int id)
+        public IActionResult TrashOrUntrash(int noteId)
         {
             try
             {
-                var result = this.notesManager.isTrash(id);
+                var result = this.notesManager.isTrash(noteId);
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = result });
             }
             catch (Exception ex)
@@ -248,7 +261,10 @@ namespace FundooApp.Controllers
             }
         }
 
-       
+        /// <summary>
+        /// RetrieveAllTrashNotes method
+        /// </summary>
+        /// <returns>response data</returns>
         [HttpGet]
         [Route("retrieveAllTrashNotes")]
         public IActionResult RetrieveAllTrashNotes()
@@ -260,6 +276,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve Notes Successfully", Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
             }
             catch (Exception ex)
@@ -276,15 +293,16 @@ namespace FundooApp.Controllers
         /// <returns>response data</returns>
         [HttpPut]
         [Route("setReminder")]
-        public IActionResult SetReminder(int id,string reminder)
+        public IActionResult SetReminder(int noteId, string reminder)
         {
             try
             {
-                var result = this.notesManager.AddReminder(id,reminder);
+                var result = this.notesManager.AddReminder(noteId, reminder);
                 if (result.Equals("Reminder Is Set For This Note Successfully"))
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = reminder });
                 }
+
                 return this.BadRequest(new { Status = false, Message = result });
             }
             catch (Exception ex)
@@ -308,6 +326,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve All Notes Whose Reminder Is Set", Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
             }
             catch (Exception ex)
@@ -323,15 +342,16 @@ namespace FundooApp.Controllers
         /// <returns>response data</returns>
         [HttpPut]
         [Route("unSetReminder")]
-        public IActionResult UnSetReminder(int id)
+        public IActionResult UnSetReminder(int noteId)
         {
             try
             {
-                var result = this.notesManager.UnsetReminder(id);
+                var result = this.notesManager.UnsetReminder(noteId);
                 if (result.Equals("Reminder Is UnSet For This Note Successfully"))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = noteId });
                 }
+
                 return this.BadRequest(new { Status = false, Message = result });
             }
             catch (Exception ex)
@@ -348,15 +368,16 @@ namespace FundooApp.Controllers
         /// <returns>response data</returns>
         [HttpPut]
         [Route("addColor")]
-        public IActionResult AddColor(int id, string color)
+        public IActionResult AddColor(int noteId, string color)
         {
             try
             {
-                var result = this.notesManager.AddColor(id, color);
+                var result = this.notesManager.AddColor(noteId, color);
                 if (result.Equals("Color Is Set For This Note Successfully"))
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = color });
                 }
+
                 return this.BadRequest(new { Status = false, Message = result });
             }
             catch (Exception ex)
@@ -365,17 +386,24 @@ namespace FundooApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Insert Image
+        /// </summary>
+        /// <param name="image">image parameter</param>
+        /// <param name="id">note id</param>
+        /// <returns>response data</returns>
         [HttpPut]
-        [Route("insertImage")]
-        public IActionResult InsertImage(IFormFile image, int id)
+        [Route("uploadImage")]
+        public IActionResult UploadImage(int noteId, IFormFile image)
         {
             try
             { 
-                var result = this.notesManager.UploadImage(id, image);
+                var result = this.notesManager.UploadImage(noteId, image);
                 if (result.Equals("Image Inserted For This Note Successfully"))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = noteId });
                 }
+
                 return this.BadRequest(new { Status = false, Message = result });
             }
             catch (Exception ex)
@@ -385,4 +413,3 @@ namespace FundooApp.Controllers
         }
     }
 }
-

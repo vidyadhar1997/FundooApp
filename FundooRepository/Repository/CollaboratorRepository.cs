@@ -1,12 +1,23 @@
-﻿using FundooModel.Models;
-using FundooRepository.Context;
-using FundooRepository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CollaboratorRepository.cs" company="Bridgelabz">
+//   Copyright © 2020 Company="BridgeLabz"
+// </copyright>
+// <creator name="Vidyadhar Suresh Hudge"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace FundooRepository.Repository
 {
+    using FundooModel.Models;
+    using FundooRepository.Context;
+    using FundooRepository.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    /// <summary>
+    /// CollaboratorRepository class
+    /// </summary>
+    /// <seealso cref="FundooRepository.Interfaces.ICollaboratorRepository" />
     public class CollaboratorRepository : ICollaboratorRepository
     {
         /// <summary>

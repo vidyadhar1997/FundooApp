@@ -7,13 +7,13 @@
 
 namespace FundooApp.Controllers
 {
-    using FundooManager.Interface;
-    using FundooModel.Models;
-    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using FundooManager.Interface;
+    using FundooModel.Models;
+    using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// LableController class
@@ -43,7 +43,7 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns>response data</returns>
         [HttpPost]
-        public ActionResult AddLables([FromBody] LableModel model)
+        public ActionResult AddLable([FromBody] LableModel model)
         {
             try
             {
@@ -51,8 +51,8 @@ namespace FundooApp.Controllers
                 if (result.Equals("ADD LABLE SUCCESSFULL"))
                 {
                     return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = result, Data = model });
-
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Add Lable" });
             }
             catch (Exception ex)
@@ -75,6 +75,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<IEnumerable<LableModel>>() { Status = true, Message = "Retrieve Lables Successfully", Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Lables" });
             }
             catch (Exception ex)
@@ -89,16 +90,17 @@ namespace FundooApp.Controllers
         /// <param name="id">lable id</param>
         /// <returns>response data</returns>
         [HttpGet]
-        [Route("retrieveLablesById")]
-        public IActionResult RetrieveLablesById(int id)
+        [Route("lableId")]
+        public IActionResult RetrieveLableById(int lableId)
         {
             try
             {
-                LableModel result = this.lableManager.RetrieveLableById(id);
+                LableModel result = this.lableManager.RetrieveLableById(lableId);
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = "Retrieve Lable By Id Successfully", Data = result });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Lable By id" });
             }
             catch (Exception ex)
@@ -106,21 +108,24 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
         /// <summary>
         /// Deletes the lable.
         /// </summary>
         /// <param name="id">lable id</param>
         /// <returns>response data</returns>
         [HttpDelete]
-        public IActionResult DeleteLable(int id)
+        [Route("lableId")]
+        public IActionResult DeleteLable(int lableId)
         {
             try
             {
-                var result = this.lableManager.RemoveLable(id);
+                var result = this.lableManager.RemoveLable(lableId);
                 if (result.Equals("LABLE DELETED SUCCESSFULL"))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = lableId });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Unable to delete lable : Enter valid Id" });
             }
             catch (Exception ex)
@@ -135,7 +140,7 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns>response data</returns>
         [HttpPut]
-        public IActionResult UpdateLables([FromBody] LableModel model)
+        public IActionResult UpdateLable([FromBody] LableModel model)
         {
             try
             {
@@ -144,6 +149,7 @@ namespace FundooApp.Controllers
                 {
                     return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = result, Data = model });
                 }
+
                 return this.BadRequest(new { Status = false, Message = "Error while updating lables" });
             }
             catch (Exception ex)
@@ -151,6 +157,5 @@ namespace FundooApp.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
-
     }
 }
