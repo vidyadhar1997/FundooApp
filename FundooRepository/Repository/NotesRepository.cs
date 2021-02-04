@@ -228,6 +228,23 @@ namespace FundooRepository.Repository
         }
 
         /// <summary>
+        /// Retrieves the archive notes.
+        /// </summary>
+        /// <returns>all notes i archive</returns>
+        /// <exception cref="Exception"></exception>
+        public IEnumerable<NotesModel> RetrieveArchiveNotes()
+        {
+            try
+            {
+                IEnumerable<NotesModel>notes= this.userContext.Note_model.Where(x => x.Archive == true).ToList();
+                return notes;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        /// <summary>
         /// IsTrash 
         /// </summary>
         /// <param name="id">note id</param>
@@ -250,11 +267,11 @@ namespace FundooRepository.Repository
                     notes.isTrash = false;
                     userContext.Entry(notes).State = EntityState.Modified;
                     userContext.SaveChanges();
-                    string message = "Note UnTrashed";
+                    string message = "Note Restored";
                     return message;
                 }
 
-                return "Unable to Trash or UnTrashed notes";
+                return "Unable to Trash or Restored notes";
             }
             catch (Exception ex)
             {

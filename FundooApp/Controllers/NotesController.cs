@@ -202,6 +202,29 @@ namespace FundooApp.Controllers
         }
 
         /// <summary>
+        /// RetrieveAllArchiveNotes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("retrieveAllArchiveNotes")]
+        public IActionResult RetrieveAllArchiveNotes()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notesManager.RetrieveArchiveNotes();
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve Notes Successfully", Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Trashes the or untrash.
         /// </summary>
         /// <param name="id">The identifier.</param>

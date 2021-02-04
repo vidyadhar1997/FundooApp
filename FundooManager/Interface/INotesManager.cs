@@ -67,6 +67,12 @@ namespace FundooManager.Interface
         public string ArchiveOrUnArchive(int id);
 
         /// <summary>
+        /// Retrieves the archive notes.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<NotesModel> RetrieveArchiveNotes();
+
+        /// <summary>
         /// Determines whether the specified identifier is trash.
         /// </summary>
         /// <param name="id">note id</param>

@@ -164,6 +164,24 @@ namespace FundooManager.Manager
         }
 
         /// <summary>
+        /// Retrieves the archive notes.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public IEnumerable<NotesModel> RetrieveArchiveNotes()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.repository.RetrieveArchiveNotes();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Determines whether the specified identifier is trash.
         /// </summary>
         /// <param name="id">note id</param>
