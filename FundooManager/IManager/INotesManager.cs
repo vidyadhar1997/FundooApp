@@ -80,6 +80,12 @@ namespace FundooManager.Interface
         public string isTrash(int noteId);
 
         /// <summary>
+        /// Empties the trash.
+        /// </summary>
+        /// <returns></returns>
+        public bool EmptyTrash();
+
+        /// <summary>
         /// Retrieves the trash notes.
         /// </summary>
         /// <returns></returns>

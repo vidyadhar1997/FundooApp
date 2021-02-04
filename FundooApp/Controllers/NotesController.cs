@@ -262,6 +262,30 @@ namespace FundooApp.Controllers
         }
 
         /// <summary>
+        /// Empties the trash.
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("emptyTrash")]
+        public IActionResult EmptyTrash()
+        {
+            try
+            {
+                var result= this.notesManager.EmptyTrash();
+                if (result.Equals(true))
+                {
+                    return this.Ok(new ResponseModel<bool>() { Status = true, Message = "All Trashed Note Deleted Successfully", Data = result });
+                }
+
+                return this.BadRequest(new { Status = false, Message = "Unable to delete Trash note : Something went wrong" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+           
+        /// <summary>
         /// RetrieveAllTrashNotes method
         /// </summary>
         /// <returns>response data</returns>

@@ -308,6 +308,34 @@ namespace FundooRepository.Repository
         }
 
         /// <summary>
+        /// Empties the trash.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public bool EmptyTrash()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result =this.userContext.Note_model.Where(x => x.isTrash == true).ToList();
+                if (result != null)
+                {
+                    foreach(var trash in result)
+                    {
+                        this.userContext.Note_model.Remove(trash);
+                        this.userContext.SaveChangesAsync();
+                    }
+                
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+          
+        /// <summary>
         /// Adds the reminder.
         /// </summary>
         /// <param name="id">Note Id</param>
@@ -415,7 +443,7 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
-
+    
         /// <summary>
         /// Uploads the image.
         /// </summary>
@@ -431,9 +459,8 @@ namespace FundooRepository.Repository
                 var notes = this.userContext.Note_model.Find(noteId);
                 if (notes != null)
                 {
-                    /*Account account = new Account("ddtfdhioq", "584249449888143", "dUjpgfFHSgcgrDwK4FOBUZzrnPk");*/
                     Account account = new Account
-                        (
+                    (
                         configuration["CloudinaryAccount:CloudName"],
                         configuration["CloudinaryAccount:ApiKey"],
                         configuration["CloudinaryAccount:ApiSecret"]

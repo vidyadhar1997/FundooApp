@@ -201,6 +201,24 @@ namespace FundooManager.Manager
         }
 
         /// <summary>
+        /// Empties the trash.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public bool EmptyTrash()
+        {
+            try
+            {
+                bool result = this.repository.EmptyTrash();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Retrieves the trash notes.
         /// </summary>
         /// <returns></returns>

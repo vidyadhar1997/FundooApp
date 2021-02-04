@@ -86,6 +86,12 @@ namespace FundooRepository.Interfaces
         public IEnumerable<NotesModel> RetrieveTrashNotes();
 
         /// <summary>
+        /// Empties the trash.
+        /// </summary>
+        /// <returns></returns>
+        public bool EmptyTrash();
+
+        /// <summary>
         /// Adds the reminder.
         /// </summary>
         /// <param name="id">note id.</param>
