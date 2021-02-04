@@ -50,11 +50,11 @@ namespace FundooApp.Controllers
         {
             try
             {
-                string result = this.notesManager.AddNotes(model);
+                bool result = this.notesManager.AddNotes(model);
 
-                if (result.Equals("ADD NOTES SUCCESSFULL"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = result, Data = model });
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = "Notes Added Successfully", Data = model });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Failed to Add Notes" });
@@ -125,9 +125,9 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.notesManager.RemoveNote(noteId);
-                if (result.Equals("NOTES DELETED SUCCESSFULL"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = noteId });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Delete Note Successfully", Data = noteId });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Unable to delete note : Enter valid Id" });
@@ -298,9 +298,9 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.notesManager.AddReminder(noteId, reminder);
-                if (result.Equals("Reminder Is Set For This Note Successfully"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = reminder });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Reminder Set Successfully", Data = reminder });
                 }
 
                 return this.BadRequest(new { Status = false, Message = result });
@@ -347,9 +347,9 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.notesManager.UnsetReminder(noteId);
-                if (result.Equals("Reminder Is UnSet For This Note Successfully"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = noteId });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Unset Reminder For Note Sucessfully", Data = noteId });
                 }
 
                 return this.BadRequest(new { Status = false, Message = result });
@@ -373,9 +373,9 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.notesManager.AddColor(noteId, color);
-                if (result.Equals("Color Is Set For This Note Successfully"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = color });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Add Colour Sucessfully", Data = color });
                 }
 
                 return this.BadRequest(new { Status = false, Message = result });
@@ -399,9 +399,9 @@ namespace FundooApp.Controllers
             try
             { 
                 var result = this.notesManager.UploadImage(noteId, image);
-                if (result.Equals("Image Inserted For This Note Successfully"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = noteId });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Upload Image Successfully", Data = noteId });
                 }
 
                 return this.BadRequest(new { Status = false, Message = result });

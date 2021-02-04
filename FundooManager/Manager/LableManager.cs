@@ -40,11 +40,11 @@ namespace FundooManager.Manager
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddLable(LableModel model)
+        public bool AddLable(LableModel model)
         {
             try
             {
-                string result = this.repository.AddLable(model);
+                bool result = this.repository.AddLable(model);
                 return result;
             }
             catch (Exception ex)
@@ -102,11 +102,11 @@ namespace FundooManager.Manager
         /// <param name="id">lable id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string RemoveLable(int lableId)
+        public bool RemoveLable(int lableId)
         {
             try
             {
-                string result = this.repository.RemoveLable(lableId);
+                bool result = this.repository.RemoveLable(lableId);
                 return result;
             }
             catch (Exception ex)

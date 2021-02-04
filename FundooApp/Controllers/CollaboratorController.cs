@@ -47,10 +47,10 @@ namespace FundooApp.Controllers
         {
             try
             {
-                string result = this.collaboratorManager.AddCollaborator(model);
-                if (result.Equals("NEW COLLABORATOR ADDED SUCCESSFULL"))
+                bool result = this.collaboratorManager.AddCollaborator(model);
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<CollaboratorModel>() { Status = true, Message = result, Data = model });
+                    return this.Ok(new ResponseModel<CollaboratorModel>() { Status = true, Message = "New Collaborator Added Sucessfully", Data = model });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Failed to Add Collaborator" });
@@ -72,9 +72,9 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.collaboratorManager.DeleteCollaborator(collaboratorId);
-                if (result.Equals("COLLABORATOR DELETED SUCCESSFULL"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = collaboratorId });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Collaborator Deleted Sucessfully", Data = collaboratorId });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Unable to delete collaborator : Enter valid Id" });

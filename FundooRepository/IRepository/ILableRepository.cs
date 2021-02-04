@@ -22,7 +22,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
-        public string AddLable(LableModel model);
+        public bool AddLable(LableModel model);
 
         /// <summary>
         /// Retrieves the notes.
@@ -35,7 +35,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="id">lable id</param>
         /// <returns>string message</returns>
-        public string RemoveLable(int lableId);
+        public bool RemoveLable(int lableId);
 
         /// <summary>
         /// Updates the lables.

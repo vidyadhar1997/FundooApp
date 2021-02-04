@@ -45,13 +45,20 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>return message</returns>
-        public string AddNotes(NotesModel model)
+        public bool AddNotes(NotesModel model)
         {
             try
             {
                 this.userContext.Note_model.Add(model);
-                this.userContext.SaveChanges();
-                return "ADD NOTES SUCCESSFULL";
+                var notes=this.userContext.SaveChanges();
+                if (notes > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch(Exception ex)
             {
@@ -96,7 +103,7 @@ namespace FundooRepository.Repository
         {
             try
             {
-                NotesModel notes = this.userContext.Note_model.Find(noteId);
+                NotesModel notes = this.userContext.Note_model.Where(x => x.NoteId == noteId).SingleOrDefault();
                 return notes;
             }
             catch (Exception ex)
@@ -110,24 +117,24 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="Id">note id</param>
         /// <returns>string message</returns>
-        public string RemoveNote(int noteId)
+        public bool RemoveNote(int noteId)
         {
             try
             {
                 if (noteId > 0)
                 {
-                    var notes = this.userContext.Note_model.Find(noteId);
+                    var notes = this.userContext.Note_model.Where(x => x.NoteId == noteId).SingleOrDefault();
                     if (notes != null)
                     {
                         if (notes.isTrash == true)
                         {
                             this.userContext.Note_model.Remove(notes);
                             this.userContext.SaveChangesAsync();
-                            return "NOTES DELETED SUCCESSFULL";
+                            return true;
                         }
                     }
                 }
-                return "First trash note then delete it";
+                return false;
             }
             catch (Exception ex)
             {
@@ -271,7 +278,7 @@ namespace FundooRepository.Repository
                     return message;
                 }
 
-                return "Unable to Trash or Restored notes";
+                return "Unable to Trash or Restored notes"; ;
             }
             catch (Exception ex)
             {
@@ -304,20 +311,19 @@ namespace FundooRepository.Repository
         /// <param name="reminder">The reminder.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddReminder(int noteId, string reminder)
+        public bool AddReminder(int noteId, string reminder)
         {
             try
             {
-               var notes= this.userContext.Note_model.Find(noteId);
+               var notes= this.userContext.Note_model.Where(x=>x.NoteId==noteId).FirstOrDefault();
                 if (notes != null)
                 {
                     notes.Reminder = reminder;
                     userContext.Entry(notes).State = EntityState.Modified;
                     userContext.SaveChanges();
-                    string message = "Reminder Is Set For This Note Successfully";
-                    return message;
+                    return true;
                 }
-                return "Error While Setting The Reminder";
+                return false;
             }
             catch(Exception ex)
             {
@@ -360,20 +366,19 @@ namespace FundooRepository.Repository
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string UnSetReminder(int noteId)
+        public bool UnSetReminder(int noteId)
         {
             try
             {
-                var notes=this.userContext.Note_model.Find(noteId);
+                var notes=this.userContext.Note_model.Where(x=>x.NoteId==noteId).SingleOrDefault();
                 if (notes != null)
                 {
                     notes.Reminder = null;
                     userContext.Entry(notes).State = EntityState.Modified;
                     userContext.SaveChanges();
-                    string message = "Reminder Is UnSet For This Note Successfully";
-                    return message;
+                    return true;
                 }
-                return "Error While UnSet The Reminder";
+                return false;
             }
             catch(Exception ex)
             {
@@ -388,7 +393,7 @@ namespace FundooRepository.Repository
         /// <param name="color">The color.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddColour(int noteId, string color)
+        public bool AddColour(int noteId, string color)
         {
             try
             {
@@ -398,10 +403,9 @@ namespace FundooRepository.Repository
                     notes.Colour = color;
                     userContext.Entry(notes).State = EntityState.Modified;
                     userContext.SaveChanges();
-                    string message = "Color Is Set For This Note Successfully";
-                    return message;
+                    return true;
                 }
-                return "Error While Setting The Color";
+                return false;
             }
             catch (Exception ex)
             {
@@ -417,7 +421,7 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         [Obsolete]
-        public string UploadImage(int noteId, IFormFile noteimage)
+        public bool UploadImage(int noteId, IFormFile noteimage)
         {
             try
             {
@@ -435,10 +439,9 @@ namespace FundooRepository.Repository
                     notes.Image=uploadResult.Uri.AbsolutePath;
                     userContext.Entry(notes).State = EntityState.Modified;
                     userContext.SaveChanges();
-                    string message = "Image Inserted For This Note Successfully";
-                    return message;
+                    return true;
                 }
-                return "Error While Inserting The Image";
+                return false;
             }
             catch (Exception ex)
             {

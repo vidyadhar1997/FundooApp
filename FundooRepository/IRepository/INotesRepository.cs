@@ -23,7 +23,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
-        public string AddNotes(NotesModel model);
+        public bool AddNotes(NotesModel model);
 
         /// <summary>
         /// Retrieves the notes.
@@ -43,7 +43,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="Id">note id</param>
         /// <returns>string message</returns>
-        public string RemoveNote(int Id);
+        public bool RemoveNote(int Id);
 
         /// <summary>
         /// Updates the notes.
@@ -91,7 +91,7 @@ namespace FundooRepository.Interfaces
         /// <param name="id">note id.</param>
         /// <param name="reminder">The reminder.</param>
         /// <returns>string message</returns>
-        public string AddReminder(int id, string reminder);
+        public bool AddReminder(int id, string reminder);
 
         /// <summary>
         /// Gets all notes whoes reminder is set.
@@ -104,7 +104,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
-        public string UnSetReminder(int id);
+        public bool UnSetReminder(int id);
 
         /// <summary>
         /// Adds the colour.
@@ -112,7 +112,7 @@ namespace FundooRepository.Interfaces
         /// <param name="id">note id.</param>
         /// <param name="color">The color.</param>
         /// <returns>string message</returns>
-        public string AddColour(int id, string color);
+        public bool AddColour(int id, string color);
 
         /// <summary>
         /// Uploads the image.
@@ -120,6 +120,6 @@ namespace FundooRepository.Interfaces
         /// <param name="Noteimage">The noteimage.</param>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public string UploadImage(int id, IFormFile noteimage);
+        public bool UploadImage(int id, IFormFile noteimage);
     }
 }

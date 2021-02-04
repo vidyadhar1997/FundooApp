@@ -47,10 +47,10 @@ namespace FundooApp.Controllers
         {
             try
             {
-                string result = this.lableManager.AddLable(model);
-                if (result.Equals("ADD LABLE SUCCESSFULL"))
+                bool result = this.lableManager.AddLable(model);
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = result, Data = model });
+                    return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = "Add Lable Sucessfully", Data = model });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Failed to Add Lable" });
@@ -121,9 +121,9 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.lableManager.RemoveLable(lableId);
-                if (result.Equals("LABLE DELETED SUCCESSFULL"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = lableId });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Delete Lable Sucessfully", Data = lableId });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Unable to delete lable : Enter valid Id" });

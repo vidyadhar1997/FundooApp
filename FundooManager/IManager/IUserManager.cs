@@ -22,7 +22,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>result containing SUCCESS message</returns>
-        public string Register(RegisterModel model);
+        public bool Register(RegisterModel model);
 
         /// <summary>
         /// Logins the specified email.
@@ -30,7 +30,7 @@ namespace FundooManager.Interface
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
         /// <returns>LOGIN SUCCESS message</returns>
-        public string Login(string email, string password);
+        public bool Login(string email, string password);
 
         /// <summary>
         /// Generates the token.
@@ -44,13 +44,13 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
         /// <returns>string message</returns>
-        public string SendEmail(string emailAddress);
+        public bool SendEmail(string emailAddress);
 
         /// <summary>
         /// Resets the password.
         /// </summary>
         /// <param name="resetPassword">The reset password.</param>
         /// <returns>string message</returns>
-        public string ResetPassword(ResetPassword resetPassword);
+        public bool ResetPassword(ResetPassword resetPassword);
     }
 }

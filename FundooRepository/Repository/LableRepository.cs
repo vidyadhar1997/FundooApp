@@ -42,13 +42,13 @@ namespace FundooRepository.Repository
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddLable(LableModel model)
+        public bool AddLable(LableModel model)
         {
             try
             {
                 this.userContext.Lable_Models.Add(model);
                 this.userContext.SaveChanges();
-                return "ADD LABLE SUCCESSFULL";
+                return true;
             }
             catch (Exception ex)
             {
@@ -108,7 +108,7 @@ namespace FundooRepository.Repository
         /// <param name="id">lable id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception">ex.message</exception>
-        public string RemoveLable(int lableId)
+        public bool RemoveLable(int lableId)
         {
             try
             {
@@ -117,9 +117,9 @@ namespace FundooRepository.Repository
                     var lables = this.userContext.Lable_Models.Find(lableId);
                     this.userContext.Lable_Models.Remove(lables);
                     this.userContext.SaveChangesAsync();
-                    return "LABLE DELETED SUCCESSFULL";
+                    return true;
                 }
-                return "Unable to delete lable:id is not correct";
+                return false;
             }
             catch (Exception ex)
             {

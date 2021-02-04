@@ -40,11 +40,11 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
-        public string AddNotes(NotesModel model)
+        public bool AddNotes(NotesModel model)
         {
             try
             {
-                string result = this.repository.AddNotes(model);
+                bool result = this.repository.AddNotes(model);
                 return result;
             }
             catch(Exception ex)
@@ -94,11 +94,11 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="Id">note id</param>
         /// <returns>string message</returns>
-        public string RemoveNote(int noteId)
+        public bool RemoveNote(int noteId)
         {
             try
             {
-                string result = this.repository.RemoveNote(noteId);
+                bool result = this.repository.RemoveNote(noteId);
                 return result;
             }
             catch (Exception ex)
@@ -225,11 +225,11 @@ namespace FundooManager.Manager
         /// <param name="reminder">The reminder.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddReminder(int noteId, string reminder)
+        public bool AddReminder(int noteId, string reminder)
         {
             try
             {
-                string result= this.repository.AddReminder(noteId, reminder);
+                bool result = this.repository.AddReminder(noteId, reminder);
                 return result;
             }
             catch(Exception ex)
@@ -262,11 +262,11 @@ namespace FundooManager.Manager
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string UnsetReminder(int noteId)
+        public bool UnsetReminder(int noteId)
         {
             try
             {
-                string result = this.repository.UnSetReminder(noteId);
+                bool result = this.repository.UnSetReminder(noteId);
                 return result;
             }
             catch (Exception ex)
@@ -282,11 +282,11 @@ namespace FundooManager.Manager
         /// <param name="color">The color.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddColor(int noteId, string color)
+        public bool AddColor(int noteId, string color)
         {
             try
             {
-                string result = this.repository.AddColour(noteId, color);
+                bool result = this.repository.AddColour(noteId, color);
                 return result;
             }
             catch (Exception ex)
@@ -302,11 +302,11 @@ namespace FundooManager.Manager
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public string UploadImage(int noteId, IFormFile noteimage)
+        public bool UploadImage(int noteId, IFormFile noteimage)
         {
             try
             {
-                string result = this.repository.UploadImage(noteId, noteimage);
+                bool result = this.repository.UploadImage(noteId, noteimage);
                 return result;
             }
             catch (Exception ex)

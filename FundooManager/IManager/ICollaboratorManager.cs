@@ -14,14 +14,14 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>Success message</returns>
-        public string AddCollaborator(CollaboratorModel model);
+        public bool AddCollaborator(CollaboratorModel model);
 
         /// <summary>
         /// Deletes the collaborator.
         /// </summary>
         /// <param name="id">collaborator id</param>
         /// <returns>Success message</returns>
-        public string DeleteCollaborator(int collaboratorId);
+        public bool DeleteCollaborator(int collaboratorId);
 
         /// <summary>
         /// Gets the collaborator.

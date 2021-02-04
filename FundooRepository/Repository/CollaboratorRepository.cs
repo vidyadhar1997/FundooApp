@@ -40,13 +40,13 @@ namespace FundooRepository.Repository
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddCollaborator(CollaboratorModel model)
+        public bool AddCollaborator(CollaboratorModel model)
         {
             try
             {
                 this.userContext.Collaborator.Add(model);
                 this.userContext.SaveChanges();
-                return "NEW COLLABORATOR ADDED SUCCESSFULL";
+                return true;
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace FundooRepository.Repository
         /// <param name="id">collaborator id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string DeleteCollaborator(int collaboratorId)
+        public bool DeleteCollaborator(int collaboratorId)
         {
             try
             {
@@ -69,9 +69,9 @@ namespace FundooRepository.Repository
                     var collaborator = this.userContext.Collaborator.Find(collaboratorId);
                     this.userContext.Collaborator.Remove(collaborator);
                     this.userContext.SaveChangesAsync();
-                    return "COLLABORATOR DELETED SUCCESSFULL";
+                    return true;
                 }
-                return "Unable to delete collaborator:id is not correct";
+                return false;
             }
             catch (Exception ex)
             {

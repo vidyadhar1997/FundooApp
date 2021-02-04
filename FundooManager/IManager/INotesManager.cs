@@ -23,7 +23,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
-        public string AddNotes(NotesModel model);
+        public bool AddNotes(NotesModel model);
 
         /// <summary>
         /// Retrieves the notes.
@@ -43,7 +43,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="Id">The identifier.</param>
         /// <returns>string message</returns>
-        public string RemoveNote(int noteId);
+        public bool RemoveNote(int noteId);
 
         /// <summary>
         /// Updates the notes.
@@ -77,7 +77,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>String message</returns>
-        public string isTrash(int id);
+        public string isTrash(int noteId);
 
         /// <summary>
         /// Retrieves the trash notes.
@@ -91,7 +91,7 @@ namespace FundooManager.Interface
         /// <param name="id">note id</param>
         /// <param name="reminder">The reminder.</param>
         /// <returns>string message</returns>
-        public string AddReminder(int noteId, string reminder);
+        public bool AddReminder(int noteId, string reminder);
 
         /// <summary>
         /// Gets all notes whoes reminder is set.
@@ -104,7 +104,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
-        public string UnsetReminder(int noteId);
+        public bool UnsetReminder(int noteId);
 
         /// <summary>
         /// Add the color.
@@ -112,7 +112,7 @@ namespace FundooManager.Interface
         /// <param name="id">note id</param>
         /// <param name="color">The color.</param>
         /// <returns>string message</returns>
-        public string AddColor(int noteId, string color);
+        public bool AddColor(int noteId, string color);
 
         /// <summary>
         /// Uploads the image.
@@ -120,6 +120,6 @@ namespace FundooManager.Interface
         /// <param name="noteimage">The noteimage.</param>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public string UploadImage(int noteId, IFormFile noteimage);
+        public bool UploadImage(int noteId, IFormFile noteimage);
     }
 }

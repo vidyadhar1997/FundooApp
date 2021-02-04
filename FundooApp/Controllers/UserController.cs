@@ -57,10 +57,10 @@ namespace FundooApp.Controllers
         {
             try
             {
-                string result = this.user.Register(model);
-                if (result.Equals("REGISTERATION SUCCESSFULL"))
+                var result = this.user.Register(model);
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<RegisterModel>() { Status = true, Message = result, Data = model });
+                    return this.Ok(new ResponseModel<RegisterModel>() { Status = true, Message = "Add new User Sucessfully", Data = model });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Failed to add new user data" });
@@ -69,7 +69,6 @@ namespace FundooApp.Controllers
             {
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
-
         }
 
         /// <summary>
@@ -88,10 +87,10 @@ namespace FundooApp.Controllers
                 logger.Debug("Debgue is logged");
                 logger.Error("Error is logged");
                 var result = this.user.Login(model.Email, model.Password);
-                if (result.Equals("LOGIN SUCCESS"))
+                if (result.Equals(true))
                 {
                     string token = this.user.GenerateToken(model.Email);
-                    return this.Ok(new { Status = true, Message = result, Data = model, token });
+                    return this.Ok(new { Status = true, Message = "Login Sucessfully", Data = model, token });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Failed to login the user :Email or Password mismatched" });
@@ -114,9 +113,9 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.user.SendEmail(emailAddress);
-                if (result.Equals("MAIL SENT SUCCESSFULLY"))
+                if (result.Equals(result))
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = emailAddress });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Mail Sent Sucessfully", Data = emailAddress });
                 }
                 return this.BadRequest(new { Status = false, Message = "Email is not correct:Please enter valid email" });
             }
@@ -137,9 +136,9 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.user.ResetPassword(resetPassword);
-                if (result.Equals("RESET PASSWORD SUCCESSFULL"))
+                if (result.Equals(true))
                 {
-                    return this.Ok(new ResponseModel<ResetPassword>() { Status = true, Message = result, Data = resetPassword });
+                    return this.Ok(new ResponseModel<ResetPassword>() { Status = true, Message = "Reset Password Link Sent Sucessfully", Data = resetPassword });
                 }
                 return this.BadRequest(new { Status = false, Message = "Failed to reset password:Email not exist in database or password is not matched" });
             }

@@ -59,14 +59,18 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>success message</returns>
-        public string Register(RegisterModel model)
+        public bool Register(RegisterModel model)
         {
             try
             {
                 model.Password = EncryptPassword(model.Password);
                 this.userContext.Register_Models.Add(model);
-                this.userContext.SaveChanges();
-                return "REGISTERATION SUCCESSFULL";
+                var emp=this.userContext.SaveChanges();
+                if(emp > 0)
+                {
+                    return true;
+                }
+                return false;
             }
             catch(Exception ex)
             {
@@ -100,16 +104,15 @@ namespace FundooRepository.Repository
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
         /// <returns>LOGIN SUCCESS message</returns>
-        public string Login(string email, string password)
+        public bool Login(string email, string password)
         {
             try
             {
-                string message;
                 password = EncryptPassword(password);
                 var login = this.userContext.Register_Models.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
                 if (login != null)
                 {
-                    message = "LOGIN SUCCESS";
+                    return true;
                     //Redis cache implemetation
                    /* ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
                     IDatabase database = connectionMultiplexer.GetDatabase();
@@ -118,9 +121,8 @@ namespace FundooRepository.Repository
                 }
                 else
                 {
-                    message = "LOGIN UNSUCCESSFUL";
+                    return false;
                 }
-                return message;
             }
             catch(Exception ex)
             {
@@ -133,7 +135,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="emailAddress">email Address</param>
         /// <returns>success message</returns>
-        public string SendEmail(string emailAddress)
+        public bool SendEmail(string emailAddress)
         {
             try
             {
@@ -162,11 +164,11 @@ namespace FundooRepository.Repository
                         smtp.Send(mailMessage);
                     }
 
-                    return "MAIL SENT SUCCESSFULLY";
+                    return true;
                 }
                 else
                 {
-                    return "Error while sending mail ";
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -180,7 +182,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="resetPassword">reset Password</param>
         /// <returns>success message</returns>
-        public string ResetPassword(ResetPassword resetPassword)
+        public bool ResetPassword(ResetPassword resetPassword)
         {
             try
             {
@@ -192,16 +194,16 @@ namespace FundooRepository.Repository
                         Entries.Password = EncryptPassword(resetPassword.Password);
                         this.userContext.Entry(Entries).State = EntityState.Modified;
                         this.userContext.SaveChanges();
-                        return "RESET PASSWORD SUCCESSFULL";
+                        return true;
                     }
                     else
                     {
-                        return "Password And Confirm Password Not Matched";
+                        return false;
                     }
                 }
                 else
                 {
-                    return "NOT FOUND";
+                    return false;
                 }
             }
             catch (Exception ex)

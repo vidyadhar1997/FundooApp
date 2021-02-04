@@ -29,11 +29,11 @@ namespace FundooManager.Manager
         /// <param name="model">The model.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddCollaborator(CollaboratorModel model)
+        public bool AddCollaborator(CollaboratorModel model)
         {
             try
             {
-                string result = this.repository.AddCollaborator(model);
+                bool result = this.repository.AddCollaborator(model);
                 return result;
             }
             catch (Exception ex)
@@ -48,11 +48,11 @@ namespace FundooManager.Manager
         /// <param name="id">Collaborator id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string DeleteCollaborator(int collaboratorId)
+        public bool DeleteCollaborator(int collaboratorId)
         {
             try
             {
-                string result = this.repository.DeleteCollaborator(collaboratorId);
+                bool result = this.repository.DeleteCollaborator(collaboratorId);
                 return result;
             }
             catch (Exception ex)

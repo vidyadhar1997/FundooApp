@@ -41,11 +41,11 @@ namespace FundooManager.Manager
         /// <returns>
         /// result containing SUCCESS message
         /// </returns>
-        public string Register(RegisterModel model)
+        public bool Register(RegisterModel model)
         {
             try
             {
-                string result = this.repository.Register(model);
+                bool result = this.repository.Register(model);
                 return result;
             }
             catch(Exception ex)
@@ -61,11 +61,11 @@ namespace FundooManager.Manager
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
         /// <returns>LOGIN SUCCESS message</returns>
-        public string Login(string email, string password)
+        public bool Login(string email, string password)
         {
             try
             {
-                string result = this.repository.Login(email, password);
+                bool result = this.repository.Login(email, password);
                 return result;
             }
             catch (Exception ex)
@@ -79,11 +79,11 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
         /// <returns>string result</returns>
-        public string SendEmail(string emailAddress)
+        public bool SendEmail(string emailAddress)
         {
             try
             {
-                string result = this.repository.SendEmail(emailAddress);
+                bool result = this.repository.SendEmail(emailAddress);
                 return result;
             }
             catch (Exception ex)
@@ -97,11 +97,11 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="resetPassword">The reset password.</param>
         /// <returns>string result</returns>
-        public string ResetPassword(ResetPassword resetPassword)
+        public bool ResetPassword(ResetPassword resetPassword)
         {
             try
             {
-                string result = this.repository.ResetPassword(resetPassword);
+                bool result = this.repository.ResetPassword(resetPassword);
                 return result;
             }
             catch (Exception ex)
