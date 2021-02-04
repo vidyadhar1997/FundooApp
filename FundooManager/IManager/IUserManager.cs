@@ -21,7 +21,7 @@ namespace FundooManager.Interface
         /// Registers the specified model.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>result containing SUCCESS message</returns>
+        /// <returns>return true or false</returns>
         public bool Register(RegisterModel model);
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
-        /// <returns>LOGIN SUCCESS message</returns>
+        /// <returns>return true or false</returns>
         public bool Login(string email, string password);
 
         /// <summary>
@@ -43,14 +43,14 @@ namespace FundooManager.Interface
         /// Sends the email.
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool SendEmail(string emailAddress);
 
         /// <summary>
         /// Resets the password.
         /// </summary>
         /// <param name="resetPassword">The reset password.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool ResetPassword(ResetPassword resetPassword);
     }
 }

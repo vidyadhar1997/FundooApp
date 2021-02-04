@@ -22,7 +22,7 @@ namespace FundooRepository.Interfaces
         /// Adds the notes.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool AddNotes(NotesModel model);
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace FundooRepository.Interfaces
         /// Removes the note.
         /// </summary>
         /// <param name="Id">note id</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool RemoveNote(int Id);
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace FundooRepository.Interfaces
         /// Pins the or unpin.
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         public string PinOrUnpin(int id);
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace FundooRepository.Interfaces
         /// <summary>
         /// Retrieves the archive notes.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>all archieve notes</returns>
         public IEnumerable<NotesModel> RetrieveArchieveNotes();
 
         /// <summary>
@@ -82,13 +82,13 @@ namespace FundooRepository.Interfaces
         /// <summary>
         /// Retrieves the trash notes.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>all trash notes</returns>
         public IEnumerable<NotesModel> RetrieveTrashNotes();
 
         /// <summary>
         /// Empties the trash.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>return true or false</returns>
         public bool EmptyTrash();
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="id">note id.</param>
         /// <param name="reminder">The reminder.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool AddReminder(int id, string reminder);
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace FundooRepository.Interfaces
         /// Unset the reminder.
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool UnSetReminder(int id);
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="id">note id.</param>
         /// <param name="color">The color.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool AddColour(int id, string color);
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="Noteimage">The noteimage.</param>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>return true or false</returns>
         public bool UploadImage(int id, IFormFile noteimage);
     }
 }

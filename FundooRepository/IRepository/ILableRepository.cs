@@ -21,20 +21,20 @@ namespace FundooRepository.Interfaces
         /// Adds the lable.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool AddLable(LableModel model);
 
         /// <summary>
         /// Retrieves the notes.
         /// </summary>
-        /// <returns>string message</returns>
+        /// <returns>all lables</returns>
         public IEnumerable<LableModel> RetrieveLables();
 
         /// <summary>
         /// Removes the lable.
         /// </summary>
         /// <param name="id">lable id</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool RemoveLable(int lableId);
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace FundooRepository.Interfaces
         /// Retrieves the lable by identifier.
         /// </summary>
         /// <param name="id">lable id.</param>
-        /// <returns>string message</returns>
+        /// <returns>particular lable</returns>
         public LableModel RetrieveLableById(int lableId);
     }
 }

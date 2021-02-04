@@ -22,7 +22,7 @@ namespace FundooManager.Interface
         /// Adds the notes.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool AddNotes(NotesModel model);
 
         /// <summary>
@@ -35,14 +35,14 @@ namespace FundooManager.Interface
         /// Retrieves the notes by identifier.
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns>String message</returns>
+        /// <returns>particular note</returns>
         public NotesModel RetrieveNotesById(int noteId);
 
         /// <summary>
         /// Removes the note.
         /// </summary>
         /// <param name="Id">The identifier.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool RemoveNote(int noteId);
 
         /// <summary>
@@ -82,13 +82,13 @@ namespace FundooManager.Interface
         /// <summary>
         /// Empties the trash.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>return true or false</returns>
         public bool EmptyTrash();
 
         /// <summary>
         /// Retrieves the trash notes.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>all trash notes</returns>
         public IEnumerable<NotesModel> RetrieveTrashNotes();
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="reminder">The reminder.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool AddReminder(int noteId, string reminder);
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace FundooManager.Interface
         /// Unsets the reminder.
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool UnsetReminder(int noteId);
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="color">The color.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         public bool AddColor(int noteId, string color);
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="noteimage">The noteimage.</param>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>return true or false</returns>
         public bool UploadImage(int noteId, IFormFile noteimage);
     }
 }

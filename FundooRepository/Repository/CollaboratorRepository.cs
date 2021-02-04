@@ -38,7 +38,7 @@ namespace FundooRepository.Repository
         /// Adds the collaborator.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         /// <exception cref="Exception"></exception>
         public bool AddCollaborator(CollaboratorModel model)
         {
@@ -58,7 +58,7 @@ namespace FundooRepository.Repository
         /// Deletes the collaborator.
         /// </summary>
         /// <param name="id">collaborator id</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         /// <exception cref="Exception"></exception>
         public bool DeleteCollaborator(int collaboratorId)
         {

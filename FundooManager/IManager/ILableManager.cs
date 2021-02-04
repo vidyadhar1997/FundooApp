@@ -21,20 +21,20 @@ namespace FundooManager.Interface
         /// Adds the lable.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>String message</returns>
+        /// <returns>return true or false</returns>
         public bool AddLable(LableModel model);
 
         /// <summary>
         /// Retrieves the lables.
         /// </summary>
-        /// <returns>String message</returns>
+        /// <returns>all lables</returns>
         public IEnumerable<LableModel> RetrieveLables();
 
         /// <summary>
         /// Removes the lable.
         /// </summary>
         /// <param name="id">lable id</param>
-        /// <returns>String message</returns>
+        /// <returns>return true or false</returns>
         public bool RemoveLable(int lableId);
 
         /// <summary>

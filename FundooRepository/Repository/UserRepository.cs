@@ -58,7 +58,7 @@ namespace FundooRepository.Repository
         /// Registers the specified model.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>success message</returns>
+        /// <returns>true or false</returns>
         public bool Register(RegisterModel model)
         {
             try
@@ -103,7 +103,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
-        /// <returns>LOGIN SUCCESS message</returns>
+        /// <returns>return true or false</returns>
         public bool Login(string email, string password)
         {
             try
@@ -114,7 +114,7 @@ namespace FundooRepository.Repository
                 {
                     return true;
                     //Redis cache implemetation
-                   /* ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                   /*ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
                     IDatabase database = connectionMultiplexer.GetDatabase();
                     database.StringSet(key: "Email", email);
                     var redisValue = database.StringGet("Email");*/
@@ -134,7 +134,7 @@ namespace FundooRepository.Repository
         /// SendEmail Method for the sending email
         /// </summary>
         /// <param name="emailAddress">email Address</param>
-        /// <returns>success message</returns>
+        /// <returns>return true or false</returns>
         public bool SendEmail(string emailAddress)
         {
             try
@@ -181,7 +181,7 @@ namespace FundooRepository.Repository
         /// ResetPassword method
         /// </summary>
         /// <param name="resetPassword">reset Password</param>
-        /// <returns>success message</returns>
+        /// <returns>return true or false</returns>
         public bool ResetPassword(ResetPassword resetPassword)
         {
             try

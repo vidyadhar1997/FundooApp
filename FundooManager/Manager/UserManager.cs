@@ -39,7 +39,7 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>
-        /// result containing SUCCESS message
+        /// return true or false
         /// </returns>
         public bool Register(RegisterModel model)
         {
@@ -60,7 +60,7 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
-        /// <returns>LOGIN SUCCESS message</returns>
+        /// <returns>return true or false</returns>
         public bool Login(string email, string password)
         {
             try
@@ -78,7 +78,7 @@ namespace FundooManager.Manager
         /// Sends the email.
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
-        /// <returns>string result</returns>
+        /// <returns>return true or false</returns>
         public bool SendEmail(string emailAddress)
         {
             try
@@ -96,7 +96,7 @@ namespace FundooManager.Manager
         /// Resets the password.
         /// </summary>
         /// <param name="resetPassword">The reset password.</param>
-        /// <returns>string result</returns>
+        /// <returns>return true or false</returns>
         public bool ResetPassword(ResetPassword resetPassword)
         {
             try

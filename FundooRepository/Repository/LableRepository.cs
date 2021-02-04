@@ -40,7 +40,7 @@ namespace FundooRepository.Repository
         /// Adds the notes.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         /// <exception cref="Exception"></exception>
         public bool AddLable(LableModel model)
         {
@@ -106,7 +106,7 @@ namespace FundooRepository.Repository
         /// Removes the lable.
         /// </summary>
         /// <param name="id">lable id</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         /// <exception cref="Exception">ex.message</exception>
         public bool RemoveLable(int lableId)
         {
@@ -131,7 +131,7 @@ namespace FundooRepository.Repository
         /// Updates the lables.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <returns>string message</returns>
         /// <exception cref="Exception">ex.message</exception>
         public string UpdateLables(LableModel model)
         {

@@ -67,6 +67,7 @@ namespace FundooApp.Controllers
         /// <param name="id">collaborator id</param>
         /// <returns>response data</returns>
         [HttpDelete]
+        [Route("collaboratorId")]
         public IActionResult DeleteCollaborator(int collaboratorId)
         {
             try

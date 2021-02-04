@@ -27,7 +27,7 @@ namespace FundooManager.Manager
         /// Adds the collaborator.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         /// <exception cref="Exception"></exception>
         public bool AddCollaborator(CollaboratorModel model)
         {
@@ -46,7 +46,7 @@ namespace FundooManager.Manager
         /// Deletes the collaborator.
         /// </summary>
         /// <param name="id">Collaborator id</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         /// <exception cref="Exception"></exception>
         public bool DeleteCollaborator(int collaboratorId)
         {
@@ -64,8 +64,8 @@ namespace FundooManager.Manager
         /// <summary>
         /// Gets the collaborator.
         /// </summary>
-        /// <returns>string message</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>all collaborator</returns>
+        /// <exception cref="Exception">ex.message</exception>
         public IEnumerable<CollaboratorModel> GetCollaborator()
         {
             try

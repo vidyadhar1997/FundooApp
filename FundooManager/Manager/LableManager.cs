@@ -38,7 +38,7 @@ namespace FundooManager.Manager
         /// Adds the lable.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         /// <exception cref="Exception"></exception>
         public bool AddLable(LableModel model)
         {
@@ -76,7 +76,7 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="id">lable id</param>
         /// <returns>
-        /// String message
+        /// particular lable
         /// </returns>
         /// <exception cref="Exception"></exception>
         public LableModel RetrieveLableById(int lableId)
@@ -100,7 +100,7 @@ namespace FundooManager.Manager
         /// Removes the lable.
         /// </summary>
         /// <param name="id">lable id</param>
-        /// <returns>string message</returns>
+        /// <returns>return true or false</returns>
         /// <exception cref="Exception"></exception>
         public bool RemoveLable(int lableId)
         {
