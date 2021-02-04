@@ -92,11 +92,11 @@ namespace FundooRepository.Repository
         /// <param name="id">note id.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public NotesModel RetrieveNotesById(int id)
+        public NotesModel RetrieveNotesById(int noteId)
         {
             try
             {
-                NotesModel notes = this.userContext.Note_model.Find(id);
+                NotesModel notes = this.userContext.Note_model.Find(noteId);
                 return notes;
             }
             catch (Exception ex)
@@ -110,13 +110,13 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="Id">note id</param>
         /// <returns>string message</returns>
-        public string RemoveNote(int Id)
+        public string RemoveNote(int noteId)
         {
             try
             {
-                if (Id > 0)
+                if (noteId > 0)
                 {
-                    var notes = this.userContext.Note_model.Find(Id);
+                    var notes = this.userContext.Note_model.Find(noteId);
                     if (notes != null)
                     {
                         if (notes.isTrash == true)
@@ -163,11 +163,11 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
-        public string  PinOrUnpin(int id)
+        public string  PinOrUnpin(int noteId)
         {
             try
             {
-                var notes=this.userContext.Note_model.Where(x => x.NoteId == id).SingleOrDefault();
+                var notes=this.userContext.Note_model.Where(x => x.NoteId == noteId).SingleOrDefault();
                 if (notes.Pin == false)
                 {
                     notes.Pin = true;
@@ -198,17 +198,17 @@ namespace FundooRepository.Repository
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string ArchiveOrUnarchive(int id)
+        public string ArchieveOrUnarchieve(int noteId)
         {
             try
             {
-                var notes = this.userContext.Note_model.Where(x => x.NoteId == id).SingleOrDefault();
+                var notes = this.userContext.Note_model.Where(x => x.NoteId == noteId).SingleOrDefault();
                 if (notes.Archive == false)
                 {
                     notes.Archive = true;
                     userContext.Entry(notes).State = EntityState.Modified;
                     userContext.SaveChanges();
-                    string message = "Note is Archive";
+                    string message = "Note is Archieve";
                     return message;
                 }
                 if (notes.Archive == true)
@@ -216,10 +216,10 @@ namespace FundooRepository.Repository
                     notes.Archive = false;
                     userContext.Entry(notes).State = EntityState.Modified;
                     userContext.SaveChanges();
-                    string message = "Note UnArchive";
+                    string message = "Note UnArchieve";
                     return message;
                 }
-                return "Unable to Archive or UnArchive notes";
+                return "Unable to Archieve or UnArchieve notes";
             }
             catch (Exception ex)
             {
@@ -232,7 +232,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <returns>all notes i archive</returns>
         /// <exception cref="Exception"></exception>
-        public IEnumerable<NotesModel> RetrieveArchiveNotes()
+        public IEnumerable<NotesModel> RetrieveArchieveNotes()
         {
             try
             {
@@ -249,11 +249,11 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
-        public string IsTrash(int id)
+        public string IsTrash(int noteId)
         {
             try
             {
-                var notes = this.userContext.Note_model.Where(x => x.NoteId == id).SingleOrDefault();
+                var notes = this.userContext.Note_model.Where(x => x.NoteId == noteId).SingleOrDefault();
                 if (notes.isTrash == false)
                 {
                     notes.isTrash = true;
@@ -304,11 +304,11 @@ namespace FundooRepository.Repository
         /// <param name="reminder">The reminder.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddReminder(int id,string reminder)
+        public string AddReminder(int noteId, string reminder)
         {
             try
             {
-               var notes= this.userContext.Note_model.Find(id);
+               var notes= this.userContext.Note_model.Find(noteId);
                 if (notes != null)
                 {
                     notes.Reminder = reminder;
@@ -360,11 +360,11 @@ namespace FundooRepository.Repository
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string UnSetReminder(int id)
+        public string UnSetReminder(int noteId)
         {
             try
             {
-                var notes=this.userContext.Note_model.Find(id);
+                var notes=this.userContext.Note_model.Find(noteId);
                 if (notes != null)
                 {
                     notes.Reminder = null;
@@ -388,11 +388,11 @@ namespace FundooRepository.Repository
         /// <param name="color">The color.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddColour(int id, string color)
+        public string AddColour(int noteId, string color)
         {
             try
             {
-                var notes = this.userContext.Note_model.Find(id);
+                var notes = this.userContext.Note_model.Find(noteId);
                 if (notes != null)
                 {
                     notes.Colour = color;
@@ -417,11 +417,11 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         [Obsolete]
-        public string UploadImage(int id, IFormFile noteimage)
+        public string UploadImage(int noteId, IFormFile noteimage)
         {
             try
             {
-                var notes = this.userContext.Note_model.Find(id);
+                var notes = this.userContext.Note_model.Find(noteId);
                 if (notes != null)
                 {
                     Account account = new Account("ddtfdhioq", "584249449888143", "dUjpgfFHSgcgrDwK4FOBUZzrnPk");

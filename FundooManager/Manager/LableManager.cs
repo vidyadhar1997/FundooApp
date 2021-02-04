@@ -79,11 +79,11 @@ namespace FundooManager.Manager
         /// String message
         /// </returns>
         /// <exception cref="Exception"></exception>
-        public LableModel RetrieveLableById(int id)
+        public LableModel RetrieveLableById(int lableId)
         {
             try
             {
-                LableModel lables=this.repository.RetrieveLableById(id);
+                LableModel lables=this.repository.RetrieveLableById(lableId);
                 if (lables != null)
                 {
                     return lables;
@@ -102,11 +102,11 @@ namespace FundooManager.Manager
         /// <param name="id">lable id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string RemoveLable(int id)
+        public string RemoveLable(int lableId)
         {
             try
             {
-                string result = this.repository.RemoveLable(id);
+                string result = this.repository.RemoveLable(lableId);
                 return result;
             }
             catch (Exception ex)

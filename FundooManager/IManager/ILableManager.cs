@@ -35,7 +35,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">lable id</param>
         /// <returns>String message</returns>
-        public string RemoveLable(int id);
+        public string RemoveLable(int lableId);
 
         /// <summary>
         /// Updates the lables.
@@ -49,6 +49,6 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">lable id</param>
         /// <returns>String message</returns>
-        public LableModel RetrieveLableById(int id);
+        public LableModel RetrieveLableById(int lableId);
     }
 }

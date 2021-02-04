@@ -76,11 +76,11 @@ namespace FundooManager.Manager
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public NotesModel RetrieveNotesById(int id)
+        public NotesModel RetrieveNotesById(int noteId)
         {
             try
             {
-                NotesModel notes = this.repository.RetrieveNotesById(id);
+                NotesModel notes = this.repository.RetrieveNotesById(noteId);
                 return notes;
             }
             catch (Exception ex)
@@ -94,11 +94,11 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="Id">note id</param>
         /// <returns>string message</returns>
-        public string RemoveNote(int Id)
+        public string RemoveNote(int noteId)
         {
             try
             {
-                string result = this.repository.RemoveNote(Id);
+                string result = this.repository.RemoveNote(noteId);
                 return result;
             }
             catch (Exception ex)
@@ -131,11 +131,11 @@ namespace FundooManager.Manager
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string PinOrUnpin(int id)
+        public string PinOrUnpin(int noteId)
         {
             try
             {
-                string result = this.repository.PinOrUnpin(id);
+                string result = this.repository.PinOrUnpin(noteId);
                 return result;
             }
             catch (Exception ex)
@@ -150,11 +150,11 @@ namespace FundooManager.Manager
         /// <param name="id">note id</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public string ArchiveOrUnArchive(int id)
+        public string ArchieveOrUnArchieve(int noteId)
         {
             try
             {
-                string result = this.repository.ArchiveOrUnarchive(id);
+                string result = this.repository.ArchieveOrUnarchieve(noteId);
                 return result;
             }
             catch (Exception ex)
@@ -168,11 +168,11 @@ namespace FundooManager.Manager
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public IEnumerable<NotesModel> RetrieveArchiveNotes()
+        public IEnumerable<NotesModel> RetrieveArchieveNotes()
         {
             try
             {
-                IEnumerable<NotesModel> result = this.repository.RetrieveArchiveNotes();
+                IEnumerable<NotesModel> result = this.repository.RetrieveArchieveNotes();
                 return result;
             }
             catch(Exception ex)
@@ -187,11 +187,11 @@ namespace FundooManager.Manager
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string isTrash(int id)
+        public string isTrash(int noteId)
         {
             try
             {
-                string result = this.repository.IsTrash(id);
+                string result = this.repository.IsTrash(noteId);
                 return result;
             }
             catch (Exception ex)
@@ -225,11 +225,11 @@ namespace FundooManager.Manager
         /// <param name="reminder">The reminder.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddReminder(int id, string reminder)
+        public string AddReminder(int noteId, string reminder)
         {
             try
             {
-                string result= this.repository.AddReminder(id,reminder);
+                string result= this.repository.AddReminder(noteId, reminder);
                 return result;
             }
             catch(Exception ex)
@@ -262,11 +262,11 @@ namespace FundooManager.Manager
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string UnsetReminder(int id)
+        public string UnsetReminder(int noteId)
         {
             try
             {
-                string result = this.repository.UnSetReminder(id);
+                string result = this.repository.UnSetReminder(noteId);
                 return result;
             }
             catch (Exception ex)
@@ -282,11 +282,11 @@ namespace FundooManager.Manager
         /// <param name="color">The color.</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string AddColor(int id, string color)
+        public string AddColor(int noteId, string color)
         {
             try
             {
-                string result = this.repository.AddColour(id, color);
+                string result = this.repository.AddColour(noteId, color);
                 return result;
             }
             catch (Exception ex)
@@ -302,11 +302,11 @@ namespace FundooManager.Manager
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public string UploadImage(int id, IFormFile noteimage)
+        public string UploadImage(int noteId, IFormFile noteimage)
         {
             try
             {
-                string result = this.repository.UploadImage(id,noteimage);
+                string result = this.repository.UploadImage(noteId, noteimage);
                 return result;
             }
             catch (Exception ex)

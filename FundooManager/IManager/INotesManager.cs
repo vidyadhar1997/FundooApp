@@ -36,14 +36,14 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>String message</returns>
-        public NotesModel RetrieveNotesById(int id);
+        public NotesModel RetrieveNotesById(int noteId);
 
         /// <summary>
         /// Removes the note.
         /// </summary>
         /// <param name="Id">The identifier.</param>
         /// <returns>string message</returns>
-        public string RemoveNote(int Id);
+        public string RemoveNote(int noteId);
 
         /// <summary>
         /// Updates the notes.
@@ -57,20 +57,20 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>String message</returns>
-        public string PinOrUnpin(int id);
+        public string PinOrUnpin(int noteId);
 
         /// <summary>
         /// Archives the or un archive.
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>String message</returns>
-        public string ArchiveOrUnArchive(int id);
+        public string ArchieveOrUnArchieve(int noteId);
 
         /// <summary>
         /// Retrieves the archive notes.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NotesModel> RetrieveArchiveNotes();
+        public IEnumerable<NotesModel> RetrieveArchieveNotes();
 
         /// <summary>
         /// Determines whether the specified identifier is trash.
@@ -91,7 +91,7 @@ namespace FundooManager.Interface
         /// <param name="id">note id</param>
         /// <param name="reminder">The reminder.</param>
         /// <returns>string message</returns>
-        public string AddReminder(int id, string reminder);
+        public string AddReminder(int noteId, string reminder);
 
         /// <summary>
         /// Gets all notes whoes reminder is set.
@@ -104,7 +104,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
-        public string UnsetReminder(int id);
+        public string UnsetReminder(int noteId);
 
         /// <summary>
         /// Add the color.
@@ -112,7 +112,7 @@ namespace FundooManager.Interface
         /// <param name="id">note id</param>
         /// <param name="color">The color.</param>
         /// <returns>string message</returns>
-        public string AddColor(int id, string color);
+        public string AddColor(int noteId, string color);
 
         /// <summary>
         /// Uploads the image.
@@ -120,6 +120,6 @@ namespace FundooManager.Interface
         /// <param name="noteimage">The noteimage.</param>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public string UploadImage(int id, IFormFile noteimage);
+        public string UploadImage(int noteId, IFormFile noteimage);
     }
 }

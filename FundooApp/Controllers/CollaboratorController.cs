@@ -67,14 +67,14 @@ namespace FundooApp.Controllers
         /// <param name="id">collaborator id</param>
         /// <returns>response data</returns>
         [HttpDelete]
-        public IActionResult DeleteCollaborator(int id)
+        public IActionResult DeleteCollaborator(int collaboratorId)
         {
             try
             {
-                var result = this.collaboratorManager.DeleteCollaborator(id);
+                var result = this.collaboratorManager.DeleteCollaborator(collaboratorId);
                 if (result.Equals("COLLABORATOR DELETED SUCCESSFULL"))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = result, Data = collaboratorId });
                 }
 
                 return this.BadRequest(new { Status = false, Message = "Unable to delete collaborator : Enter valid Id" });

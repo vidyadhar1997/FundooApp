@@ -29,7 +29,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="id">collaborator id</param>
         /// <returns>string message</returns>
-        public string DeleteCollaborator(int id);
+        public string DeleteCollaborator(int collaboratorId);
 
         /// <summary>
         /// Gets the collaborator.

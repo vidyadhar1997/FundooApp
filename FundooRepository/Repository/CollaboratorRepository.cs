@@ -60,13 +60,13 @@ namespace FundooRepository.Repository
         /// <param name="id">collaborator id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string DeleteCollaborator(int id)
+        public string DeleteCollaborator(int collaboratorId)
         {
             try
             {
-                if (id > 0)
+                if (collaboratorId > 0)
                 {
-                    var collaborator = this.userContext.Collaborator.Find(id);
+                    var collaborator = this.userContext.Collaborator.Find(collaboratorId);
                     this.userContext.Collaborator.Remove(collaborator);
                     this.userContext.SaveChangesAsync();
                     return "COLLABORATOR DELETED SUCCESSFULL";

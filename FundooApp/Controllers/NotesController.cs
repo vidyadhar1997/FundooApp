@@ -198,7 +198,7 @@ namespace FundooApp.Controllers
         {
             try
             {
-                var result = this.notesManager.ArchiveOrUnArchive(noteId);
+                var result = this.notesManager.ArchieveOrUnArchieve(noteId);
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
@@ -222,7 +222,7 @@ namespace FundooApp.Controllers
         {
             try
             {
-                IEnumerable<NotesModel> result = this.notesManager.RetrieveArchiveNotes();
+                IEnumerable<NotesModel> result = this.notesManager.RetrieveArchieveNotes();
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve Notes Successfully", Data = result });

@@ -37,7 +37,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="Email">The email.</param>
         /// <returns>get token</returns>
-        public string GenerateToken(string Email);
+        public string GenerateToken(string email);
 
         /// <summary>
         /// Sends the email.

@@ -64,13 +64,13 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>string message</returns>
-        public string ArchiveOrUnarchive(int id);
+        public string ArchieveOrUnarchieve(int id);
 
         /// <summary>
         /// Retrieves the archive notes.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NotesModel> RetrieveArchiveNotes();
+        public IEnumerable<NotesModel> RetrieveArchieveNotes();
 
         /// <summary>
         /// Determines whether the specified identifier is trash.

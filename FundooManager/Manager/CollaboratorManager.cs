@@ -48,11 +48,11 @@ namespace FundooManager.Manager
         /// <param name="id">Collaborator id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception"></exception>
-        public string DeleteCollaborator(int id)
+        public string DeleteCollaborator(int collaboratorId)
         {
             try
             {
-                string result = this.repository.DeleteCollaborator(id);
+                string result = this.repository.DeleteCollaborator(collaboratorId);
                 return result;
             }
             catch (Exception ex)

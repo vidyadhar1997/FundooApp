@@ -21,7 +21,7 @@ namespace FundooManager.Interface
         /// </summary>
         /// <param name="id">collaborator id</param>
         /// <returns>Success message</returns>
-        public string DeleteCollaborator(int id);
+        public string DeleteCollaborator(int collaboratorId);
 
         /// <summary>
         /// Gets the collaborator.

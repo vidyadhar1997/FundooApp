@@ -89,11 +89,11 @@ namespace FundooRepository.Repository
         /// <param name="id">lable id</param>
         /// <returns>lable model</returns>
         /// <exception cref="Exception">ex.Message</exception>
-        public LableModel RetrieveLableById(int id)
+        public LableModel RetrieveLableById(int lableId)
         {
             try
             {
-                LableModel notes = this.userContext.Lable_Models.Where(x => x.LableId == id).SingleOrDefault();
+                LableModel notes = this.userContext.Lable_Models.Where(x => x.LableId == lableId).SingleOrDefault();
                 return notes;
             }
             catch (Exception ex)
@@ -108,13 +108,13 @@ namespace FundooRepository.Repository
         /// <param name="id">lable id</param>
         /// <returns>string message</returns>
         /// <exception cref="Exception">ex.message</exception>
-        public string RemoveLable(int id)
+        public string RemoveLable(int lableId)
         {
             try
             {
-                if (id > 0)
+                if (lableId > 0)
                 {
-                    var lables = this.userContext.Lable_Models.Find(id);
+                    var lables = this.userContext.Lable_Models.Find(lableId);
                     this.userContext.Lable_Models.Remove(lables);
                     this.userContext.SaveChangesAsync();
                     return "LABLE DELETED SUCCESSFULL";
