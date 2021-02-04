@@ -280,6 +280,24 @@ namespace FundooRepository.Repository
         }
 
         /// <summary>
+        /// Retrieves the trash notes.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public IEnumerable<NotesModel> RetrieveTrashNotes()
+        {
+            try
+            {
+                IEnumerable<NotesModel> notes = this.userContext.Note_model.Where(x => x.isTrash == true).ToList();
+                return notes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Adds the reminder.
         /// </summary>
         /// <param name="id">Note Id</param>

@@ -248,6 +248,26 @@ namespace FundooApp.Controllers
             }
         }
 
+       
+        [HttpGet]
+        [Route("retrieveAllTrashNotes")]
+        public IActionResult RetrieveAllTrashNotes()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notesManager.RetrieveTrashNotes();
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Retrieve Notes Successfully", Data = result });
+                }
+                return this.BadRequest(new { Status = false, Message = "Failed to Retrieve Notes" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
         /// <summary>
         /// Sets the reminder.
         /// </summary>

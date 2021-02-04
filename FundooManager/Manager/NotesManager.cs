@@ -201,6 +201,24 @@ namespace FundooManager.Manager
         }
 
         /// <summary>
+        /// Retrieves the trash notes.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public IEnumerable<NotesModel> RetrieveTrashNotes()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.repository.RetrieveTrashNotes();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Adds the reminder.
         /// </summary>
         /// <param name="id">note id.</param>

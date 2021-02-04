@@ -80,6 +80,12 @@ namespace FundooRepository.Interfaces
         public string IsTrash(int id);
 
         /// <summary>
+        /// Retrieves the trash notes.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<NotesModel> RetrieveTrashNotes();
+
+        /// <summary>
         /// Adds the reminder.
         /// </summary>
         /// <param name="id">note id.</param>
