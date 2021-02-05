@@ -46,6 +46,7 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns>response data</returns>
         [HttpPost]
+        [Route("addNotes")]
         public ActionResult AddNotes([FromBody] NotesModel model)
         {
             try
@@ -70,6 +71,7 @@ namespace FundooApp.Controllers
         /// </summary>
         /// <returns>response data</returns>
         [HttpGet]
+        [Route("retrieveNotes")]
         public IActionResult RetrieveNotes()
         {
             try
@@ -144,6 +146,7 @@ namespace FundooApp.Controllers
         /// <param name="model">notes model</param>
         /// <returns>response data</returns>
         [HttpPut]
+        [Route("updateNotes")]
         public IActionResult UpdateNotes([FromBody] NotesModel model)
         {
             try

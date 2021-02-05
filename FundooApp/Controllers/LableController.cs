@@ -43,6 +43,7 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns>response data</returns>
         [HttpPost]
+        [Route("addLable")]
         public ActionResult AddLable([FromBody] LableModel model)
         {
             try
@@ -66,6 +67,7 @@ namespace FundooApp.Controllers
         /// </summary>
         /// <returns>response data</returns>
         [HttpGet]
+        [Route("retrieveAllLables")]
         public IActionResult RetrieveAllLables()
         {
             try
@@ -140,6 +142,7 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns>response data</returns>
         [HttpPut]
+        [Route("updateLable")]
         public IActionResult UpdateLable([FromBody] LableModel model)
         {
             try

@@ -52,10 +52,10 @@ namespace FundooRepository.Repository
         {
             try
             {
-                this.userContext.Note_model.Add(model);
-                var notes=this.userContext.SaveChanges();
-                if (notes > 0)
+                if (model != null)
                 {
+                    this.userContext.Note_model.Add(model);
+                    var notes = this.userContext.SaveChanges();
                     return true;
                 }
                 else
@@ -106,8 +106,12 @@ namespace FundooRepository.Repository
         {
             try
             {
-                NotesModel notes = this.userContext.Note_model.Where(x => x.NoteId == noteId).SingleOrDefault();
-                return notes;
+                if (noteId > 0)
+                {
+                    NotesModel notes = this.userContext.Note_model.Where(x => x.NoteId == noteId).SingleOrDefault();
+                    return notes;
+                }
+                return null;
             }
             catch (Exception ex)
             {
@@ -246,8 +250,17 @@ namespace FundooRepository.Repository
         {
             try
             {
+                IEnumerable<NotesModel> result;
                 IEnumerable<NotesModel>notes= this.userContext.Note_model.Where(x => x.Archive == true).ToList();
-                return notes;
+                if (notes != null)
+                {
+                    result = notes;
+                }
+                else
+                {
+                    result = null;
+                }
+                return result;
             }
             catch(Exception ex)
             {
@@ -299,8 +312,17 @@ namespace FundooRepository.Repository
         {
             try
             {
+                IEnumerable<NotesModel> result;
                 IEnumerable<NotesModel> notes = this.userContext.Note_model.Where(x => x.isTrash == true).ToList();
-                return notes;
+                if (notes != null)
+                {
+                    result = notes;
+                }
+                else
+                {
+                    result = null;
+                }
+                return result; ;
             }
             catch (Exception ex)
             {
@@ -429,7 +451,7 @@ namespace FundooRepository.Repository
         {
             try
             {
-                var notes = this.userContext.Note_model.Find(noteId);
+                var notes = this.userContext.Note_model.Where(x=>x.NoteId==noteId).SingleOrDefault();
                 if (notes != null)
                 {
                     notes.Colour = color;
@@ -452,12 +474,11 @@ namespace FundooRepository.Repository
         /// <param name="id">The identifier.</param>
         /// <returns>return true or false</returns>
         /// <exception cref="Exception"></exception>
-        [Obsolete]
         public bool UploadImage(int noteId, IFormFile noteimage)
         {
             try
             {
-                var notes = this.userContext.Note_model.Find(noteId);
+                var notes = this.userContext.Note_model.Where(x=>x.NoteId==noteId).SingleOrDefault();
                 if (notes != null)
                 {
                     Account account = new Account
@@ -473,7 +494,7 @@ namespace FundooRepository.Repository
                         File = new FileDescription(noteimage.FileName, path)
                     };
                     var uploadResult = cloudinary.Upload(uploadParams);
-                    notes.Image=uploadResult.Uri.AbsolutePath;
+                    notes.Image=uploadResult.Url.ToString();
                     userContext.Entry(notes).State = EntityState.Modified;
                     userContext.SaveChanges();
                     return true;

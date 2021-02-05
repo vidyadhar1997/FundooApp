@@ -12,6 +12,7 @@ namespace FundooRepository.Repository
     using FundooRepository.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     /// <summary>
@@ -44,9 +45,13 @@ namespace FundooRepository.Repository
         {
             try
             {
-                this.userContext.Collaborator.Add(model);
-                this.userContext.SaveChanges();
-                return true;
+                if (model != null)
+                {
+                    this.userContext.Collaborator.Add(model);
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -66,7 +71,7 @@ namespace FundooRepository.Repository
             {
                 if (collaboratorId > 0)
                 {
-                    var collaborator = this.userContext.Collaborator.Find(collaboratorId);
+                    var collaborator = this.userContext.Collaborator.Where(x=>x.CollaboratorId==collaboratorId).SingleOrDefault();
                     this.userContext.Collaborator.Remove(collaborator);
                     this.userContext.SaveChangesAsync();
                     return true;

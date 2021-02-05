@@ -43,6 +43,7 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns>response body</returns>
         [HttpPost]
+        [Route("addCollaborators")]
         public ActionResult AddCollaborators([FromBody] CollaboratorModel model)
         {
             try
@@ -91,6 +92,7 @@ namespace FundooApp.Controllers
         /// </summary>
         /// <returns>response data</returns>
         [HttpGet]
+        [Route("retrieveAllCollaborator")]
         public IActionResult RetrieveAllCollaborator()
         {
             try

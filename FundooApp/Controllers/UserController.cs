@@ -53,6 +53,7 @@ namespace FundooApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns>response data</returns>
         [HttpPost]
+        [Route("registerEmployee")]
         public ActionResult Registration([FromBody]RegisterModel model)
         {
             try
@@ -113,7 +114,7 @@ namespace FundooApp.Controllers
             try
             {
                 var result = this.user.SendEmail(emailAddress);
-                if (result.Equals(result))
+                if (result.Equals(true))
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Mail Sent Sucessfully", Data = emailAddress });
                 }
@@ -131,6 +132,7 @@ namespace FundooApp.Controllers
         /// <param name="resetPassword">The reset password.</param>
         /// <returns>response data</returns>
         [HttpPut]
+        [Route("resetPassword")]
         public IActionResult ResetPasswordEmployee([FromBody] ResetPassword resetPassword)
         {
             try

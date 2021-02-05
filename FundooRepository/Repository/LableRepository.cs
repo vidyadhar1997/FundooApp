@@ -46,9 +46,13 @@ namespace FundooRepository.Repository
         {
             try
             {
-                this.userContext.Lable_Models.Add(model);
-                this.userContext.SaveChanges();
-                return true;
+                if (model != null)
+                {
+                    this.userContext.Lable_Models.Add(model);
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -94,7 +98,11 @@ namespace FundooRepository.Repository
             try
             {
                 LableModel notes = this.userContext.Lable_Models.Where(x => x.LableId == lableId).SingleOrDefault();
-                return notes;
+                if (notes != null)
+                {
+                    return notes;
+                }
+                return null;
             }
             catch (Exception ex)
             {
@@ -114,7 +122,7 @@ namespace FundooRepository.Repository
             {
                 if (lableId > 0)
                 {
-                    var lables = this.userContext.Lable_Models.Find(lableId);
+                    var lables = this.userContext.Lable_Models.Where(x=>x.LableId==lableId).SingleOrDefault();
                     this.userContext.Lable_Models.Remove(lables);
                     this.userContext.SaveChangesAsync();
                     return true;
